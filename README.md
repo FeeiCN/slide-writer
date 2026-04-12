@@ -1,7 +1,16 @@
+<p align="center">
+  <img src="logos/slide-writer.png" alt="Slide-Writer" width="200"/>
+</p>
+
 # Slide-Writer
 
 [在线演示](https://feei.cn/slide-writer/)
 [English](README.en.md)
+
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Website](https://img.shields.io/badge/Website-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
+
 
 > 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
 
