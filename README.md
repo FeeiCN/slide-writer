@@ -1,5 +1,7 @@
 # Slide-Writer
 
+[在线演示](https://feei.cn/slide-writer/)
+
 > 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
 
 一个专为 PPT 场景设计的写作 Skill。它帮助您将想法、大纲、文档、演讲稿、笔记、数据或现有 PPT，快速整理为结构清晰、表达准确、适合演示的企业级 HTML 演示PPT。
