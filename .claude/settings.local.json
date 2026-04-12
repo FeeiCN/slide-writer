@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/feei/.claude/skills/**)",
+      "Read(//Users/feei/.claude/**)",
+      "Bash(cat ~/.claude/skills/frontend-slides/*.md)",
+      "Bash(wc -l ~/.claude/skills/slide-writer/*.md)",
+      "Bash(open:*)",
+      "Bash(mkdir -p /Users/feei/.claude/skills/slide-writer/logos)",
+      "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-antgroup-white.png)",
+      "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-antgroup-blue.png)",
+      "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-alipay-white.png)",
+      "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-alipay-blue.png)",
+      "Bash(ls:*)"
+    ]
+  }
+}

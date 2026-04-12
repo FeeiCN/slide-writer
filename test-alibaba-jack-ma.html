@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>永远相信年轻人 - 马云清华经管学院 2014 毕业演讲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   MINI TEMPLATE
+   Primary reusable template for generation.
+   Keep key CSS/JS behavior: progress, nav, fullscreen,
+   dark-slide logo switching, reveal, keyboard/touch nav.
+   ============================================= */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #1677FF;
+    --primary-dark: #0950D9;
+    --primary-light: #4096FF;
+    --primary-pale: #E6F4FF;
+    --primary-dim: rgba(22, 119, 255, 0.12);
+    --cover-bg: linear-gradient(125deg, #0A3DA8 0%, #1263EA 35%, #2B8FFF 65%, #5AB6FF 100%);
+    --section-bg: linear-gradient(135deg, #0A3DA8 0%, #1263EA 50%, #2B8FFF 100%);
+    --red: #E8380D;
+    --green: #52C41A;
+    --orange: #FA8C16;
+    --text-1: #141414;
+    --text-2: #434343;
+    --text-3: #8C8C8C;
+    --bg-white: #FFFFFF;
+    --bg-page: #F5F7FA;
+    --border: #E4E8EF;
+    --font: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    --small-size: clamp(0.65rem, 1vw, 0.875rem);
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+    --deck-base-width: 1600;
+    --deck-safe-width: min(100vw, calc(100dvh * 1.6));
+    --deck-safe-side-gap: max(0px, calc((100vw - var(--deck-safe-width)) / 2));
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--font);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background: var(--bg-page);
+}
+
+body.on-blue #globalLogoGroup {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.slide-white {
+    background: linear-gradient(180deg, #FAFBFD 0%, #F3F6FB 100%);
+    color: var(--text-1);
+}
+
+.slide-cover,
+.slide-section,
+.slide-qa {
+    color: #fff;
+    background: var(--cover-bg);
+}
+
+.slide-section {
+    background: var(--section-bg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-qa {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-content,
+.slide-cover,
+.slide-section,
+.slide-qa {
+    padding: var(--slide-padding);
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    gap: var(--content-gap);
+}
+
+.cover-top,
+.slide-header {
+    display: flex;
+    align-items: center;
+}
+
+.cover-top {
+    justify-content: space-between;
+}
+
+.cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(0.8rem, 2vh, 1.4rem);
+    max-width: min(72%, 1100px);
+}
+
+.cover-title {
+    font-size: clamp(2rem, 6vw, 5rem);
+    line-height: 1.03;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+}
+
+.cover-subtitle {
+    font-size: clamp(0.95rem, 1.7vw, 1.25rem);
+    color: rgba(255,255,255,0.82);
+    max-width: 48ch;
+    line-height: 1.55;
+}
+
+.cover-date {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: rgba(255,255,255,0.75);
+}
+
+.slide-header {
+    display: grid;
+    grid-template-columns: 6px minmax(0, 1fr);
+    column-gap: 0.8rem;
+    row-gap: 0.3rem;
+    align-items: start;
+    margin-bottom: clamp(0.8rem, 2vh, 1.2rem);
+    padding-right: clamp(7.5rem, 15vw, 13rem);
+}
+
+.header-mark {
+    width: 6px;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--primary);
+    flex-shrink: 0;
+    grid-row: 1 / span 2;
+}
+
+.header-title {
+    font-size: var(--h2-size);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.header-sub {
+    margin-left: 0;
+    color: var(--text-3);
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+    line-height: 1.45;
+}
+
+.section-num {
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+    letter-spacing: 0.18em;
+    opacity: 0.72;
+}
+
+.section-title {
+    font-size: clamp(2rem, 6vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.04;
+    margin-top: 0.7rem;
+}
+
+.section-desc,
+.qa-sub {
+    margin-top: 0.8rem;
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    color: rgba(255,255,255,0.8);
+    max-width: 56ch;
+}
+
+.qa-title {
+    font-size: clamp(2.4rem, 7vw, 5.6rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+    display: grid;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card,
+.stat-block,
+.quote-box,
+.step-card,
+.agenda-item {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card,
+.step-card,
+.quote-box,
+.agenda-item {
+    padding: clamp(0.8rem, 1.6vw, 1.2rem);
+}
+
+.card-title,
+.step-title {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+}
+
+.card-body,
+.step-desc,
+.mini-list li {
+    font-size: var(--body-size);
+    line-height: 1.6;
+    color: var(--text-2);
+}
+
+.quote-box {
+    background: linear-gradient(180deg, #F9FCFF 0%, #EDF5FF 100%);
+}
+
+.quote-box strong {
+    color: var(--primary-dark);
+}
+
+.stat-block {
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-num {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 0.55rem;
+    color: var(--text-2);
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+}
+
+.mini-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+}
+
+.mini-list li {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.mini-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.agenda-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: min(900px, 100%);
+    margin: 0 auto;
+}
+
+.agenda-item {
+    display: grid;
+    grid-template-columns: 56px 1fr 110px;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.agenda-num {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+.agenda-text {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.agenda-tag {
+    justify-self: end;
+    border-radius: 999px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--primary-pale);
+    color: var(--primary-dark);
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--primary);
+    z-index: 999;
+    transition: width 0.25s ease;
+}
+
+.nav-dots {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 998;
+}
+
+.nav-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.18);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+#globalLogoGroup {
+    position: fixed;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    opacity: 1;
+}
+
+#globalLogoGroup img {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#globalLogoGroup .logo-divider {
+    width: 1.5px;
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.18) 28%, rgba(0,0,0,0.32) 50%, rgba(0,0,0,0.18) 72%, transparent 100%);
+}
+
+.logo-img-cover {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#globalLogoGroup.logo-group-single img,
+.fixed-logo-dark.logo-group-single .logo-img-cover {
+    height: clamp(1.7rem, 3.1vw, 2.55rem);
+    max-height: 42px;
+    max-width: clamp(6.5rem, 13vw, 10.5rem);
+}
+
+.fixed-logo-dark {
+    position: absolute;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+}
+
+#fullscreenBtn {
+    position: fixed;
+    right: 10px;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    z-index: 999;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: rgba(0,0,0,0.12);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+#footnote {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: clamp(1rem, 3vw, 2.5rem);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease, color 0.4s ease;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide.visible .reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.08s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.16s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+@media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .cover-main { max-width: 100%; }
+    .slide-header { padding-right: 0; }
+    .header-sub { display: none; }
+    .agenda-item { grid-template-columns: 48px 1fr; }
+    .agenda-tag { justify-self: start; }
+    .nav-dots { display: none; }
+    #globalLogoGroup { display: none; }
+    .fixed-logo-dark { right: clamp(1rem, 4vw, 1.4rem); width: 8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+#pageCounter {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    font-family: var(--font);
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease, color 0.4s ease;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+/* === 主题：阿里巴巴 === */
+:root {
+    --primary: #FF6A00;
+    --primary-dark: #CC4400;
+    --primary-light: #FF8C38;
+    --primary-pale: #FFF3E8;
+    --primary-dim: rgba(255, 106, 0, 0.12);
+    --cover-bg: linear-gradient(125deg, #7A2000 0%, #CC3800 35%, #FF6A00 65%, #FF9A50 100%);
+    --section-bg: linear-gradient(135deg, #7A2000 0%, #CC4400 50%, #FF6A00 100%);
+    --red: #CF1322;
+    --green: #389E0D;
+    --orange: #FA8C16;
+    --header-sub-color: #FF6A00;
+    --bg-page: #F7F4F1;
+    --border: #E9DDD2;
+}
+
+.header-sub { color: var(--primary) !important; }
+.agenda-num { color: var(--primary) !important; }
+.slide-white { background: linear-gradient(180deg, #FFFDFC 0%, #F8F3EE 100%); }
+.quote-box { background: linear-gradient(180deg, #FFF8F2 0%, #FFF1E8 100%); }
+
+.cover-kicker {
+    color: rgba(255,255,255,0.7);
+    font-size: clamp(0.68rem, 1.1vw, 0.86rem);
+    letter-spacing: 0.14em;
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.pillar-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 1.15rem;
+    box-shadow: 0 12px 30px rgba(122, 32, 0, 0.08);
+}
+
+.pillar-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.pillar-title {
+    margin-top: 0.55rem;
+    font-size: clamp(1.1rem, 2vw, 1.45rem);
+    font-weight: 900;
+    line-height: 1.15;
+}
+
+.pillar-copy {
+    margin-top: 0.75rem;
+    font-size: var(--body-size);
+    color: var(--text-2);
+    line-height: 1.65;
+}
+
+.statement-band {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.statement-panel,
+.evidence-panel {
+    border-radius: 22px;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+}
+
+.statement-panel {
+    background: linear-gradient(135deg, rgba(255, 106, 0, 0.12) 0%, rgba(255, 140, 56, 0.08) 100%);
+}
+
+.statement-line {
+    font-size: clamp(1.15rem, 2.3vw, 1.8rem);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--primary-dark);
+}
+
+.statement-copy {
+    margin-top: 0.8rem;
+    font-size: var(--body-size);
+    line-height: 1.68;
+    color: var(--text-2);
+}
+
+.evidence-panel {
+    background: var(--bg-white);
+}
+
+.evidence-panel .card-title {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .pillars-grid,
+    .statement-band {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div id="globalLogoGroup" class="logo-group-single">
+    <img src="./logos/alibaba.png" alt="阿里巴巴">
+</div>
+
+<nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
+
+<button id="fullscreenBtn" title="全屏播放 (F)">
+    <svg id="fsIconExpand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#333;">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+    </svg>
+    <svg id="fsIconCompress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff;display:none;">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="10" y1="14" x2="3" y2="21"></line>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+    </svg>
+</button>
+
+<div id="footnote">* 基于演讲全文提炼的演示稿，保留判断与原话，不逐段照搬全文。</div>
+<div id="pageCounter" style="opacity:0;">1 / 1</div>
+
+<section class="slide slide-cover" id="slide-1">
+    <div class="cover-top reveal">
+        <span class="cover-kicker">清华经管学院 2014 毕业典礼</span>
+    </div>
+    <div class="fixed-logo-dark logo-group-single">
+        <img class="logo-img-cover" src="./logos/alibaba.png" alt="阿里巴巴">
+    </div>
+    <div class="cover-main">
+        <h1 class="cover-title reveal">永远相信年轻人</h1>
+        <p class="cover-subtitle reveal">这不是一篇讲成功学的演讲，而是一组更硬的判断：变革会更大，机会会更大，年轻人要用理想主义、担当和乐观，去做未来最重要的事。</p>
+        <p class="reveal" style="font-size:clamp(0.85rem,1.5vw,1.1rem);color:#fff;font-weight:700;">马云｜阿里巴巴集团主席</p>
+    </div>
+    <div class="cover-date reveal">2014.06.29</div>
+</section>
+
+<section class="slide slide-white" id="slide-2">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">这场演讲，我想留下 4 个判断</h2>
+            <p class="header-sub">从毕业致辞的长文里，只保留能支撑一场演示的主线，而不是把讲稿整段搬上墙。</p>
+        </div>
+        <div class="agenda-wrap">
+            <div class="agenda-item reveal"><span class="agenda-num">01</span><span class="agenda-text">这是一个纠结时代，也是大变革时代</span><span class="agenda-tag">时代</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">02</span><span class="agenda-text">未来 30 年，机会属于愿意成就别人的人</span><span class="agenda-tag">机会</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">03</span><span class="agenda-text">我坚持三件事：理想主义、担当、正能量</span><span class="agenda-tag">方法</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">04</span><span class="agenda-text">年轻最大的资本，是用十年做长期的事</span><span class="agenda-tag">行动</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-section" id="slide-3">
+    <div class="fixed-logo-dark logo-group-single">
+        <img class="logo-img-cover" src="./logos/alibaba.png" alt="阿里巴巴">
+    </div>
+    <p class="section-num reveal">PART 01</p>
+    <h2 class="section-title reveal">纠结，本质上是变革</h2>
+    <p class="section-desc reveal">世界看起来充满怀疑和不确定，但真正的机会，往往就是在旧秩序失效、新秩序形成的时候出现。</p>
+</section>
+
+<section class="slide slide-white" id="slide-4">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">我看到的不是焦虑，而是一个更大的时代入口</h2>
+            <p class="header-sub">演讲里大量篇幅都在说“不信任、纠结、担心”，但最后落点不是抱怨，而是提醒年轻人把它看成时代转换。</p>
+        </div>
+        <div class="grid-3">
+            <div class="stat-block reveal">
+                <div class="stat-num">30年</div>
+                <div class="stat-label">过去 30 年的中国变革，成就了阿里巴巴</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">更大</div>
+                <div class="stat-label">未来 30 年的变革幅度，只会比过去更大</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">年轻人</div>
+                <div class="stat-label">变革的主角，不是守成者，而是新进入者</div>
+            </div>
+        </div>
+        <div class="statement-band">
+            <div class="statement-panel reveal">
+                <div class="statement-line">担心很正常，不担心才不正常。</div>
+                <div class="statement-copy">毕业后的不确定、创业时的焦虑、公司长大后的压力，从来不会消失。真正重要的不是消灭担心，而是把担心用在更努力、更清醒、更能抓住机会的地方。</div>
+            </div>
+            <div class="evidence-panel reveal">
+                <div class="card-title">这一页想说明</div>
+                <ul class="mini-list">
+                    <li>社会的不稳定感，不等于机会消失。</li>
+                    <li>旧答案失效时，新方法才有进入窗口。</li>
+                    <li>越是变革期，越不能用静态眼光看未来。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>原话保留：</strong>“很恭喜大家来到了一个很了不起的纠结时代，因为纠结是一种变革。”</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-5">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">从 IT 到 DT，关键不是技术名词，而是思维主语变了</h2>
+            <p class="header-sub">马云在这场演讲里最核心的一个判断，是“以我为主”转向“以别人成功为主”。这也是他理解未来机会的起点。</p>
+        </div>
+        <div class="grid-2">
+            <div class="card reveal">
+                <div class="card-title">IT 时代：先管理自己</div>
+                <ul class="mini-list">
+                    <li>目标是让系统更高效地服务组织内部。</li>
+                    <li>核心逻辑是控制、管理、优化自己。</li>
+                    <li>成败常常取决于我能否更强。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">DT 时代：先强化别人</div>
+                <ul class="mini-list">
+                    <li>目标是让更多普通人也能获得能力。</li>
+                    <li>核心逻辑是支持、连接、成就别人。</li>
+                    <li>只有别人成功，你才会真正成功。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid-3">
+            <div class="stat-block reveal">
+                <div class="stat-num">我</div>
+                <div class="stat-label">不是一切的中心</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">别人</div>
+                <div class="stat-label">越被强化，机会池越大</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">相信</div>
+                <div class="stat-label">相信年轻人，也相信别人能超过自己</div>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>一句话总结：</strong>未来的机会，不只是“我能做什么”，更是“我能让多少人更容易做成事”。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-section" id="slide-6">
+    <div class="fixed-logo-dark logo-group-single">
+        <img class="logo-img-cover" src="./logos/alibaba.png" alt="阿里巴巴">
+    </div>
+    <p class="section-num reveal">PART 02</p>
+    <h2 class="section-title reveal">三个坚持</h2>
+    <p class="section-desc reveal">面对更大的不确定，我真正依赖的不是技巧，而是三个长期不变的判断标准。</p>
+</section>
+
+<section class="slide slide-white" id="slide-7">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">理想主义、担当、正能量，不是口号，是穿越周期的方法</h2>
+            <p class="header-sub">讲稿后半段的主体内容，可以被收敛成三张卡片。每一张都不是抽象价值观，而是马云自己反复验证过的做事方式。</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card reveal">
+                <div class="pillar-label">01 理想主义</div>
+                <div class="pillar-title">相信未来，也相信别人会超过自己</div>
+                <div class="pillar-copy">承认自己不会、看不懂、不擅长，并不丢人。真正重要的是保持开放耳朵，不被自己已经做出的产品和经验绑住。</div>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-label">02 担当精神</div>
+                <div class="pillar-title">如果认定对社会有利，就要有人先扛下来</div>
+                <div class="pillar-copy">支付宝、金融创新都不是零争议选择。先判断方向，再决定谁为风险负责，这是领导者必须承担的部分。</div>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-label">03 乐观正能量</div>
+                <div class="pillar-title">残酷是真的，但后天的太阳也是真的</div>
+                <div class="pillar-copy">阿里前 15 年里经历过上百次灭顶之灾。能走出来，不是因为看不见困难，而是始终保留“有人能成功，我们也可以”的信念。</div>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>原话保留：</strong>“今天很残酷，明天更残酷，后天很美好，但是绝大部分人死在明天晚上。”</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-8">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">真正稀缺的，不是聪明，而是在缺少理想和担当时仍然愿意做难事</h2>
+            <p class="header-sub">演讲里关于“信任”和“社会需要”的段落，核心不是情怀，而是一个商业与社会都适用的稀缺性判断。</p>
+        </div>
+        <div class="grid-2">
+            <div class="card reveal">
+                <div class="card-title">稀缺资源判断</div>
+                <ul class="mini-list">
+                    <li>社会最缺什么，什么就是最值得投入的方向。</li>
+                    <li>别人都不愿承担的难题，往往对应最大价值。</li>
+                    <li>抱怨最多的地方，通常也藏着最大的机会。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">信任如何被创造</div>
+                <ul class="mini-list">
+                    <li>几千万人把包裹交给陌生人，本身就是信任被技术放大的结果。</li>
+                    <li>电商、支付、金融创新，都是用新方法补旧基础设施的短板。</li>
+                    <li>昨天“不好”的地方，未必是劣势，也可能是新进入者的窗口。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="statement-panel reveal">
+            <div class="statement-line">哪里有抱怨，哪里就是机会。</div>
+            <div class="statement-copy">中国电子商务快，不是因为条件最完美，而是因为原有基础设施不够好。老问题越明显，越给新方案留下空间。对毕业生来说，这意味着别把“不完善”只看成障碍，也要把它看成起跑线。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-section" id="slide-9">
+    <div class="fixed-logo-dark logo-group-single">
+        <img class="logo-img-cover" src="./logos/alibaba.png" alt="阿里巴巴">
+    </div>
+    <p class="section-num reveal">PART 03</p>
+    <h2 class="section-title reveal">年轻，意味着你还能打十年</h2>
+    <p class="section-desc reveal">毕业最大的价值不是一张证书，而是你还有时间、体力和耐心，用更长的周期去做别人做不下去的事情。</p>
+</section>
+
+<section class="slide slide-white" id="slide-10">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">最大的资本不是“清华”两个字，而是你还年轻</h2>
+            <p class="header-sub">演讲最后真正落到行动上，不是告诉毕业生去追求短期胜负，而是提醒他们用十年视角，持续学习、持续努力、持续战胜自己。</p>
+        </div>
+        <div class="grid-3">
+            <div class="stat-block reveal">
+                <div class="stat-num">10年</div>
+                <div class="stat-label">年轻人有资格用更长周期打败今天的大公司</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">榜样</div>
+                <div class="stat-label">你的对手未必在身边，身边的人更应该被当作榜样</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">自己</div>
+                <div class="stat-label">真正需要持续战胜的，首先是自己</div>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="card reveal">
+                <div class="card-title">我想给毕业生的提醒</div>
+                <ul class="mini-list">
+                    <li>毕业证书只是阶段证明，不是终局结果。</li>
+                    <li>不要停止学习，更不要把名校当成免继续成长的理由。</li>
+                    <li>今天跑得快，不代表明天还能领先。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">我想给毕业生的建议</div>
+                <ul class="mini-list">
+                    <li>把长期主义当作战略，而不是安慰自己的话。</li>
+                    <li>别人抱怨时去看机会，自己顺利时多想别人。</li>
+                    <li>永远保持微笑，但更要保持韧性和进取。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>最后一句：</strong>今天你最好，未必明天最好；今天你最差，也仍然有很多机会。战胜自己，才是真正的英雄。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-qa" id="slide-11">
+    <div class="fixed-logo-dark logo-group-single">
+        <img class="logo-img-cover" src="./logos/alibaba.png" alt="阿里巴巴">
+    </div>
+    <h2 class="qa-title reveal">谢谢</h2>
+    <p class="qa-sub reveal">愿你在更大的变革里，始终相信未来，相信年轻人，也相信自己还能把长期的事做成。</p>
+</section>
+
+<script>
+class MiniSlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.totalSlides = this.slides.length;
+        this.currentIndex = 0;
+        this.isScrolling = false;
+        this.scrollTimeout = null;
+        this.lastHash = '';
+
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+        this.fsBtn = document.getElementById('fullscreenBtn');
+        this.fsExpand = document.getElementById('fsIconExpand');
+        this.fsCompress = document.getElementById('fsIconCompress');
+
+        this.setupNavDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.setupFullscreen();
+        this.updateProgress(0);
+        this.restoreFromHash();
+    }
+
+    setupNavDots() {
+        this.slides.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', `跳到第 ${i + 1} 张`);
+            btn.addEventListener('click', () => this.goTo(i));
+            this.navDotsContainer.appendChild(btn);
+        });
+    }
+
+    updateNavDots(index) {
+        const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                const idx = this.slides.indexOf(entry.target);
+                if (idx === -1) return;
+
+                this.currentIndex = idx;
+                this.updateProgress(idx);
+                this.updateNavDots(idx);
+                this.updateHash(idx);
+
+                const fn = document.getElementById('footnote');
+                if (fn) fn.style.opacity = idx === 0 ? '0' : '1';
+
+                const isBlueSide = entry.target.classList.contains('slide-cover') ||
+                    entry.target.classList.contains('slide-section') ||
+                    entry.target.classList.contains('slide-qa');
+                document.body.classList.toggle('on-blue', isBlueSide);
+            });
+        }, { threshold: 0.55 });
+
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    updateProgress(index) {
+        const pct = this.totalSlides > 1 ? (index / (this.totalSlides - 1)) * 100 : 100;
+        this.progressBar.style.width = pct + '%';
+        const isBlue = this.slides[index] &&
+            (this.slides[index].classList.contains('slide-cover') ||
+             this.slides[index].classList.contains('slide-section') ||
+             this.slides[index].classList.contains('slide-qa'));
+        this.progressBar.style.background = isBlue ? 'rgba(255,255,255,0.7)' : 'var(--primary)';
+        const counter = document.getElementById('pageCounter');
+        if (counter) {
+            counter.textContent = `${index + 1} / ${this.totalSlides}`;
+            counter.style.opacity = index === 0 ? '0' : '1';
+            counter.style.color = isBlue ? 'rgba(255,255,255,0.55)' : '#ABABAB';
+        }
+    }
+
+    updateHash(index) {
+        const slide = this.slides[index];
+        if (!slide || !slide.id || this.lastHash === slide.id) return;
+        this.lastHash = slide.id;
+        history.replaceState(null, '', `#${slide.id}`);
+    }
+
+    restoreFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        const index = this.slides.findIndex(slide => slide.id === hash);
+        if (index === -1) return;
+        this.currentIndex = index;
+        this.updateProgress(index);
+        this.updateNavDots(index);
+        this.lastHash = hash;
+        requestAnimationFrame(() => {
+            this.slides[index].scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                this.goTo(this.currentIndex + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.goTo(this.currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                this.goTo(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                this.goTo(this.totalSlides - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                this.fsBtn.click();
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startY = 0;
+        let startX = 0;
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dy = startY - e.changedTouches[0].clientY;
+            const dx = startX - e.changedTouches[0].clientX;
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+                this.goTo(this.currentIndex + (dy > 0 ? 1 : -1));
+            }
+        }, { passive: true });
+    }
+
+    setupWheelNav() {
+        document.addEventListener('wheel', (e) => {
+            if (this.isScrolling) return;
+            this.isScrolling = true;
+            clearTimeout(this.scrollTimeout);
+            if (e.deltaY > 10) this.goTo(this.currentIndex + 1);
+            else if (e.deltaY < -10) this.goTo(this.currentIndex - 1);
+            this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+        }, { passive: true });
+    }
+
+    goTo(index) {
+        index = Math.max(0, Math.min(this.totalSlides - 1, index));
+        if (index === this.currentIndex) return;
+        this.currentIndex = index;
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    setupFullscreen() {
+        const updateFsIcon = () => {
+            const isFs = !!document.fullscreenElement;
+            this.fsExpand.style.display = isFs ? 'none' : 'block';
+            this.fsCompress.style.display = isFs ? 'block' : 'none';
+            this.fsBtn.style.background = isFs ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.12)';
+        };
+
+        this.fsBtn.addEventListener('mouseenter', () => { this.fsBtn.style.opacity = '1'; });
+        this.fsBtn.addEventListener('mouseleave', () => { this.fsBtn.style.opacity = '0.5'; });
+        this.fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        });
+
+        document.addEventListener('fullscreenchange', updateFsIcon);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    function tuneLogoImage(img, groupSize) {
+        if (!img) return;
+
+        const apply = () => {
+            if (!img.naturalWidth || !img.naturalHeight) return;
+
+            img.style.height = '';
+            img.style.maxWidth = '';
+
+            const ratio = img.naturalWidth / img.naturalHeight;
+            const baseHeight = parseFloat(getComputedStyle(img).height) || 32;
+            let scale = 1;
+            let maxWidth = 160;
+
+            if (ratio >= 5) {
+                scale = 0.74;
+                maxWidth = 132;
+            } else if (ratio >= 4) {
+                scale = 0.82;
+                maxWidth = 144;
+            } else if (ratio >= 3) {
+                scale = 0.9;
+                maxWidth = 156;
+            } else if (ratio <= 1.4) {
+                scale = 1.08;
+                maxWidth = 72;
+            } else if (ratio <= 1.8) {
+                scale = 1.04;
+                maxWidth = 92;
+            }
+
+            if (groupSize === 1) {
+                scale *= ratio >= 3 ? 1.08 : 1.16;
+                maxWidth += ratio <= 2.2 ? 18 : 8;
+            } else {
+                scale *= 0.96;
+            }
+
+            img.style.height = `${Math.round(baseHeight * scale)}px`;
+            img.style.maxWidth = `${maxWidth}px`;
+        };
+
+        if (img.complete) apply();
+        else img.addEventListener('load', apply, { once: true });
+    }
+
+    function tuneLogoGroups() {
+        document.querySelectorAll('#globalLogoGroup, .fixed-logo-dark').forEach(group => {
+            const imgs = Array.from(group.querySelectorAll('img'));
+            imgs.forEach(img => tuneLogoImage(img, imgs.length));
+
+            requestAnimationFrame(() => {
+                const heights = imgs
+                    .map(img => img.getBoundingClientRect().height)
+                    .filter(Boolean);
+                const divider = group.querySelector('.logo-divider, span');
+                if (!divider || !heights.length) return;
+                divider.style.height = `${Math.round(Math.max(...heights) * 0.88)}px`;
+            });
+        });
+    }
+
+    new MiniSlidePresentation();
+    tuneLogoGroups();
+    window.addEventListener('resize', tuneLogoGroups);
+});
+</script>
+</body>
+</html>

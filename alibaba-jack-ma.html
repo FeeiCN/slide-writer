@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>纠结时代的三大坚持 — 马云</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   BASE CSS (from index.html)
+   ============================================= */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #FF6A00;
+    --primary-dark: #CC4400;
+    --primary-light: #FF9A50;
+    --primary-pale: #FFF3E6;
+    --primary-dim: rgba(255, 106, 0, 0.12);
+    --cover-bg: linear-gradient(125deg, #7A2000 0%, #CC3800 35%, #FF6A00 65%, #FF9A50 100%);
+    --section-bg: linear-gradient(135deg, #7A2000 0%, #CC4400 50%, #FF6A00 100%);
+    --red: #E8380D;
+    --green: #52C41A;
+    --orange: #FA8C16;
+    --text-1: #141414;
+    --text-2: #434343;
+    --text-3: #8C8C8C;
+    --bg-white: #FFFFFF;
+    --bg-page: #F5F7FA;
+    --border: #E4E8EF;
+    --font: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    --small-size: clamp(0.65rem, 1vw, 0.875rem);
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+    --deck-base-width: 1600;
+    --deck-safe-width: min(100vw, calc(100dvh * 1.6));
+    --deck-safe-side-gap: max(0px, calc((100vw - var(--deck-safe-width)) / 2));
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--font);
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background: var(--bg-page);
+}
+
+body.on-blue #globalLogoGroup {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.slide-white {
+    background: linear-gradient(180deg, #FAFBFD 0%, #F3F6FB 100%);
+    color: var(--text-1);
+}
+
+.slide-cover,
+.slide-section,
+.slide-qa {
+    color: #fff;
+    background: var(--cover-bg);
+}
+
+.slide-section {
+    background: linear-gradient(135deg, #7A2000 0%, #CC4400 50%, #FF6A00 100%) !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-qa {
+    background: linear-gradient(125deg, #7A2000 0%, #CC3800 35%, #FF6A00 65%, #FF9A50 100%) !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-content,
+.slide-cover,
+.slide-section,
+.slide-qa {
+    padding: var(--slide-padding);
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    gap: var(--content-gap);
+}
+
+.cover-top,
+.slide-header {
+    display: flex;
+    align-items: center;
+}
+
+.cover-top {
+    justify-content: space-between;
+}
+
+.cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(0.8rem, 2vh, 1.4rem);
+    max-width: min(72%, 1100px);
+}
+
+.cover-title {
+    font-size: clamp(2rem, 6vw, 5rem);
+    line-height: 1.03;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+}
+
+.cover-subtitle {
+    font-size: clamp(0.95rem, 1.7vw, 1.25rem);
+    color: rgba(255,255,255,0.82);
+    max-width: 48ch;
+    line-height: 1.55;
+}
+
+.cover-date {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: rgba(255,255,255,0.75);
+}
+
+.slide-header {
+    display: grid;
+    grid-template-columns: 6px minmax(0, 1fr);
+    column-gap: 0.8rem;
+    row-gap: 0.3rem;
+    align-items: start;
+    margin-bottom: clamp(0.8rem, 2vh, 1.2rem);
+    padding-right: clamp(7.5rem, 15vw, 13rem);
+}
+
+.header-mark {
+    width: 6px;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--primary);
+    flex-shrink: 0;
+    grid-row: 1 / span 2;
+}
+
+.header-title {
+    font-size: var(--h2-size);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.header-sub {
+    margin-left: 0;
+    color: var(--text-3);
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+    line-height: 1.45;
+}
+
+.section-num {
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+    letter-spacing: 0.18em;
+    opacity: 0.72;
+}
+
+.section-title {
+    font-size: clamp(2rem, 6vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.04;
+    margin-top: 0.7rem;
+}
+
+.section-desc,
+.qa-sub {
+    margin-top: 0.8rem;
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    color: rgba(255,255,255,0.8);
+    max-width: 56ch;
+}
+
+.qa-title {
+    font-size: clamp(2.4rem, 7vw, 5.6rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+    display: grid;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card,
+.stat-block,
+.quote-box,
+.step-card,
+.agenda-item {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card,
+.step-card,
+.quote-box,
+.agenda-item {
+    padding: clamp(0.8rem, 1.6vw, 1.2rem);
+}
+
+.card-title,
+.step-title {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+}
+
+.card-body,
+.step-desc,
+.mini-list li {
+    font-size: var(--body-size);
+    line-height: 1.6;
+    color: var(--text-2);
+}
+
+.quote-box {
+    background: linear-gradient(180deg, #FFF8F2 0%, #FFE8D0 100%);
+}
+
+.quote-box strong {
+    color: var(--primary-dark);
+}
+
+.stat-block {
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-num {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 0.55rem;
+    color: var(--text-2);
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+}
+
+.mini-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+}
+
+.mini-list li {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.mini-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.agenda-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: min(900px, 100%);
+    margin: 0 auto;
+}
+
+.agenda-item {
+    display: grid;
+    grid-template-columns: 56px 1fr 110px;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.agenda-num {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+.agenda-text {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.agenda-tag {
+    justify-self: end;
+    border-radius: 999px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--primary-pale);
+    color: var(--primary-dark);
+}
+
+/* --- fixed UI primitives --- */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--primary);
+    z-index: 999;
+    transition: width 0.25s ease;
+}
+
+.nav-dots {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 998;
+}
+
+.nav-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.18);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+#globalLogoGroup {
+    position: fixed;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    opacity: 1;
+}
+
+#globalLogoGroup img {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-img-cover {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.fixed-logo-dark {
+    position: absolute;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+}
+
+#fullscreenBtn {
+    position: fixed;
+    right: 10px;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    z-index: 999;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: rgba(0,0,0,0.12);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+#footnote {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: clamp(1rem, 3vw, 2.5rem);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* --- reveal animation --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide.visible .reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.08s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.16s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.24s; }
+.slide.visible .reveal:nth-child(5) { transition-delay: 0.32s; }
+.slide.visible .reveal:nth-child(6) { transition-delay: 0.40s; }
+
+@media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .cover-main { max-width: 100%; }
+    .slide-header { padding-right: 0; }
+    .header-sub { display: none; }
+    .agenda-item { grid-template-columns: 48px 1fr; }
+    .agenda-tag { justify-self: start; }
+    .nav-dots { display: none; }
+    #globalLogoGroup { display: none; }
+    .fixed-logo-dark { right: clamp(1rem, 4vw, 1.4rem); width: 8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+#pageCounter {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    font-family: var(--font);
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease, color 0.4s ease;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+/* =============================================
+   COMPONENT CSS
+   ============================================= */
+
+/* info-card */
+.info-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(0.9rem, 1.6vw, 1.3rem);
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.info-card .card-title {
+    color: var(--text-1);
+    margin-bottom: 0.45rem;
+}
+.info-card.red { border-left-color: var(--red); }
+.info-card.green { border-left-color: var(--green); }
+.info-card.orange { border-left-color: var(--orange); }
+
+/* step-card variants */
+.step-card-1 { background: linear-gradient(135deg, #FFF3E6 0%, #FFD8A8 100%); border: none; }
+.step-card-2 { background: linear-gradient(135deg, #FFF1F0 0%, #FFBDB3 100%); border: none; }
+.step-card-3 { background: linear-gradient(135deg, #F6FFED 0%, #B7EB8F 100%); border: none; }
+.step-card-4 { background: linear-gradient(135deg, #F0F5FF 0%, #ADC6FF 100%); border: none; }
+
+.step-num {
+    font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--text-3);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+}
+
+/* step-flow-grid */
+.step-flow-grid {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+}
+.step-flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.4rem;
+    font-size: 1.1rem;
+    color: var(--text-3);
+    flex-shrink: 0;
+}
+.step-flow-grid .step-card {
+    flex: 1;
+    min-width: 0;
+}
+
+/* highlight-box */
+.highlight-box {
+    background: var(--primary-pale);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 0.85rem 1.15rem;
+    font-size: var(--body-size);
+    color: var(--text-2);
+    line-height: 1.65;
+}
+.highlight-box.red-box {
+    background: #FFF1F0;
+    border-left-color: var(--red);
+}
+
+/* styled-list */
+.styled-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.styled-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: var(--body-size);
+    color: var(--text-2);
+    line-height: 1.6;
+}
+.styled-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+/* tag */
+.tag {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.22rem 0.7rem;
+    font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+    font-weight: 700;
+}
+.tag-blue  { background: #E6F4FF; color: #0950D9; }
+.tag-red   { background: #FFF1F0; color: var(--red); }
+.tag-green { background: #F6FFED; color: #389E0D; }
+.tag-dark  { background: #F0F0F0; color: var(--text-2); }
+.tag-orange{ background: var(--primary-pale); color: var(--primary-dark); }
+
+/* big-quote helper */
+.big-quote {
+    font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+    font-weight: 900;
+    line-height: 1.5;
+    color: var(--text-1);
+    letter-spacing: -0.02em;
+}
+
+/* contrast block for IT vs DT */
+.contrast-grid {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    align-items: stretch;
+}
+.contrast-col {
+    border-radius: 14px;
+    padding: clamp(0.9rem, 1.8vw, 1.4rem);
+}
+.contrast-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--text-3);
+}
+.contrast-label {
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+.contrast-title {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div id="globalLogoGroup"></div>
+<nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
+
+<button id="fullscreenBtn" title="全屏播放 (F)">
+    <svg id="fsIconExpand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#333;">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+    </svg>
+    <svg id="fsIconCompress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff;display:none;">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="10" y1="14" x2="3" y2="21"></line>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+    </svg>
+</button>
+
+<div id="footnote" style="opacity:0;">* 清华经管学院2014届毕业典礼演讲整理</div>
+<div id="pageCounter" style="opacity:0;">1 / 15</div>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<section class="slide slide-cover" id="slide-1">
+    <div class="cover-top reveal">
+        <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">清华经管学院顾问委员会委员</span>
+    </div>
+    <div class="cover-main">
+        <h1 class="cover-title reveal">纠结时代的<br>三大坚持</h1>
+        <p class="cover-subtitle reveal">人生最重要的，不是你今天多么成功，而是你走到最后的时候，赢了还是亏了。</p>
+        <p class="reveal" style="font-size:clamp(0.85rem,1.5vw,1.1rem);color:#fff;font-weight:700;">马云｜阿里巴巴集团主席</p>
+    </div>
+    <div class="cover-date reveal">清华经管学院2014届毕业典礼 &nbsp;·&nbsp; 2014年6月29日</div>
+</section>
+
+<!-- ==================== SLIDE 2: AGENDA ==================== -->
+<section class="slide slide-white" id="slide-2">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">今天讲四件事</h2>
+            <p class="header-sub">从时代背景到个人坚持，从机遇判断到年轻人的建议</p>
+        </div>
+        <div class="agenda-wrap">
+            <div class="agenda-item reveal">
+                <span class="agenda-num">01</span>
+                <span class="agenda-text">这是一个纠结的时代</span>
+                <span class="agenda-tag">时代背景</span>
+            </div>
+            <div class="agenda-item reveal">
+                <span class="agenda-num">02</span>
+                <span class="agenda-text">IT → DT：一场思想变革</span>
+                <span class="agenda-tag">趋势判断</span>
+            </div>
+            <div class="agenda-item reveal">
+                <span class="agenda-num">03</span>
+                <span class="agenda-text">三大坚持：理想、担当、正能量</span>
+                <span class="agenda-tag">核心主张</span>
+            </div>
+            <div class="agenda-item reveal">
+                <span class="agenda-num">04</span>
+                <span class="agenda-text">给毕业生的几个建议</span>
+                <span class="agenda-tag">行动指引</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 3: SECTION 01 ==================== -->
+<section class="slide slide-section" id="slide-3">
+    <p class="section-num reveal">PART 01</p>
+    <h2 class="section-title reveal">纠结的时代</h2>
+    <p class="section-desc reveal">为什么说这是"了不起的纠结时代"？</p>
+</section>
+
+<!-- ==================== SLIDE 4: 纠结时代的三重矛盾 ==================== -->
+<section class="slide slide-white" id="slide-4">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">纠结，是变革的前奏</h2>
+            <p class="header-sub">社会的信任危机与机会并存，正是变革最快速的时期</p>
+        </div>
+        <div class="grid-3">
+            <div class="info-card reveal">
+                <div class="card-title">信任普遍缺失</div>
+                <div class="card-body" style="margin-top:0.4rem;">师生互不信任，媒体与大众互不信任，老百姓对政府存在各种顾虑。整个社会缺乏信心基底。</div>
+            </div>
+            <div class="info-card orange reveal">
+                <div class="card-title">机会看起来没有，却到处都是</div>
+                <div class="card-body" style="margin-top:0.4rem;">年轻人似乎无所不能，又似乎什么都做不了。纠结本身，就是变革最显著的信号。</div>
+            </div>
+            <div class="info-card green reveal">
+                <div class="card-title">变革速度前所未有</div>
+                <div class="card-body" style="margin-top:0.4rem;">没有变革就没有阿里巴巴。未来30年的变革会比过去30年更大，机会更多。</div>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>纠结是一种变革，</strong>我们正在进入一个变革非常快速的时代。恭喜大家来到了这个了不起的纠结时代。</div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 5: IT vs DT ==================== -->
+<section class="slide slide-white" id="slide-5">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">从 IT 到 DT：一场思想革命</h2>
+            <p class="header-sub">技术之变的背后，是思想、文化、社会的全面转变</p>
+        </div>
+        <div class="contrast-grid reveal">
+            <div class="contrast-col" style="background:#F5F7FA;border:1px solid var(--border);">
+                <div class="contrast-label" style="color:var(--text-3);">Information Technology</div>
+                <div class="contrast-title" style="color:var(--text-2);">IT 时代</div>
+                <ul class="mini-list">
+                    <li>以我为主，方便我管理</li>
+                    <li>提升自身效率与控制力</li>
+                    <li>数据为内部服务</li>
+                    <li>强调个体或组织自身利益</li>
+                </ul>
+            </div>
+            <div class="contrast-arrow">→</div>
+            <div class="contrast-col" style="background:var(--primary-pale);border:1px solid rgba(255,106,0,0.2);">
+                <div class="contrast-label" style="color:var(--primary);">Data Technology</div>
+                <div class="contrast-title" style="color:var(--primary-dark);">DT 时代</div>
+                <ul class="mini-list">
+                    <li>以别人为主，强化别人</li>
+                    <li>只有别人成功，你才成功</li>
+                    <li>数据为社会和用户创造价值</li>
+                    <li>强调共生与协作</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box reveal">
+            <strong>核心判断：</strong>DT 思想是只有别人成功，你才会成功。这是一个巨大的思想转变，由这个思想转变产生技术的转变。
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 6: SECTION 02 ==================== -->
+<section class="slide slide-section" id="slide-6">
+    <p class="section-num reveal">PART 02</p>
+    <h2 class="section-title reveal">三大坚持</h2>
+    <p class="section-desc reveal">30年创业，马云总结的三件最重要的事</p>
+</section>
+
+<!-- ==================== SLIDE 7: 坚持理想主义 ==================== -->
+<section class="slide slide-white" id="slide-7">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">坚持一：永远坚持理想主义</h2>
+            <p class="header-sub">相信未来，相信别人超过自己</p>
+        </div>
+        <div class="grid-2">
+            <div>
+                <div class="info-card reveal" style="margin-bottom:0.8rem;">
+                    <div class="card-title">承认自己不懂，并不丢人</div>
+                    <div class="card-body" style="margin-top:0.4rem;">马云说，他不懂财务报表，不会用支付宝，但他永远竖起耳朵倾听——因为用多了，就会捍卫自己的产品，失去判断力。</div>
+                </div>
+                <div class="info-card orange reveal">
+                    <div class="card-title">相信别人，才能做大</div>
+                    <div class="card-body" style="margin-top:0.4rem;">不相信别人，程序写不出来；不相信别人，市场做不到今天这么大。理想主义的本质，是对人性的信任。</div>
+                </div>
+            </div>
+            <div class="quote-box reveal" style="display:flex;flex-direction:column;justify-content:center;gap:1rem;">
+                <div style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--primary);line-height:1.1;">高考<br>三战</div>
+                <div class="card-body">数学第一年 <strong style="color:var(--red);">1分</strong>，第二年 <strong style="color:var(--orange);">19分</strong>，第三年 <strong style="color:var(--primary);">89分</strong>。<br>从来没有放弃过——这就是理想主义最朴素的模样。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 8: 坚持担当精神 ==================== -->
+<section class="slide slide-white" id="slide-8">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">坚持二：勇于担当</h2>
+            <p class="header-sub">你觉得是对的，对社会发展有利，就勇敢地担当起来去做</p>
+        </div>
+        <div class="grid-3" style="margin-bottom:0.5rem;">
+            <div class="stat-block reveal">
+                <div class="stat-num">2004</div>
+                <div class="stat-label">支付宝启动年份，当时争议巨大</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num" style="font-size:clamp(1.2rem,2.5vw,2rem);">达沃斯</div>
+                <div class="stat-label">一通电话决定"立刻、现在、马上去做"</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">我来</div>
+                <div class="stat-label">若有人要为创新付出代价，我来承担</div>
+            </div>
+        </div>
+        <div class="highlight-box reveal">
+            <strong>担当的定义：</strong>在今天社会缺乏理想主义和担当的时候，更需要理想主义，更需要担当。做那些别人不愿意做的、但最需要的事情，才有成就。
+        </div>
+        <div class="info-card reveal">
+            <div class="card-title">担当不是冒险，是判断后的行动</div>
+            <div class="card-body" style="margin-top:0.3rem;">只有激活金融、服务实业、稳妥创新，才能越走越好——因为社会总会越来越清晰。</div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 9: 坚持乐观正能量 ==================== -->
+<section class="slide slide-white" id="slide-9">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">坚持三：乐观的正能量</h2>
+            <p class="header-sub">15年内至少100次灭顶之灾，都走过来了</p>
+        </div>
+        <div class="quote-box reveal" style="padding:clamp(1.2rem,2.5vw,2rem);">
+            <div class="big-quote" style="color:var(--primary-dark);margin-bottom:0.8rem;">"今天很残酷，明天更残酷，<br>后天很美好，<br>但绝大部分人死在明天晚上。"</div>
+            <div class="card-body" style="color:var(--text-3);">— 马云座右铭，也是给所有年轻人和同事的座右铭</div>
+        </div>
+        <div class="grid-2">
+            <div class="info-card reveal">
+                <div class="card-title">运气从哪里来</div>
+                <div class="card-body" style="margin-top:0.3rem;">自己好的时候多想想别人，自己不好的时候多检查检查自己。运气不是随机的，是态度的回报。</div>
+            </div>
+            <div class="info-card green reveal">
+                <div class="card-title">微笑是最有力量的武器</div>
+                <div class="card-body" style="margin-top:0.3rem;">用微笑化解所有问题。永远面带笑容——尽管内伤很重。乐观不是逃避，而是穿越困难的方式。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 10: SECTION 03 ==================== -->
+<section class="slide slide-section" id="slide-10">
+    <p class="section-num reveal">PART 03</p>
+    <h2 class="section-title reveal">年轻人的机遇</h2>
+    <p class="section-desc reveal">机会从不在抱怨最少的地方，而在抱怨最多的地方</p>
+</section>
+
+<!-- ==================== SLIDE 11: 机遇在哪里 ==================== -->
+<section class="slide slide-white" id="slide-11">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">哪里有抱怨，哪里就是机会</h2>
+            <p class="header-sub">中国电商超越美国，不是因为阿里更努力，而是基础更差</p>
+        </div>
+        <div class="grid-3">
+            <div class="info-card reveal">
+                <div class="card-title" style="font-size:clamp(1rem,1.4vw,1.1rem);">基础越差<br>机会越大</div>
+                <div class="card-body" style="margin-top:0.5rem;">中国电商超过美国总和，是因为中国原来的商业基础设施太差。昨天不好的事情，都是你的机会。</div>
+            </div>
+            <div class="info-card orange reveal">
+                <div class="card-title" style="font-size:clamp(1rem,1.4vw,1.1rem);">别人在抱怨<br>你看到机会</div>
+                <div class="card-body" style="margin-top:0.5rem;">美国没有互联网金融，是因为美国金融环境太好，根本插不进去。差距即市场，抱怨即信号。</div>
+            </div>
+            <div class="info-card green reveal">
+                <div class="card-title" style="font-size:clamp(1rem,1.4vw,1.1rem);">知识和教育<br>跟不上技术</div>
+                <div class="card-body" style="margin-top:0.5rem;">人类今天面临的最大挑战，正是我们最大的机遇。这个时代需要的，不是追赶，而是创造。</div>
+            </div>
+        </div>
+        <div class="highlight-box reveal">
+            <strong>结论：</strong>所有变革的时代都是年轻人的时代。纠结、变革都是年轻人的机遇，也是这个时代的机遇。
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 12: 30年后的预测 ==================== -->
+<section class="slide slide-white" id="slide-12">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">30年后，一定比今天好</h2>
+            <p class="header-sub">马云对2044年中国的判断</p>
+        </div>
+        <div class="grid-4">
+            <div class="stat-block reveal">
+                <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2.8rem);">更大</div>
+                <div class="stat-label">中国企业<br>体量与影响力</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2.8rem);">更多</div>
+                <div class="stat-label">富裕人口<br>持续增长</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2.8rem);">更丰富</div>
+                <div class="stat-label">文化多元<br>创造力释放</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2.8rem);">超越</div>
+                <div class="stat-label">下一代<br>一定超越我们</div>
+            </div>
+        </div>
+        <div class="quote-box reveal" style="margin-top:0.5rem;">
+            <div class="card-body">今天你们最大的资本是<strong>年轻</strong>。因为年轻，你可以花十年时间打败阿里巴巴；但如果你希望明年就打败，那你可能一辈子都打败不了。</div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 13: SECTION 04 ==================== -->
+<section class="slide slide-section" id="slide-13">
+    <p class="section-num reveal">PART 04</p>
+    <h2 class="section-title reveal">给毕业生<br>的建议</h2>
+    <p class="section-desc reveal">清华的毕业证书只是一张学费通知单，真正的学习才刚刚开始</p>
+</section>
+
+<!-- ==================== SLIDE 14: 四大建议 ==================== -->
+<section class="slide slide-white" id="slide-14">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">战胜自己，才是真正的英雄</h2>
+            <p class="header-sub">这四点，马云用30年亲身验证</p>
+        </div>
+        <div class="step-flow-grid reveal" style="margin-bottom:0.8rem;">
+            <div class="step-card step-card-1">
+                <div class="step-num">建议 01</div>
+                <div class="step-title">担心正常，只担心自己</div>
+                <div class="step-desc">不担心遇到眼泪委屈，而是担心自己不够努力、没看清机遇。</div>
+            </div>
+            <div class="step-flow-arrow">→</div>
+            <div class="step-card step-card-2">
+                <div class="step-num">建议 02</div>
+                <div class="step-title">用欣赏的眼光看人</div>
+                <div class="step-desc">永远相信你的对手不在你身边，在你边上的都是榜样。</div>
+            </div>
+            <div class="step-flow-arrow">→</div>
+            <div class="step-card step-card-3">
+                <div class="step-num">建议 03</div>
+                <div class="step-title">持续学习，不停进取</div>
+                <div class="step-desc">你的对手可能在以色列，比你更用功。清华毕业不是终点。</div>
+            </div>
+            <div class="step-flow-arrow">→</div>
+            <div class="step-card step-card-4">
+                <div class="step-num">建议 04</div>
+                <div class="step-title">坚持长期主义</div>
+                <div class="step-desc">战略就是做未来最重要的事情。花十年打败阿里，不是明年。</div>
+            </div>
+        </div>
+        <div class="highlight-box reveal">
+            <strong>核心建议：</strong>今天你跑得最快，未必明天还能走得最远。世界是圆的，把握住当下，努力才有可能看到后天的太阳。
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 15: Q&A ==================== -->
+<section class="slide slide-qa" id="slide-15">
+    <h2 class="qa-title reveal">谢谢大家</h2>
+    <p class="qa-sub reveal" style="max-width:48ch;">今天很残酷，明天更残酷，后天很美好——<br>但你必须熬过明天，才能看到后天的太阳。</p>
+    <p class="reveal" style="margin-top:2rem;font-size:clamp(0.78rem,1.1vw,0.92rem);color:rgba(255,255,255,0.55);">马云 · 清华经管学院2014届毕业典礼 · 2014年6月29日</p>
+</section>
+
+<script>
+class MiniSlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.totalSlides = this.slides.length;
+        this.currentIndex = 0;
+        this.isScrolling = false;
+        this.scrollTimeout = null;
+        this.lastHash = '';
+
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+        this.fsBtn = document.getElementById('fullscreenBtn');
+        this.fsExpand = document.getElementById('fsIconExpand');
+        this.fsCompress = document.getElementById('fsIconCompress');
+
+        this.setupNavDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.setupFullscreen();
+        this.updateProgress(0);
+        this.restoreFromHash();
+    }
+
+    setupNavDots() {
+        this.slides.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', `跳到第 ${i + 1} 张`);
+            btn.addEventListener('click', () => this.goTo(i));
+            this.navDotsContainer.appendChild(btn);
+        });
+    }
+
+    updateNavDots(index) {
+        const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                const idx = this.slides.indexOf(entry.target);
+                if (idx === -1) return;
+
+                this.currentIndex = idx;
+                this.updateProgress(idx);
+                this.updateNavDots(idx);
+                this.updateHash(idx);
+
+                const fn = document.getElementById('footnote');
+                if (fn) fn.style.opacity = idx === 0 ? '0' : '1';
+
+                const isBlueSide = entry.target.classList.contains('slide-cover') ||
+                    entry.target.classList.contains('slide-section') ||
+                    entry.target.classList.contains('slide-qa');
+                document.body.classList.toggle('on-blue', isBlueSide);
+            });
+        }, { threshold: 0.55 });
+
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    updateProgress(index) {
+        const pct = this.totalSlides > 1 ? (index / (this.totalSlides - 1)) * 100 : 100;
+        this.progressBar.style.width = pct + '%';
+        const isBlue = this.slides[index] &&
+            (this.slides[index].classList.contains('slide-cover') ||
+             this.slides[index].classList.contains('slide-section') ||
+             this.slides[index].classList.contains('slide-qa'));
+        this.progressBar.style.background = isBlue ? 'rgba(255,255,255,0.7)' : 'var(--primary)';
+        const counter = document.getElementById('pageCounter');
+        if (counter) {
+            counter.textContent = `${index + 1} / ${this.totalSlides}`;
+            counter.style.opacity = index === 0 ? '0' : '1';
+            counter.style.color = isBlue ? 'rgba(255,255,255,0.55)' : '#ABABAB';
+        }
+    }
+
+    updateHash(index) {
+        const slide = this.slides[index];
+        if (!slide || !slide.id || this.lastHash === slide.id) return;
+        this.lastHash = slide.id;
+        history.replaceState(null, '', `#${slide.id}`);
+    }
+
+    restoreFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        const index = this.slides.findIndex(slide => slide.id === hash);
+        if (index === -1) return;
+        this.currentIndex = index;
+        this.updateProgress(index);
+        this.updateNavDots(index);
+        this.lastHash = hash;
+        requestAnimationFrame(() => {
+            this.slides[index].scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                this.goTo(this.currentIndex + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.goTo(this.currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                this.goTo(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                this.goTo(this.totalSlides - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                this.fsBtn.click();
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startY = 0;
+        let startX = 0;
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dy = startY - e.changedTouches[0].clientY;
+            const dx = startX - e.changedTouches[0].clientX;
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+                this.goTo(this.currentIndex + (dy > 0 ? 1 : -1));
+            }
+        }, { passive: true });
+    }
+
+    setupWheelNav() {
+        document.addEventListener('wheel', (e) => {
+            if (this.isScrolling) return;
+            this.isScrolling = true;
+            clearTimeout(this.scrollTimeout);
+            if (e.deltaY > 10) this.goTo(this.currentIndex + 1);
+            else if (e.deltaY < -10) this.goTo(this.currentIndex - 1);
+            this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+        }, { passive: true });
+    }
+
+    goTo(index) {
+        index = Math.max(0, Math.min(this.totalSlides - 1, index));
+        if (index === this.currentIndex) return;
+        this.currentIndex = index;
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    setupFullscreen() {
+        const updateFsIcon = () => {
+            const isFs = !!document.fullscreenElement;
+            this.fsExpand.style.display = isFs ? 'none' : 'block';
+            this.fsCompress.style.display = isFs ? 'block' : 'none';
+            this.fsBtn.style.background = isFs ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.12)';
+        };
+
+        this.fsBtn.addEventListener('mouseenter', () => { this.fsBtn.style.opacity = '1'; });
+        this.fsBtn.addEventListener('mouseleave', () => { this.fsBtn.style.opacity = '0.5'; });
+        this.fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        });
+
+        document.addEventListener('fullscreenchange', updateFsIcon);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new MiniSlidePresentation();
+});
+</script>
+</body>
+</html>

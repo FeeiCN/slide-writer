@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill-Writer：您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #1677FF;
+    --primary-dark: #0950D9;
+    --primary-light: #4096FF;
+    --primary-pale: #E6F4FF;
+    --primary-dim: rgba(22, 119, 255, 0.12);
+    --cover-bg: linear-gradient(125deg, #0A3DA8 0%, #1263EA 35%, #2B8FFF 65%, #5AB6FF 100%);
+    --section-bg: linear-gradient(135deg, #0A3DA8 0%, #1263EA 50%, #2B8FFF 100%);
+    --red: #E8380D;
+    --green: #52C41A;
+    --orange: #FA8C16;
+    --text-1: #141414;
+    --text-2: #434343;
+    --text-3: #8C8C8C;
+    --bg-white: #FFFFFF;
+    --bg-page: #F5F7FA;
+    --border: #E4E8EF;
+    --font: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    --small-size: clamp(0.65rem, 1vw, 0.875rem);
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+    --deck-base-width: 1600;
+    --deck-safe-width: min(100vw, calc(100dvh * 1.6));
+    --deck-safe-side-gap: max(0px, calc((100vw - var(--deck-safe-width)) / 2));
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--font);
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background: var(--bg-page);
+}
+
+body.on-blue #globalLogoGroup {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.slide-white {
+    background: linear-gradient(180deg, #FAFBFD 0%, #F3F6FB 100%);
+    color: var(--text-1);
+}
+
+.slide-cover,
+.slide-section,
+.slide-qa {
+    color: #fff;
+    background: var(--cover-bg);
+}
+
+.slide-section {
+    background: var(--section-bg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-qa {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-content,
+.slide-cover,
+.slide-section,
+.slide-qa {
+    padding: var(--slide-padding);
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    gap: var(--content-gap);
+}
+
+.cover-top,
+.slide-header {
+    display: flex;
+    align-items: center;
+}
+
+.cover-top {
+    justify-content: space-between;
+}
+
+.cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(0.8rem, 2vh, 1.4rem);
+    max-width: min(76%, 1120px);
+}
+
+.cover-title {
+    font-size: clamp(2rem, 6vw, 5rem);
+    line-height: 1.03;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+}
+
+.cover-subtitle {
+    font-size: clamp(0.95rem, 1.7vw, 1.25rem);
+    color: rgba(255,255,255,0.82);
+    max-width: 52ch;
+    line-height: 1.55;
+}
+
+.cover-date {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: rgba(255,255,255,0.75);
+}
+
+.slide-header {
+    display: grid;
+    grid-template-columns: 6px minmax(0, 1fr);
+    column-gap: 0.8rem;
+    row-gap: 0.3rem;
+    align-items: start;
+    margin-bottom: clamp(0.8rem, 2vh, 1.2rem);
+    padding-right: clamp(7.5rem, 15vw, 13rem);
+}
+
+.header-mark {
+    width: 6px;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--primary);
+    flex-shrink: 0;
+    grid-row: 1 / span 2;
+}
+
+.header-title {
+    font-size: var(--h2-size);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.header-sub {
+    margin-left: 0;
+    color: var(--text-3);
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+    line-height: 1.45;
+}
+
+.section-num {
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+    letter-spacing: 0.18em;
+    opacity: 0.72;
+}
+
+.section-title {
+    font-size: clamp(2rem, 6vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.04;
+    margin-top: 0.7rem;
+}
+
+.section-desc,
+.qa-sub {
+    margin-top: 0.8rem;
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    color: rgba(255,255,255,0.8);
+    max-width: 56ch;
+}
+
+.qa-title {
+    font-size: clamp(2.4rem, 7vw, 5.6rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+    display: grid;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card,
+.stat-block,
+.quote-box,
+.step-card,
+.agenda-item {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card,
+.step-card,
+.quote-box,
+.agenda-item {
+    padding: clamp(0.8rem, 1.6vw, 1.2rem);
+}
+
+.card-title,
+.step-title {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+}
+
+.card-body,
+.step-desc,
+.mini-list li {
+    font-size: var(--body-size);
+    line-height: 1.6;
+    color: var(--text-2);
+}
+
+.quote-box {
+    background: linear-gradient(180deg, #F9FCFF 0%, #EDF5FF 100%);
+}
+
+.quote-box strong {
+    color: var(--primary-dark);
+}
+
+.stat-block {
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-num {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 0.55rem;
+    color: var(--text-2);
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+}
+
+.mini-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+}
+
+.mini-list li {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.mini-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.agenda-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: min(920px, 100%);
+    margin: 0 auto;
+}
+
+.agenda-item {
+    display: grid;
+    grid-template-columns: 56px 1fr 110px;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.agenda-num {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+.agenda-text {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.agenda-tag {
+    justify-self: end;
+    border-radius: 999px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--primary-pale);
+    color: var(--primary-dark);
+}
+
+.ribbon {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.hero-panel {
+    padding: clamp(1rem, 2vw, 1.4rem);
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(22,119,255,0.14) 0%, rgba(22,119,255,0.05) 100%);
+    border: 1px solid rgba(22,119,255,0.14);
+}
+
+.hero-panel h3 {
+    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+    font-weight: 900;
+    color: var(--text-1);
+    line-height: 1.2;
+}
+
+.hero-panel p {
+    margin-top: 0.7rem;
+    color: var(--text-2);
+    font-size: var(--body-size);
+    line-height: 1.75;
+}
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1rem;
+}
+
+.tag-chip {
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.78);
+    border: 1px solid rgba(22,119,255,0.12);
+    color: var(--primary-dark);
+    font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+    font-weight: 700;
+}
+
+.matrix {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.matrix-card {
+    padding: 1rem 1.05rem;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+}
+
+.matrix-label {
+    display: inline-block;
+    margin-bottom: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: var(--primary-pale);
+    color: var(--primary-dark);
+}
+
+.matrix-card h3 {
+    font-size: clamp(1rem, 1.45vw, 1.18rem);
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+.matrix-card p {
+    margin-top: 0.55rem;
+    font-size: var(--body-size);
+    color: var(--text-2);
+    line-height: 1.65;
+}
+
+.step-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.step-num {
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 0.55rem;
+}
+
+.story-strip {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.insight-panel {
+    padding: 1rem 1.1rem;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F6FAFF 100%);
+    border: 1px solid var(--border);
+}
+
+.insight-panel h3 {
+    font-size: clamp(1rem, 1.4vw, 1.12rem);
+    font-weight: 900;
+}
+
+.insight-panel ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+}
+
+.insight-panel li {
+    position: relative;
+    padding-left: 1rem;
+    color: var(--text-2);
+    font-size: var(--body-size);
+    line-height: 1.6;
+}
+
+.insight-panel li::before {
+    content: "";
+    position: absolute;
+    top: 0.58em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.big-quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #0F5CDE 0%, #469DFF 100%);
+    color: #fff;
+    min-height: 100%;
+}
+
+.big-quote p {
+    font-size: clamp(1.25rem, 2vw, 1.8rem);
+    line-height: 1.45;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.slide-section {
+    background: linear-gradient(135deg, #0A3DA8 0%, #1263EA 50%, #2B8FFF 100%) !important;
+}
+
+.slide-qa {
+    background: linear-gradient(125deg, #0A3DA8 0%, #1263EA 35%, #2B8FFF 65%, #5AB6FF 100%) !important;
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--primary);
+    z-index: 999;
+    transition: width 0.25s ease;
+}
+
+.nav-dots {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 998;
+}
+
+.nav-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.18);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+#globalLogoGroup {
+    position: fixed;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    opacity: 1;
+}
+
+#globalLogoGroup img {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#globalLogoGroup .logo-divider {
+    width: 1.5px;
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.18) 28%, rgba(0,0,0,0.32) 50%, rgba(0,0,0,0.18) 72%, transparent 100%);
+}
+
+.logo-img-cover {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#globalLogoGroup.logo-group-single img,
+.fixed-logo-dark.logo-group-single .logo-img-cover {
+    height: clamp(1.7rem, 3.1vw, 2.55rem);
+    max-height: 42px;
+    max-width: clamp(6.5rem, 13vw, 10.5rem);
+}
+
+.fixed-logo-dark {
+    position: absolute;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+}
+
+#fullscreenBtn {
+    position: fixed;
+    right: 10px;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    z-index: 999;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: rgba(0,0,0,0.12);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+#footnote {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: clamp(1rem, 3vw, 2.5rem);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease, color 0.4s ease;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide.visible .reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.08s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.16s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+@media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4, .matrix, .ribbon, .step-grid, .story-strip { grid-template-columns: 1fr; }
+    .cover-main { max-width: 100%; }
+    .slide-header { padding-right: 0; }
+    .header-sub { display: none; }
+    .agenda-item { grid-template-columns: 48px 1fr; }
+    .agenda-tag { justify-self: start; }
+    .nav-dots { display: none; }
+    #globalLogoGroup { display: none; }
+    .fixed-logo-dark { right: clamp(1rem, 4vw, 1.4rem); width: 8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+#pageCounter {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    font-family: var(--font);
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease, color 0.4s ease;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div id="globalLogoGroup" class="logo-group-single">
+    <img src="./logos/logo-antgroup-blue.png" alt="蚂蚁集团">
+</div>
+
+<nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
+
+<button id="fullscreenBtn" title="全屏播放 (F)">
+    <svg id="fsIconExpand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#333;">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+    </svg>
+    <svg id="fsIconCompress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff;display:none;">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="10" y1="14" x2="3" y2="21"></line>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+    </svg>
+</button>
+
+<div id="footnote">* based on README.md / SKILL.md / themes.md / components.md</div>
+<div id="pageCounter" style="opacity:0;">1 / 1</div>
+
+<section class="slide slide-cover" id="slide-1">
+    <div class="cover-top reveal">
+        <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">Slide-Writer / 演讲生成 Skill</span>
+    </div>
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
+    </div>
+    <div class="cover-main">
+        <h1 class="cover-title reveal">Skill-Writer：您只需专注目标、观点与判断，<br>Slide-Writer 负责结构、写作、优化与呈现</h1>
+        <p class="cover-subtitle reveal">这不是“自动排版工具”，而是一套把想法转成演示表达的工作流。它把结构规划、文案收敛、视觉节奏和交付形态一起处理，让表达更快进入可上台状态。</p>
+        <p class="reveal" style="font-size:clamp(0.85rem,1.5vw,1.1rem);color:#fff;font-weight:700;">Slide-Writer｜单文件 HTML 演讲生成 Skill</p>
+    </div>
+    <div class="cover-date reveal">2026.04.12</div>
+</section>
+
+<section class="slide slide-white" id="slide-2">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">今天只讲 5 个判断</h2>
+            <p class="header-sub">从问题定义，到生成逻辑，再到最终交付，形成一套完整的演讲生产线。</p>
+        </div>
+        <div class="agenda-wrap">
+            <div class="agenda-item reveal"><span class="agenda-num">01</span><span class="agenda-text">为什么 PPT 生产经常耗时，却不直接创造判断</span><span class="agenda-tag">问题</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">02</span><span class="agenda-text">Skill-Writer 的核心分工：人做判断，系统做演示化</span><span class="agenda-tag">定位</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">03</span><span class="agenda-text">Slide-Writer 如何把素材重构成可讲、可看、可交付的 deck</span><span class="agenda-tag">方法</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">04</span><span class="agenda-text">它真正解决的不是排版，而是结构、表达与节奏</span><span class="agenda-tag">价值</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">05</span><span class="agenda-text">什么场景最适合把 PPT 交给 Slide-Writer</span><span class="agenda-tag">应用</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-3">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">多数 PPT 的低效，不在于不会写，而在于“表达链路”被大量体力活打断</h2>
+            <p class="header-sub">找模板、调版式、压字数、补结构、改标题，这些动作消耗的是注意力，而不是判断力。</p>
+        </div>
+        <div class="grid-3">
+            <div class="stat-block reveal">
+                <div class="stat-num">主题</div>
+                <div class="stat-label">往往一开始很清楚，真正模糊的是怎么讲</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">结构</div>
+                <div class="stat-label">最常见的问题不是没有材料，而是不会拆页</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-num">润色</div>
+                <div class="stat-label">最长时间通常花在标题、顺序和视觉密度上</div>
+            </div>
+        </div>
+        <div class="ribbon">
+            <div class="hero-panel reveal">
+                <h3>传统方式的问题，是把“思考”和“制作”绑在同一个人身上</h3>
+                <p>表达者本来应该把时间留给目标澄清、立场建立和关键判断，但现实里常常被拖进页面级修修补补。结果不是做不出来，而是做出来以后仍然“不像一份正式演讲稿”。</p>
+                <div class="tag-row">
+                    <span class="tag-chip">结构不清</span>
+                    <span class="tag-chip">密度失控</span>
+                    <span class="tag-chip">表达不够凝练</span>
+                    <span class="tag-chip">页面节奏单一</span>
+                </div>
+            </div>
+            <div class="quote-box reveal">
+                <div class="card-body"><strong>核心判断：</strong>PPT 制作的真正成本，不是“写几页”，而是把材料重构成能在几秒内被看懂、几分钟内被讲透的演示结构。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-4">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">Skill-Writer 的分工非常明确：您负责目标、观点与判断，Slide-Writer 负责演示化落地</h2>
+            <p class="header-sub">这不是替代思考，而是把思考从繁琐的呈现工作中解放出来。</p>
+        </div>
+        <div class="matrix">
+            <div class="matrix-card reveal">
+                <span class="matrix-label">你负责</span>
+                <h3>确定这次演讲要达成什么、说服谁、强调什么</h3>
+                <p>只需要给主题、判断、大纲、草稿、演讲稿或材料包。核心价值在于立场、目标、优先级和关键选择。</p>
+            </div>
+            <div class="matrix-card reveal">
+                <span class="matrix-label">它负责</span>
+                <h3>把输入重构成适合演讲的页面结构与文字表达</h3>
+                <p>自动规划章节、拆页、压缩信息密度、统一风格、替换为组件化页面，并交付浏览器直接可放映的 HTML deck。</p>
+            </div>
+            <div class="matrix-card reveal">
+                <span class="matrix-label">不是做什么</span>
+                <h3>不是把原文一段段贴上墙，也不是随便套一个模板</h3>
+                <p>它优先生成判断式标题、短句支撑、卡片结构和章节节奏，避免“长文网页化”的假 PPT。</p>
+            </div>
+            <div class="matrix-card reveal">
+                <span class="matrix-label">真正结果</span>
+                <h3>让演讲准备回到高价值动作，而不是停留在低价值打磨</h3>
+                <p>你保留内容控制权，系统承担结构、写作、优化和呈现这条长链路里的重复劳动。</p>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>一句话：</strong>Skill-Writer 把“想明白”和“做出来”拆开，让人和系统各自做最擅长的部分。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-section" id="slide-5">
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
+    </div>
+    <p class="section-num reveal">PART 02</p>
+    <h2 class="section-title reveal">从素材到演讲稿，<br>Slide-Writer 走的是一条完整生产线</h2>
+    <p class="section-desc reveal">它先理解内容，再重构表达，最后才决定一页该长成什么样。</p>
+</section>
+
+<section class="slide slide-white" id="slide-6">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">Slide-Writer 的工作流，不是“直接生成页面”，而是先做结构判断，再做页面生成</h2>
+            <p class="header-sub">先判断模式、主题和内容密度，再开始写 slide，这决定了最终演讲稿是否专业。</p>
+        </div>
+        <div class="step-grid">
+            <div class="step-card reveal">
+                <div class="step-num">STEP 01</div>
+                <div class="step-title">识别场景</div>
+                <div class="step-desc">判断是全新制作还是改现有稿，并识别品牌主题与 logo 规则。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-num">STEP 02</div>
+                <div class="step-title">收集信息</div>
+                <div class="step-desc">围绕主题、受众、页数、署名和日期，补齐最少但关键的上下文。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-num">STEP 03</div>
+                <div class="step-title">规划结构</div>
+                <div class="step-desc">先提炼判断，再分章节、拆页面，控制每页负载和整体节奏。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-num">STEP 04</div>
+                <div class="step-title">润色交付</div>
+                <div class="step-desc">套用模板引擎、组件和主题，输出浏览器即可播放的单文件 HTML。</div>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>方法论：</strong>真正的质量来自“先改写内容，再排版页面”，而不是拿现成模板把内容塞进去。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-7">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">它解决的不是单一排版问题，而是四类演示生产问题一起被收敛</h2>
+            <p class="header-sub">结构、写作、优化、呈现同时在线，演讲稿才会显得完整。</p>
+        </div>
+        <div class="grid-4">
+            <div class="step-card reveal">
+                <div class="step-title">结构</div>
+                <div class="step-desc">自动规划封面、目录、章节页、正文和结尾，形成可讲述的顺序。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">写作</div>
+                <div class="step-desc">把长文改成判断式标题、短句 bullet、卡片文案和可扫读结论。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">优化</div>
+                <div class="step-desc">控制单页密度、避免溢出、保持 3 秒可读，减少“字太多”的失败页。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">呈现</div>
+                <div class="step-desc">统一主题、logo、图文节奏、动效与导航，最终交付一份可直接放映的文件。</div>
+            </div>
+        </div>
+        <div class="story-strip">
+            <div class="insight-panel reveal">
+                <h3>为什么这一点重要</h3>
+                <ul>
+                    <li>大多数工具只能解决“写字”或“排版”其中一段，无法把整条链路打通。</li>
+                    <li>Slide-Writer 的价值在于同时处理内容逻辑和页面表达，而不是仅仅输出几页看起来像 PPT 的网页。</li>
+                    <li>最终 deck 的专业感，来自各环节彼此一致，而不是某一个局部做得很漂亮。</li>
+                </ul>
+            </div>
+            <div class="big-quote reveal">
+                <p>好的演讲稿不是信息更多，<br>而是结构更清、表达更短、节奏更稳。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-8">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">最适合交给 Slide-Writer 的场景，是“内容已有雏形，但还没进入演讲状态”</h2>
+            <p class="header-sub">它尤其适合那些有判断、有材料、但还没有好表达的场景。</p>
+        </div>
+        <div class="grid-3">
+            <div class="card reveal">
+                <div class="card-title">从一个主题开始</div>
+                <ul class="mini-list">
+                    <li>只有主题，先帮你补出完整结构。</li>
+                    <li>适合内部分享、公开演讲、方案路演。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">从一份草稿开始</div>
+                <ul class="mini-list">
+                    <li>有大纲、纪要、报告或演讲稿。</li>
+                    <li>重点是把它改成演示表达，而不是原文复述。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">从现有 deck 开始</div>
+                <ul class="mini-list">
+                    <li>已有 HTML 稿件，需要增强、压缩或扩写。</li>
+                    <li>按指定 slide 精确替换，不无故重做整份稿。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="hero-panel reveal">
+                <h3>最好的使用方式</h3>
+                <p>把它当成一位专门做“演示化重构”的搭档。你提供方向、受众和关键判断，它负责把内容推进到可展示、可复用、可继续编辑的状态。</p>
+            </div>
+            <div class="quote-box reveal">
+                <div class="card-body"><strong>结论：</strong>如果你已经有内容，却还没有形成一份真正能上台的 deck，Slide-Writer 就是效率杠杆。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-qa" id="slide-9">
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
+    </div>
+    <h2 class="qa-title reveal">Skill-Writer</h2>
+    <p class="qa-sub reveal">您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。</p>
+</section>
+
+<script>
+class MiniSlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.totalSlides = this.slides.length;
+        this.currentIndex = 0;
+        this.isScrolling = false;
+        this.scrollTimeout = null;
+        this.lastHash = '';
+
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+        this.fsBtn = document.getElementById('fullscreenBtn');
+        this.fsExpand = document.getElementById('fsIconExpand');
+        this.fsCompress = document.getElementById('fsIconCompress');
+
+        this.setupNavDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.setupFullscreen();
+        this.updateProgress(0);
+        this.restoreFromHash();
+    }
+
+    setupNavDots() {
+        this.slides.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', `跳到第 ${i + 1} 张`);
+            btn.addEventListener('click', () => this.goTo(i));
+            this.navDotsContainer.appendChild(btn);
+        });
+    }
+
+    updateNavDots(index) {
+        const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                const idx = this.slides.indexOf(entry.target);
+                if (idx === -1) return;
+
+                this.currentIndex = idx;
+                this.updateProgress(idx);
+                this.updateNavDots(idx);
+                this.updateHash(idx);
+
+                const fn = document.getElementById('footnote');
+                if (fn) fn.style.opacity = idx === 0 ? '0' : '1';
+
+                const isBlueSide = entry.target.classList.contains('slide-cover') ||
+                    entry.target.classList.contains('slide-section') ||
+                    entry.target.classList.contains('slide-qa');
+                document.body.classList.toggle('on-blue', isBlueSide);
+            });
+        }, { threshold: 0.55 });
+
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    updateProgress(index) {
+        const pct = this.totalSlides > 1 ? (index / (this.totalSlides - 1)) * 100 : 100;
+        this.progressBar.style.width = pct + '%';
+        const isBlue = this.slides[index] &&
+            (this.slides[index].classList.contains('slide-cover') ||
+             this.slides[index].classList.contains('slide-section') ||
+             this.slides[index].classList.contains('slide-qa'));
+        this.progressBar.style.background = isBlue ? 'rgba(255,255,255,0.7)' : 'var(--primary)';
+        const counter = document.getElementById('pageCounter');
+        if (counter) {
+            counter.textContent = `${index + 1} / ${this.totalSlides}`;
+            counter.style.opacity = index === 0 ? '0' : '1';
+            counter.style.color = isBlue ? 'rgba(255,255,255,0.55)' : '#ABABAB';
+        }
+    }
+
+    updateHash(index) {
+        const slide = this.slides[index];
+        if (!slide || !slide.id || this.lastHash === slide.id) return;
+        this.lastHash = slide.id;
+        history.replaceState(null, '', `#${slide.id}`);
+    }
+
+    restoreFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        const index = this.slides.findIndex(slide => slide.id === hash);
+        if (index === -1) return;
+        this.currentIndex = index;
+        this.updateProgress(index);
+        this.updateNavDots(index);
+        this.lastHash = hash;
+        requestAnimationFrame(() => {
+            this.slides[index].scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                this.goTo(this.currentIndex + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.goTo(this.currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                this.goTo(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                this.goTo(this.totalSlides - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                this.fsBtn.click();
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startY = 0;
+        let startX = 0;
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dy = startY - e.changedTouches[0].clientY;
+            const dx = startX - e.changedTouches[0].clientX;
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+                this.goTo(this.currentIndex + (dy > 0 ? 1 : -1));
+            }
+        }, { passive: true });
+    }
+
+    setupWheelNav() {
+        document.addEventListener('wheel', (e) => {
+            if (this.isScrolling) return;
+            this.isScrolling = true;
+            clearTimeout(this.scrollTimeout);
+            if (e.deltaY > 10) this.goTo(this.currentIndex + 1);
+            else if (e.deltaY < -10) this.goTo(this.currentIndex - 1);
+            this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+        }, { passive: true });
+    }
+
+    goTo(index) {
+        index = Math.max(0, Math.min(this.totalSlides - 1, index));
+        if (index === this.currentIndex) return;
+        this.currentIndex = index;
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    setupFullscreen() {
+        const updateFsIcon = () => {
+            const isFs = !!document.fullscreenElement;
+            this.fsExpand.style.display = isFs ? 'none' : 'block';
+            this.fsCompress.style.display = isFs ? 'block' : 'none';
+            this.fsBtn.style.background = isFs ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.12)';
+        };
+
+        this.fsBtn.addEventListener('mouseenter', () => { this.fsBtn.style.opacity = '1'; });
+        this.fsBtn.addEventListener('mouseleave', () => { this.fsBtn.style.opacity = '0.5'; });
+        this.fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        });
+
+        document.addEventListener('fullscreenchange', updateFsIcon);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    function tuneLogoImage(img, groupSize) {
+        if (!img) return;
+
+        const apply = () => {
+            if (!img.naturalWidth || !img.naturalHeight) return;
+
+            img.style.height = '';
+            img.style.maxWidth = '';
+
+            const ratio = img.naturalWidth / img.naturalHeight;
+            const baseHeight = parseFloat(getComputedStyle(img).height) || 32;
+            let scale = 1;
+            let maxWidth = 160;
+
+            if (ratio >= 5) {
+                scale = 0.74;
+                maxWidth = 132;
+            } else if (ratio >= 4) {
+                scale = 0.82;
+                maxWidth = 144;
+            } else if (ratio >= 3) {
+                scale = 0.9;
+                maxWidth = 156;
+            } else if (ratio <= 1.4) {
+                scale = 1.08;
+                maxWidth = 72;
+            } else if (ratio <= 1.8) {
+                scale = 1.04;
+                maxWidth = 92;
+            }
+
+            if (groupSize === 1) {
+                scale *= ratio >= 3 ? 1.08 : 1.16;
+                maxWidth += ratio <= 2.2 ? 18 : 8;
+            } else {
+                scale *= 0.96;
+            }
+
+            img.style.height = `${Math.round(baseHeight * scale)}px`;
+            img.style.maxWidth = `${maxWidth}px`;
+        };
+
+        if (img.complete) apply();
+        else img.addEventListener('load', apply, { once: true });
+    }
+
+    function tuneLogoGroups() {
+        document.querySelectorAll('#globalLogoGroup, .fixed-logo-dark').forEach(group => {
+            const imgs = Array.from(group.querySelectorAll('img'));
+            imgs.forEach(img => tuneLogoImage(img, imgs.length));
+
+            requestAnimationFrame(() => {
+                const heights = imgs
+                    .map(img => img.getBoundingClientRect().height)
+                    .filter(Boolean);
+                const divider = group.querySelector('.logo-divider, span');
+                if (!divider || !heights.length) return;
+                divider.style.height = `${Math.round(Math.max(...heights) * 0.88)}px`;
+            });
+        });
+    }
+
+    new MiniSlidePresentation();
+    tuneLogoGroups();
+    window.addEventListener('resize', tuneLogoGroups);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>稳扎稳打做长期事 - 马化腾 2026 员工大会演讲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   MINI TEMPLATE
+   Based on index.html, but trimmed for reuse.
+   Keep key CSS/JS behavior: progress, nav, fullscreen,
+   dark-slide logo switching, reveal, keyboard/touch nav.
+   ============================================= */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #0B60D6;
+    --primary-dark: #084BA9;
+    --primary-light: #3A86F7;
+    --primary-pale: #EAF3FF;
+    --primary-dim: rgba(11, 96, 214, 0.10);
+    --cover-bg: linear-gradient(125deg, #063A8D 0%, #0B60D6 42%, #4AA3FF 100%);
+    --section-bg: linear-gradient(135deg, #063A8D 0%, #0B60D6 55%, #4AA3FF 100%);
+    --red: #E8380D;
+    --green: #52C41A;
+    --orange: #FA8C16;
+    --text-1: #141414;
+    --text-2: #434343;
+    --text-3: #8C8C8C;
+    --bg-white: #FFFFFF;
+    --bg-page: #F4F7FB;
+    --border: #DCE6F2;
+    --font: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    --small-size: clamp(0.65rem, 1vw, 0.875rem);
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+    --deck-base-width: 1600;
+    --deck-safe-width: min(100vw, calc(100dvh * 1.6));
+    --deck-safe-side-gap: max(0px, calc((100vw - var(--deck-safe-width)) / 2));
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--font);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background: var(--bg-page);
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+body.on-blue #globalLogoGroup {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.slide-white {
+    background: linear-gradient(180deg, #FBFDFF 0%, #F3F7FC 100%);
+    color: var(--text-1);
+}
+
+.slide-cover,
+.slide-section,
+.slide-qa {
+    color: #fff;
+    background: var(--cover-bg);
+}
+
+.slide-section {
+    background: var(--section-bg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-qa {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-content,
+.slide-cover,
+.slide-section,
+.slide-qa {
+    padding: var(--slide-padding);
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    gap: var(--content-gap);
+}
+
+.cover-top,
+.slide-header {
+    display: flex;
+    align-items: center;
+}
+
+.cover-top {
+    justify-content: space-between;
+}
+
+.cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(0.8rem, 2vh, 1.4rem);
+    max-width: min(72%, 1100px);
+}
+
+.cover-title {
+    font-size: clamp(2rem, 6vw, 5rem);
+    line-height: 1.03;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+}
+
+.cover-subtitle {
+    font-size: clamp(0.95rem, 1.7vw, 1.25rem);
+    color: rgba(255,255,255,0.82);
+    max-width: 48ch;
+    line-height: 1.55;
+}
+
+.cover-date {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: rgba(255,255,255,0.75);
+}
+
+.slide-header {
+    display: grid;
+    grid-template-columns: 6px minmax(0, 1fr);
+    column-gap: 0.8rem;
+    row-gap: 0.3rem;
+    align-items: start;
+    margin-bottom: clamp(0.8rem, 2vh, 1.2rem);
+    padding-right: clamp(7.5rem, 15vw, 13rem);
+}
+
+.header-mark {
+    width: 6px;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--primary);
+    flex-shrink: 0;
+    grid-row: 1 / span 2;
+}
+
+.header-title {
+    font-size: var(--h2-size);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.header-sub {
+    margin-left: 0;
+    color: var(--text-3);
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+    line-height: 1.45;
+}
+
+.section-num {
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+    letter-spacing: 0.18em;
+    opacity: 0.72;
+}
+
+.section-title {
+    font-size: clamp(2rem, 6vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.04;
+    margin-top: 0.7rem;
+}
+
+.section-desc,
+.qa-sub {
+    margin-top: 0.8rem;
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    color: rgba(255,255,255,0.8);
+    max-width: 56ch;
+}
+
+.qa-title {
+    font-size: clamp(2.4rem, 7vw, 5.6rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+    display: grid;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card,
+.stat-block,
+.quote-box,
+.step-card,
+.agenda-item {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card,
+.step-card,
+.quote-box,
+.agenda-item {
+    padding: clamp(0.8rem, 1.6vw, 1.2rem);
+}
+
+.card-title,
+.step-title {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+}
+
+.card-body,
+.step-desc,
+.mini-list li {
+    font-size: var(--body-size);
+    line-height: 1.6;
+    color: var(--text-2);
+}
+
+.quote-box {
+    background: linear-gradient(180deg, #F7FAFF 0%, #EEF4FC 100%);
+}
+
+.quote-box strong {
+    color: var(--primary-dark);
+}
+
+.stat-block {
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-num {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 0.55rem;
+    color: var(--text-2);
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+}
+
+.mini-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+}
+
+.mini-list li {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.mini-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.agenda-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: min(900px, 100%);
+    margin: 0 auto;
+}
+
+.agenda-item {
+    display: grid;
+    grid-template-columns: 56px 1fr 110px;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.agenda-num {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+.agenda-text {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.agenda-tag {
+    justify-self: end;
+    border-radius: 999px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--primary-pale);
+    color: var(--primary-dark);
+}
+
+/* --- fixed UI from index.html --- */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--primary);
+    z-index: 999;
+    transition: width 0.25s ease;
+}
+
+.nav-dots {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 998;
+}
+
+.nav-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.18);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+#globalLogoGroup {
+    position: fixed;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    opacity: 1;
+}
+
+#globalLogoGroup img {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#globalLogoGroup .logo-divider {
+    width: 1.5px;
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.18) 28%, rgba(0,0,0,0.32) 50%, rgba(0,0,0,0.18) 72%, transparent 100%);
+}
+
+.logo-img-cover {
+    height: clamp(1.4rem, 2.8vw, 2.2rem);
+    max-height: 36px;
+    max-width: clamp(5.5rem, 11vw, 9rem);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#globalLogoGroup.logo-group-single img,
+.fixed-logo-dark.logo-group-single .logo-img-cover {
+    height: clamp(1.7rem, 3.1vw, 2.55rem);
+    max-height: 42px;
+    max-width: clamp(6.5rem, 13vw, 10.5rem);
+}
+
+.fixed-logo-dark {
+    position: absolute;
+    top: clamp(1.15rem, 2.8vh, 1.9rem);
+    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+    width: clamp(8.5rem, 15vw, 11.5rem);
+}
+
+#fullscreenBtn {
+    position: fixed;
+    right: 10px;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    z-index: 999;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: rgba(0,0,0,0.12);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+#footnote {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    left: clamp(1rem, 3vw, 2.5rem);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    z-index: 997;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* --- reveal animation --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide.visible .reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.08s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.16s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+@media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .cover-main { max-width: 100%; }
+    .slide-header { padding-right: 0; }
+    .header-sub { display: none; }
+    .agenda-item { grid-template-columns: 48px 1fr; }
+    .agenda-tag { justify-self: start; }
+    .nav-dots { display: none; }
+    #globalLogoGroup { display: none; }
+    .fixed-logo-dark { right: clamp(1rem, 4vw, 1.4rem); width: 8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div id="globalLogoGroup" class="logo-group-single">
+    <img src="./logos/tencent-blue.png" alt="腾讯">
+</div>
+
+<nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
+
+<button id="fullscreenBtn" title="全屏播放 (F)">
+    <svg id="fsIconExpand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#333;">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+    </svg>
+    <svg id="fsIconCompress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff;display:none;">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="10" y1="14" x2="3" y2="21"></line>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+    </svg>
+</button>
+
+<div id="footnote">* based on examples/tencent-pony-ma.md</div>
+
+<section class="slide slide-cover" id="slide-1">
+    <div class="cover-top reveal">
+        <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">腾讯 2025 年度员工大会</span>
+    </div>
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/tencent-white.png" alt="腾讯" class="logo-img-cover">
+    </div>
+    <div class="cover-main">
+        <h1 class="cover-title reveal">稳扎稳打做长期事，<br>把 AI 变成新底座</h1>
+        <p class="cover-subtitle reveal">不比谁跑得快，而是守住长期竞争力</p>
+        <p class="reveal" style="font-size:clamp(0.85rem,1.5vw,1.1rem);color:#fff;font-weight:700;">马化腾｜腾讯董事会主席兼首席执行官</p>
+    </div>
+    <div class="cover-date reveal">2026.01.26</div>
+</section>
+
+<section class="slide slide-white" id="slide-2">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">今天我想讲 5 个判断</h2>
+            <p class="header-sub">先复盘，再讲 AI、元宝、各 BG 和 2026 的方向。</p>
+        </div>
+        <div class="agenda-wrap">
+            <div class="agenda-item reveal"><span class="agenda-num">01</span><span class="agenda-text">这几年我们先稳住了基本盘</span><span class="agenda-tag">复盘</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">02</span><span class="agenda-text">我们做 AI，不是追热点</span><span class="agenda-tag">判断</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">03</span><span class="agenda-text">元宝要做我们的前锋应用</span><span class="agenda-tag">产品</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">04</span><span class="agenda-text">各事业群都要把 AI 接到主航道上</span><span class="agenda-tag">业务</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">05</span><span class="agenda-text">2026 我们就抓一件事：提升效率</span><span class="agenda-tag">收尾</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-3">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">2021 到 2023 的主动收缩，换来了今天继续下注的底气</h2>
+            <p class="header-sub">我们先减脂增肌，再回到增长。</p>
+        </div>
+        <div class="grid-3">
+            <div class="stat-block reveal"><div class="stat-num">2021-23</div><div class="stat-label">行业寒冬期</div></div>
+            <div class="stat-block reveal"><div class="stat-num">聚焦</div><div class="stat-label">主业、效率、核心能力</div></div>
+            <div class="stat-block reveal"><div class="stat-num">反弹</div><div class="stat-label">营收和利润重回增长</div></div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>一句话：</strong>这几年的克制，不是保守，是为了今天重新加注。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-4">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">我们做 AI，不是比谁跑得快，而是守住长期竞争力</h2>
+            <p class="header-sub">不追风口，先把底座打深。</p>
+        </div>
+        <div class="grid-2">
+            <div class="card reveal">
+                <div class="card-title">我看到的行业变化</div>
+                <ul class="mini-list">
+                    <li>ChatGPT 和 DeepSeek 改写了行业节奏。</li>
+                    <li>所有公司都在加速奔跑。</li>
+                    <li>但每家公司的基因和体质不同。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">我们的选择</div>
+                <ul class="mini-list">
+                    <li>先补基础设施和人才短板。</li>
+                    <li>把大模型和产品一体化统筹。</li>
+                    <li>把用户体验放在第一位。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>核心判断：</strong>AI 对我们不是一波热点，而是下一阶段的基础能力。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-5">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">组织要为 AI 重构：Infra、Data、产品必须一体化协同</h2>
+            <p class="header-sub">技术和业务不能再分段推进。</p>
+        </div>
+        <div class="grid-3">
+            <div class="step-card reveal">
+                <div class="step-title">补底座</div>
+                <div class="step-desc">补齐 AI 基础设施短板。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">换队形</div>
+                <div class="step-desc">重构研发团队，吸引原生 AI 人才。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">一体化</div>
+                <div class="step-desc">TEG、CSIG 要共同扛起 AI 化主力军角色。</div>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>一句话：</strong>我们要的不是一个 AI 团队，而是一套 AI 化组织。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-section" id="slide-6">
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/tencent-white.png" alt="腾讯" class="logo-img-cover">
+    </div>
+    <p class="section-num reveal">PART 02</p>
+    <h2 class="section-title reveal">元宝不只是一个产品，<br>而是我们 AI 的前锋阵地</h2>
+    <p class="section-desc reveal">从技术试验田，走向全业务接入的统一入口。</p>
+</section>
+
+<section class="slide slide-white" id="slide-7">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">元宝要跑得足够快，但更重要的是把我们的能力接成网络</h2>
+            <p class="header-sub">快迭代，广接入，强社交。</p>
+        </div>
+        <div class="grid-3">
+            <div class="stat-block reveal"><div class="stat-num">日更</div><div class="stat-label">平均一天一个版本</div></div>
+            <div class="stat-block reveal"><div class="stat-num">Top 3</div><div class="stat-label">国内 AI 应用前三</div></div>
+            <div class="stat-block reveal"><div class="stat-num">几十款</div><div class="stat-label">已接入核心应用</div></div>
+        </div>
+        <div class="grid-2">
+            <div class="card reveal">
+                <div class="card-title">春节动作</div>
+                <ul class="mini-list">
+                    <li>10 亿红包回馈用户。</li>
+                    <li>重做一次“超级社交场景”破圈。</li>
+                </ul>
+            </div>
+            <div class="card reveal">
+                <div class="card-title">下一步产品方向</div>
+                <ul class="mini-list">
+                    <li>上线“元宝派”，叠加社交属性。</li>
+                    <li>把音乐、视频、通信能力接进来。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-white" id="slide-8">
+    <div class="slide-content">
+        <div class="slide-header">
+            <span class="header-mark"></span>
+            <h2 class="header-title">各事业群都要把 AI 接到各自的主航道上</h2>
+            <p class="header-sub">不是一个部门做 AI，而是我们所有业务线都要重做增长逻辑。</p>
+        </div>
+        <div class="grid-3">
+            <div class="step-card reveal">
+                <div class="step-title">CSIG</div>
+                <div class="step-desc">云业务规模化盈利，AI 产品整合继续加深。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">WXG</div>
+                <div class="step-desc">稳妥推进 AI 升级，兼顾生态、隐私和节奏。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">IEG</div>
+                <div class="step-desc">继续押注精品化和全球化，放大游戏长青能力。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">PCG</div>
+                <div class="step-desc">继续验证内容、工具和多模态协同。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">广告</div>
+                <div class="step-desc">AI 加持下增速亮眼，商业化空间仍然很大。</div>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-title">FiT</div>
+                <div class="step-desc">安全和合规继续放在第一位。</div>
+            </div>
+        </div>
+        <div class="quote-box reveal">
+            <div class="card-body"><strong>我的要求：</strong>每个 BG 都要把 AI 接到自己的核心产品、核心场景和核心利润结构上。</div>
+        </div>
+    </div>
+</section>
+
+<section class="slide slide-qa" id="slide-9">
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/tencent-white.png" alt="腾讯" class="logo-img-cover">
+    </div>
+    <h2 class="qa-title reveal">2026，我们就抓一件事</h2>
+    <p class="qa-sub reveal">帮用户节省时间，帮产品提升效率。</p>
+    <p class="qa-sub reveal">只要我们步调一致、沉心做事，我们的下一阶段仍然值得期待。</p>
+</section>
+
+<script>
+class MiniSlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.totalSlides = this.slides.length;
+        this.currentIndex = 0;
+        this.isScrolling = false;
+        this.scrollTimeout = null;
+        this.lastHash = '';
+
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+        this.fsBtn = document.getElementById('fullscreenBtn');
+        this.fsExpand = document.getElementById('fsIconExpand');
+        this.fsCompress = document.getElementById('fsIconCompress');
+
+        this.setupNavDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.setupFullscreen();
+        this.updateProgress(0);
+        this.restoreFromHash();
+    }
+
+    setupNavDots() {
+        this.slides.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', `跳到第 ${i + 1} 张`);
+            btn.addEventListener('click', () => this.goTo(i));
+            this.navDotsContainer.appendChild(btn);
+        });
+    }
+
+    updateNavDots(index) {
+        const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                const idx = this.slides.indexOf(entry.target);
+                if (idx === -1) return;
+
+                this.currentIndex = idx;
+                this.updateProgress(idx);
+                this.updateNavDots(idx);
+                this.updateHash(idx);
+
+                const fn = document.getElementById('footnote');
+                if (fn) fn.style.opacity = idx === 0 ? '0' : '1';
+
+                const isBlueSide = entry.target.classList.contains('slide-cover') ||
+                    entry.target.classList.contains('slide-section') ||
+                    entry.target.classList.contains('slide-qa');
+                document.body.classList.toggle('on-blue', isBlueSide);
+            });
+        }, { threshold: 0.55 });
+
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    updateProgress(index) {
+        const pct = this.totalSlides > 1 ? (index / (this.totalSlides - 1)) * 100 : 100;
+        this.progressBar.style.width = pct + '%';
+        const isBlue = this.slides[index] &&
+            (this.slides[index].classList.contains('slide-cover') ||
+             this.slides[index].classList.contains('slide-section') ||
+             this.slides[index].classList.contains('slide-qa'));
+        this.progressBar.style.background = isBlue ? 'rgba(255,255,255,0.7)' : 'var(--primary)';
+    }
+
+    updateHash(index) {
+        const slide = this.slides[index];
+        if (!slide || !slide.id || this.lastHash === slide.id) return;
+        this.lastHash = slide.id;
+        history.replaceState(null, '', `#${slide.id}`);
+    }
+
+    restoreFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        const index = this.slides.findIndex(slide => slide.id === hash);
+        if (index === -1) return;
+        this.currentIndex = index;
+        this.updateProgress(index);
+        this.updateNavDots(index);
+        this.lastHash = hash;
+        requestAnimationFrame(() => {
+            this.slides[index].scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                this.goTo(this.currentIndex + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.goTo(this.currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                this.goTo(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                this.goTo(this.totalSlides - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                this.fsBtn.click();
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startY = 0;
+        let startX = 0;
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dy = startY - e.changedTouches[0].clientY;
+            const dx = startX - e.changedTouches[0].clientX;
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+                this.goTo(this.currentIndex + (dy > 0 ? 1 : -1));
+            }
+        }, { passive: true });
+    }
+
+    setupWheelNav() {
+        document.addEventListener('wheel', (e) => {
+            if (this.isScrolling) return;
+            this.isScrolling = true;
+            clearTimeout(this.scrollTimeout);
+            if (e.deltaY > 10) this.goTo(this.currentIndex + 1);
+            else if (e.deltaY < -10) this.goTo(this.currentIndex - 1);
+            this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+        }, { passive: true });
+    }
+
+    goTo(index) {
+        index = Math.max(0, Math.min(this.totalSlides - 1, index));
+        if (index === this.currentIndex) return;
+        this.currentIndex = index;
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    setupFullscreen() {
+        const updateFsIcon = () => {
+            const isFs = !!document.fullscreenElement;
+            this.fsExpand.style.display = isFs ? 'none' : 'block';
+            this.fsCompress.style.display = isFs ? 'block' : 'none';
+            this.fsBtn.style.background = isFs ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.12)';
+        };
+
+        this.fsBtn.addEventListener('mouseenter', () => { this.fsBtn.style.opacity = '1'; });
+        this.fsBtn.addEventListener('mouseleave', () => { this.fsBtn.style.opacity = '0.5'; });
+        this.fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        });
+
+        document.addEventListener('fullscreenchange', updateFsIcon);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    function tuneLogoImage(img, groupSize) {
+        if (!img) return;
+
+        const apply = () => {
+            if (!img.naturalWidth || !img.naturalHeight) return;
+
+            img.style.height = '';
+            img.style.maxWidth = '';
+
+            const ratio = img.naturalWidth / img.naturalHeight;
+            const baseHeight = parseFloat(getComputedStyle(img).height) || 32;
+            let scale = 1;
+            let maxWidth = 160;
+
+            if (ratio >= 5) {
+                scale = 0.74;
+                maxWidth = 132;
+            } else if (ratio >= 4) {
+                scale = 0.82;
+                maxWidth = 144;
+            } else if (ratio >= 3) {
+                scale = 0.9;
+                maxWidth = 156;
+            } else if (ratio <= 1.4) {
+                scale = 1.08;
+                maxWidth = 72;
+            } else if (ratio <= 1.8) {
+                scale = 1.04;
+                maxWidth = 92;
+            }
+
+            if (groupSize === 1) {
+                scale *= ratio >= 3 ? 1.08 : 1.16;
+                maxWidth += ratio <= 2.2 ? 18 : 8;
+            } else {
+                scale *= 0.96;
+            }
+
+            img.style.height = `${Math.round(baseHeight * scale)}px`;
+            img.style.maxWidth = `${maxWidth}px`;
+        };
+
+        if (img.complete) apply();
+        else img.addEventListener('load', apply, { once: true });
+    }
+
+    function tuneLogoGroups() {
+        document.querySelectorAll('#globalLogoGroup, .fixed-logo-dark').forEach(group => {
+            const imgs = Array.from(group.querySelectorAll('img'));
+            imgs.forEach(img => tuneLogoImage(img, imgs.length));
+
+            requestAnimationFrame(() => {
+                const heights = imgs
+                    .map(img => img.getBoundingClientRect().height)
+                    .filter(Boolean);
+                const divider = group.querySelector('.logo-divider, span');
+                if (!divider || !heights.length) return;
+                divider.style.height = `${Math.round(Math.max(...heights) * 0.88)}px`;
+            });
+        });
+    }
+
+    new MiniSlidePresentation();
+    tuneLogoGroups();
+    window.addEventListener('resize', tuneLogoGroups);
+});
+</script>
+</body>
+</html>
