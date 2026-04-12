@@ -1,6 +1,7 @@
 # Slide-Writer
 
 [在线演示](https://feei.cn/slide-writer/)
+[English](README.en.md)
 
 > 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
 
