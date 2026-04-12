@@ -4,126 +4,128 @@
 
 # Slide-Writer
 
-[在线演示](https://feei.cn/slide-writer/)
-[English](README.en.md)
+[Live Demo](https://feei.cn/slide-writer/)
+[中文](README.zh-CN.md)
 
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Website](https://img.shields.io/badge/Website-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
 
+> Focus on goals, viewpoints, and judgment. Slide-Writer handles structure, writing, refinement, and presentation.
 
-> 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
+Slide-Writer is a writing skill built specifically for presentation workflows. It helps turn ideas, outlines, documents, speech drafts, notes, data, or existing decks into enterprise-grade HTML slide presentations that are structured, clear, and presentation-ready.
 
-一个专为 PPT 场景设计的写作 Skill。它帮助您将想法、大纲、文档、演讲稿、笔记、数据或现有 PPT，快速整理为结构清晰、表达准确、适合演示的企业级 HTML 演示PPT。
+## Background
 
-## 背景
+Building a strong presentation usually takes a lot of time, but much of that time has little to do with the core message: finding templates, adjusting colors, aligning elements, choosing fonts. Those are mostly production chores. Slide-Writer is designed to automate that work so you can focus on what to say, not how to lay it out.
 
-做一份好 PPT 往往要花掉大量时间，却和核心表达没有直接关系——找模板、调配色、对齐元素、挑字体……这些都是体力活。Slide-Writer 的目标是把这些都自动化，让你只需关注"说什么"，而不是"怎么排"。
+You focus on goals, viewpoints, and judgment. Slide-Writer handles structure, writing, refinement, and presentation. Whether you start from a sentence, an outline, a document, a speech draft, or an old deck, Slide-Writer reshapes it into a presentation that is accurate, structured, and ready to present.
 
-你专注于目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。无论你给的是一句话、一份大纲、一篇文档、一段演讲稿，还是已有的旧 deck，Slide-Writer 都能将其整理为表达准确、适合演示的 PPT。
+## Core Features
 
-## 核心特性
+**Easy to use**: generate a complete deck from a sentence, outline, draft, or speech manuscript.
+- Generate a deck from a single idea
+- Generate a deck from a theme or objective
+- Turn a speech draft into slides
+- Expand an outline into a full presentation
+- Convert notes, documents, or reports into slides
+- Improve an existing HTML slide deck
+- Compress a long deck or expand a short one
+- Produce multiple audience-specific versions from the same source
 
-**简单易用**：无论是输入一句话、大纲、草稿还是演讲稿，都可自动生成一套完整演示文稿。
-- 从一个想法生成 PPT
-- 从一个主题或目标生成 PPT
-- 从演讲稿转成 PPT
-- 从大纲扩展为完整 PPT
-- 从笔记、文档、报告转成 PPT
-- 优化已有 HTML 演示稿
-- 压缩长 PPT 或扩展短 PPT
-- 基于同一内容生成不同受众版本
+**Enterprise-grade visual language**: built for formal scenarios such as executive reviews, internal communication, cross-team updates, and summit speeches.
+- Includes multiple internet-company brand themes with automatic theme detection and switching
+- Unifies logo display, colors, typography, and layout conventions
+- Provides precise alignment, consistent spacing, and professional visual rhythm
+- Produces decks that look like formal presentations rather than generic web pages
 
-**企业级视觉表达**：专为企业汇报、管理层沟通、部门分享、峰会演讲等正式场景设计。
-- 内置多家互联网公司品牌主题，支持主题自动识别与切换
-- 统一 Logo 展示、配色、排版与视觉规范
-- 精确对齐、统一间距、专业字体搭配
-- 整体风格更适合正式演示，而非普通网页排版
+**Complete presentation structure**: not just “putting text on slides,” but generating a deck structure that fits presentation delivery.
+- Automatically plans sections and slide order
+- Includes cover, agenda, section divider, and closing slides
+- Splits dense content across slides automatically
+- Converts document-style writing into presentation-style writing
+- Reuses established page skeletons instead of rebuilding every slide from scratch
 
-**完整的演示结构**：不只是“把文字放上页面”，而是自动生成一套更适合演示的结构。
-- 自动规划章节与页面顺序
-- 内置封面页、目录页、章节过渡页、结尾页
-- 根据内容自动拆页，避免信息堆叠
-- 支持从文档表达转为演示表达
-- 优先复用已经沉淀好的页面骨架，而不是每一页都从零拼布局
+**Automatic rewriting and content restructuring**: Slide-Writer does more than layout. It rewrites content into presentation form so it becomes clearer, tighter, and more suitable for speaking.
+- Refines titles, bullet hierarchy, and paragraph structure
+- Restructures long drafts, notes, and documents into better slide logic
+- Polishes wording for stronger clarity and sharper expression
+- Helps with common problems: too much content, weak structure, unclear judgment, source material that is hard to split into slides, drafts that do not yet look presentation-ready, or one source that must serve multiple audiences
 
-**自动润色与内容重构**：不仅负责排版，还会对内容进行演示化改写，让表达更准确、更简练、更适合展示。
-- 优化标题层级、要点列表、正文段落
-- 将长文、草稿、纪要重构为更清晰的 Slide 结构
-- 自动润色每一句话，提升表达的准确性与力量感
-- 解决常见问题：内容很多，但结构不清；有判断，但表达不够凝练；有材料，但不知道如何拆页；有初稿，但不像正式演示稿；同一内容需要适配多个场景和受众；大量时间花在润色、改写和调顺序上
+**Rich page-level expression**: supports many common presentation patterns beyond plain text slides.
+- Animations: element reveals and page transitions
+- Data visualization: bar charts, line charts, and donut charts with inline SVG
+- Step and flow diagrams
+- Tables
+- Mixed image/text layouts
+- Card-based information presentation
+- Page skeletons: fixed title area, grouped agenda, dual-phase process, support board, and flow board
+- Structured slide components that are better suited for business presentations and speeches
 
-**丰富的页面表达能力**：支持多种常见演示内容形式，而不只是普通文字页。
-- 动画：元素入场动画、页面切换动画
-- 数据可视化：柱状图、折线图、环形图（基于内联 SVG）
-- 步骤流程图
-- 表格
-- 图文混排
-- 卡片化信息展示
-- 页面级骨架：统一标题区、分组目录、双阶段流程、横向支撑板、流转看板
-- 更适合企业汇报与演讲的结构化页面组件
+**Single-file frontend delivery**: outputs a standard standalone HTML file that opens directly in a browser, without PowerPoint or Keynote.
+- CSS / JS / images / fonts are embedded or bundled for direct use
+- Supports keyboard navigation, navigation dots, and fullscreen mode
+- Responsive layout for different screens and projector resolutions
+- Charts are built with inline SVG, without external chart libraries
+- Animations are implemented with CSS transitions
+- Pure HTML + CSS + JavaScript, with no build tool and no runtime dependency
 
-**纯前端单文件交付**：输出标准单个 HTML 文件，浏览器直接打开，无需安装 PowerPoint 或 Keynote。
-- CSS / JS / 图片 / 字体全内置
-- 支持键盘翻页、导航点、全屏展示
-- 响应式布局，适配不同屏幕与投影分辨率
-- 图表基于 SVG 内联实现，无需外部图表库
-- 动画基于 CSS Transitions 实现
-- 纯 HTML + CSS + JavaScript，零依赖，无需构建工具
+## Template Role
 
-## 模板职责
+`index.html` is the single generation baseline in this repository.
 
-`index.html` 是当前仓库里唯一的生成基线模板。
+- It provides the CSS / JS runtime, the page skeletons, and the component demonstrations.
+- New decks should start from `index.html`, replacing the sample theme, sample copy, and sample slide content.
+- Do not treat `index.html` as a read-only reference deck. Its example content is meant to be replaced.
+- If you need to preserve more showcase decks later, add separate sample files instead of creating a second template baseline.
 
-- 它既提供运行所需的 CSS / JS 引擎，也承载页面骨架和组件演示。
-- 生成新 deck 时，应从 `index.html` 出发，替换其中的示例主题、示例文案和示例页面内容。
-- 不要把 `index.html` 当成“只读参考稿”；它的示例内容本身就是为了被替换。
-- 如果后续需要长期保留更多展示样例，建议另建独立样例文件，而不是复制出第二套模板基线。
+## Quick Start
 
-## 快速开始
-
-```
+```bash
 # Claude
 git clone https://github.com/FeeiCN/slide-writer.git ~/.claude/skills/slide-writer
 
 # Codex
 git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writer
-
-# 使用方法（明确说明使用slide-writer，推荐使用）
-
-> 使用slide-writer，基于演讲稿(examples/tencent-pony-ma.md)，生成一个演讲PPT。
-
-# 使用案例2（可不用说明）
-
-> 我明天有一个演讲，现在有一些初步想法（examples/alibaba-ai-rollout.md），基于此生成一个演讲PPT。
-
 ```
 
-![蚂蚁演示](examples/test-antgroup-eric.png)
-![阿里巴巴演示](examples/test-alibaba-jack-ma.png)
-![腾讯演示](examples/test-tencent-pony-ma.png)
+Usage example:
 
+```text
+Use slide-writer and generate a presentation from the speech draft in examples/tencent-pony-ma.md.
+```
 
-## 仓库结构
+Another example:
 
-- `README.md`：项目说明与快速开始
-- `SKILL.md`：Skill 定义与执行规则
-- `themes.md`：主题与 Logo 规则
-- `components.md`：页面组件库
-- `index.html`：基础模板 + 页面骨架演示
-- `examples/`：示例输入输出
-- `TESTING.md`：测试说明
+```text
+I have a speech tomorrow and only have some early ideas in examples/alibaba-ai-rollout.md. Use them to generate a presentation.
+```
 
-### 快速测试
+![Ant Group Demo](examples/test-antgroup-eric.png)
+![Alibaba Demo](examples/test-alibaba-jack-ma.png)
+![Tencent Demo](examples/test-tencent-pony-ma.png)
 
-1. 选一个 [examples](examples) 里的样例作为输入。
-2. 让模型基于本仓库里的 `SKILL.md` 生成 `test-*.html` 到仓库根目录。
-3. 运行：
+## Repository Structure
+
+- `README.md`: English project overview and quick start
+- `README.zh-CN.md`: Chinese documentation
+- `SKILL.md`: skill definition and execution rules
+- `themes.md`: theme and logo rules
+- `components.md`: page component library
+- `index.html`: baseline template and page skeleton gallery
+- `examples/`: sample inputs and outputs
+- `TESTING.md`: testing notes
+
+### Quick Test
+
+1. Pick one sample from [examples](examples).
+2. Ask the model to generate a `test-*.html` file in the repository root based on this repo’s `SKILL.md`.
+3. Run:
 
 ```bash
 ./scripts/preview.sh
 ```
 
-4. 浏览器打开 `http://localhost:8000/test-xxx.html` 预览。
+4. Open `http://localhost:8000/test-xxx.html` in a browser.
 
-更完整的测试流程和回归清单见 [TESTING.md](TESTING.md)。
+See [TESTING.md](TESTING.md) for the full testing flow and regression checklist.
