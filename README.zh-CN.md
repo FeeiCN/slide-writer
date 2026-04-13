@@ -82,21 +82,26 @@
 
 ## 快速开始
 
-```
+```bash
 # Claude
 git clone https://github.com/FeeiCN/slide-writer.git ~/.claude/skills/slide-writer
 
 # Codex
 git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writer
+```
 
-# 使用方法（明确说明使用slide-writer，推荐使用）
+使用示例：
 
-> 使用slide-writer，基于演讲稿(examples/tencent-pony-ma.md)，生成一个演讲PPT。
+```text
+/slide-writer 帮我生成一个「人为什么要吃饭」的演讲 PPT，使用支付宝风格。
+```
 
-# 使用案例2（可不用说明）
+```text
+使用 slide-writer，基于演讲稿 examples/tencent-pony-ma.md，生成一个演讲 PPT。
+```
 
-> 我明天有一个演讲，现在有一些初步想法（examples/alibaba-ai-rollout.md），基于此生成一个演讲PPT。
-
+```text
+我明天有一个演讲，现在有一些初步想法（examples/alibaba-ai-rollout.md），基于此生成一个演讲 PPT。
 ```
 
 ![蚂蚁演示](examples/test-antgroup-eric.png)

@@ -89,13 +89,15 @@ git clone https://github.com/FeeiCN/slide-writer.git ~/.claude/skills/slide-writ
 git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writer
 ```
 
-Usage example:
+Usage examples:
+
+```text
+/slide-writer Generate a presentation on "Why do humans need to eat?" using Alipay style.
+```
 
 ```text
 Use slide-writer and generate a presentation from the speech draft in examples/tencent-pony-ma.md.
 ```
-
-Another example:
 
 ```text
 I have a speech tomorrow and only have some early ideas in examples/alibaba-ai-rollout.md. Use them to generate a presentation.
