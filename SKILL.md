@@ -203,27 +203,30 @@ compatible_with:
 
 ## Phase 4：生成 HTML
 
-### Step 4.1：读取模板 + 确定主题 + 读取 Logo
+### Step 4.1：准备输出文件 + 确定主题 + 读取 Logo
 
-**必须先执行：** 读取当前 skill 工作目录下的 [index.html](index.html)
+**生成流程（必须按顺序执行）：**
 
-这里的 [index.html](index.html) 是当前仓库里唯一的生成基线，不是只读参考页。生成时应保留其引擎、布局骨架和交互能力，并替换其中的示例主题、示例文案和示例页面内容。
+1. **复制 shell 模板**：`cp _base.html [输出文件名].html`
+   - `_base.html` 是预构建的引擎壳，含完整 CSS/JS，**禁止直接编辑 `_base.html` 本身**
+   - 输出文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`
 
-- 提取 `<style>` 块全文 → 作为新文件的 CSS 基础（完整复制，不裁剪）
-- 提取 `<script>` 块全文 → 作为新文件的 JS 引擎（完整复制，不裁剪）
-- 读取 [themes.md](themes.md) 中已匹配主题的 CSS 变量块
-- 读取 [components.md](components.md) 了解所有可用组件
-- 优先识别 [components.md](components.md) 中已经沉淀的页面骨架，而不只是单个组件
-- 先为每一部分内容做“内容类型判断”，再从 [components.md](components.md) 里选择最优页面骨架 / 组件组合
-- 如果命中腾讯、字节跳动、苹果主题，额外读取 `themes.md` 中对应的「主题补充规则」
+2. **读取参考资料**（只读，不复制）：
+   - 读取 [themes.md](themes.md) 中已匹配主题的 CSS 变量块
+   - 读取 [components.md](components.md) 了解所有可用组件和页面骨架
+   - 先为每一部分内容做”内容类型判断”，再从 [components.md](components.md) 里选择最优页面骨架 / 组件组合
+   - 如果命中腾讯、字节跳动、苹果主题，额外读取 `themes.md` 中对应的「主题补充规则」
 
-**强制保留规则：**
+**`_base.html` 占位符说明：**
 
-- `index.html` 中除“示例业务内容”外，其它关键 CSS/JS 必须保留。
-- 允许替换的只有演讲主题、文案、章节结构、数据、logo、主题变量覆盖，以及必要的少量主题级样式覆盖。
-- 不允许删除或随意重写基础样式系统、翻页逻辑、导航点、进度条、全屏按钮、键盘控制、滚动吸附、固定脚注、动画 reveal 机制。
-- 如果某个效果看起来暂时用不上，也保留原实现，避免生成稿和模板行为漂移。
-- 优先策略不是“重新写一版页面引擎”，而是“在 `index.html` 的现有引擎上换内容、换主题、做最小覆盖”。
+| 占位符 | 位置 | 替换内容 |
+|---|---|---|
+| `%%TITLE%%` | `<title>` | 演讲主题 — 演讲者 |
+| `<!-- %%THEME_STYLE%% -->` | `</style>` 后 | `<style>` 主题变量覆盖块 |
+| `%%LOGO_CLASS%%` | `#globalLogoGroup` 的 class | `logo-group-single` 或 `logo-group-dual` |
+| `<!-- %%LOGO_GROUP_CONTENT%% -->` | `#globalLogoGroup` 内部 | logo `<img>` 标签（白底页用） |
+| `%%FOOTNOTE%%` | `#footnote` | 页脚说明文字 |
+| `<!-- %%SLIDES%% -->` | body 内容区 | 所有 `<section>` 幻灯片 HTML |
 
 **Logo 识别与展示逻辑（必须执行）：**
 
@@ -251,22 +254,68 @@ compatible_with:
    - 超宽 logo 自动略微降高并收窄最大宽度；偏高或偏方的 logo 可小幅增高
    - 双 logo 场景下，分隔线高度应跟随两侧 logo 的最终显示高度一起更新
 
-### Step 4.2：构建 HTML
+### Step 4.2：用 Edit 工具填充占位符
 
-所有生成稿都基于 `index.html`。无论是正式输出还是本地测试稿，都在这个模板上替换内容、主题变量和 logo，logo 统一使用 `./logos/...` 相对路径。
+复制完 `_base.html` 后，**依次用 Edit 工具替换 6 个占位符**，不要重写整个文件：
 
-这一步的原则是：
+**① 标题**
+```
+old: %%TITLE%%
+new: [演讲主题] — [演讲者]
+```
 
-- 保留 `index.html` 的页面骨架和交互引擎。
-- 默认保留 `index.html` 中统一的标题区位置和 `slide-body` 内容区结构，不要让不同内容页的标题上下漂移。
-- 替换具体内容区域的幻灯片正文。
-- 在基础 `<style>` 之后追加主题覆盖，而不是重写基础 CSS。
-- 在不影响模板行为的前提下，做最小必要改动。
-- 所有输出文件都从 `index.html` 出发。
-- `index.html` 里的示例内容默认都可替换；真正需要保留的是页面骨架、交互和样式系统，而不是示例业务文案本身。
-- 不要从已有 `test-antgroup.html`、`test-tencent.html` 等测试产物继续复制，避免模板行为漂移。
-- 内容页优先选用模板和组件库里已有的页面级骨架：如分组目录页、开场钩子页、双阶段桥接流程、横向支撑板、流转看板、左右图文混排等。
-- 每一页都要先回答“这页最核心的关系是什么”，然后选对应骨架：
+**② 主题样式覆盖**
+```
+old: <!-- %%THEME_STYLE%% -->
+new:
+<style>
+:root {
+    --primary:       [主色];
+    --primary-dark:  [深色];
+    --primary-light: [浅色];
+    --primary-pale:  [极浅色];
+    --primary-dim:   [透明色];
+    --cover-bg:      [封面渐变];
+    --section-bg:    [章节页渐变];
+}
+.slide-section { background: [渐变] !important; }
+.slide-qa      { background: [渐变] !important; }
+</style>
+```
+
+**③ Logo class**
+```
+old: %%LOGO_CLASS%%
+new: logo-group-single（单 logo）或 logo-group-dual（双 logo）
+```
+
+**④ Logo 内容（白底页右上角）**
+```
+old: <!-- %%LOGO_GROUP_CONTENT%% -->
+new: <img src=”./logos/[brand]-color.png” alt=”[公司名]”>
+     （双 logo 时加 <span class=”logo-divider”></span> 和第二个 <img>）
+```
+
+**⑤ 页脚说明**
+```
+old: %%FOOTNOTE%%
+new: * 仅限内部交流使用（或用户指定的文字）
+```
+
+**⑥ 幻灯片内容**
+```
+old: <!-- %%SLIDES%% -->
+new: 所有 <section> 幻灯片 HTML
+```
+
+**主题应用说明：**
+- `.slide-section` 和 `.slide-qa` 在基础 CSS 中使用硬编码渐变，必须用 `!important` 覆盖。
+- `--primary-pale` 会自动影响 `info-card` 背景、`agenda-item` hover、`highlight-box` 等，无需逐一覆盖。
+- logo 统一使用 `./logos/...` 相对路径。
+
+**内容页布局原则：**
+- 优先选用 `components.md` 中已有的页面级骨架，不要每页从零拼版。
+- 每一页先回答”这页最核心的关系是什么”，再选骨架：
   - 总览 / 议程 → 分组目录页或 `agenda-item`
   - 开场判断 / 问题定义 → 开场钩子页或 2×2 信息面板
   - 并列观点 → `three-col` / `info-card`
@@ -276,68 +325,6 @@ compatible_with:
   - 多角色流转 → `demand-flow-board`
   - 数据构成 / 趋势 → `stat-block` / SVG 图表 / 表格 / 环形图
   - 结尾总结 → 分组总结页 / `highlight-box`
-
-**文件结构模板：**
-
-```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[演讲主题] — [演讲者]</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<style>
-/* === 基础 CSS（从 index.html 完整复制）=== */
-...
-
-/* === 主题覆盖（从 themes.md 复制对应公司的 CSS 块）=== */
-/* 示例：阿里巴巴主题 */
-:root {
-    --primary:       #FF6A00;
-    --primary-dark:  #CC4400;
-    /* ... 其余变量 ... */
-    --cover-bg:      linear-gradient(125deg, #7A2000 0%, #CC3800 35%, #FF6A00 65%, #FF9A50 100%);
-    --section-bg:    linear-gradient(135deg, #7A2000 0%, #CC4400 50%, #FF6A00 100%);
-}
-/* 覆盖 .slide-section 背景（它在基础 CSS 中是硬编码渐变，需要强制覆盖）*/
-.slide-section {
-    background: linear-gradient(135deg, #7A2000 0%, #CC4400 50%, #FF6A00 100%) !important;
-}
-/* 同步覆盖 .slide-qa（封底）*/
-.slide-qa {
-    background: linear-gradient(125deg, #7A2000 0%, #CC3800 35%, #FF6A00 65%, #FF9A50 100%) !important;
-}
-</style>
-</head>
-<body>
-
-<!-- PROGRESS BAR：保留 -->
-<div class="progress-bar" id="progressBar"></div>
-
-<!-- NAV DOTS：保留 -->
-<nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
-
-<!-- FULLSCREEN BUTTON：保留 -->
-<!-- 从 index.html 完整复制 fullscreenBtn -->
-
-<!-- FOOTNOTE：保留 -->
-<div id="footnote" style="position:fixed;bottom:clamp(0.6rem,1.5vh,1rem);left:clamp(1rem,3vw,2.5rem);font-size:clamp(0.5rem,0.75vw,0.65rem);color:#ABABAB;font-family:var(--font);z-index:997;pointer-events:none;transition:opacity 0.4s ease;">* 仅限内部交流使用</div>
-
-<!-- SLIDES HERE -->
-
-<script>
-/* 从 index.html 完整复制 <script> 内容 */
-</script>
-</body>
-</html>
-```
-
-**主题应用说明：**
-- `.slide-section` 和 `.slide-qa` 在基础 CSS 中使用硬编码渐变，必须用 `!important` 覆盖，或直接修改基础 CSS 中对应规则的颜色值（推荐后者，更干净）。
-- `--primary-pale` 会自动影响 `info-card` 背景、`agenda-item` hover、`highlight-box` 等所有使用该变量的组件，无需逐一覆盖。
-- 如果生成结果缺少 `progress-bar`、`nav-dots`、`fullscreenBtn`、`footnote` 或对应脚本逻辑，视为不合格输出，需要补回。
 
 ### Step 4.3：幻灯片 HTML 结构
 
@@ -427,11 +414,12 @@ compatible_with:
 
 | 文件 | 用途 | 何时读取 |
 |---|---|---|
+| [_base.html](_base.html) | 预构建引擎壳（含完整 CSS/JS），生成时 `cp` 为输出文件再用 Edit 填充 | Phase 4 Step 4.1（必须，替代旧的 index.html 复制流程） |
 | [themes.md](themes.md) | 14 家互联网公司品牌主题 CSS 变量定义 + Logo 索引 | Phase 0 主题检测 + Phase 4 生成时 |
 | [components.md](components.md) | 所有可用组件的 HTML 片段参考 | Phase 4 生成内容页时 |
 | `logos/[变体]-white.png` | 公司 Logo 白色版 PNG（深色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
 | `logos/[变体]-blue.png` / `logos/[变体]-color.png` | 公司 Logo 彩色版 PNG（白色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
-| [index.html](index.html) | 唯一的 CSS + JS 生成模板 | Phase 4 Step 4.1（必须） |
+| [index.html](index.html) | 完整示例文档，含所有组件的真实渲染样例 | 需要查阅组件骨架细节时（只读参考，不再直接复制） |
 
 ---
 
@@ -439,7 +427,8 @@ compatible_with:
 
 在当前仓库开发本 skill 时，优先使用下面这些本地文件作为测试基线：
 
-- 模板基线：[index.html](index.html)
+- 生成 shell：[_base.html](_base.html)（cp 后填充占位符）
+- 完整示例参考：[index.html](index.html)（只读）
 - 主题库：[themes.md](themes.md)
 - 组件库：[components.md](components.md)
 - Logo 素材：[logos](logos)
