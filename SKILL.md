@@ -351,11 +351,12 @@ new: 所有 <section> 幻灯片 HTML
         <div class="arc arc-2"></div>
         <div class="arc arc-3"></div>
     </div>
-    <div class="cover-top reveal" style="display:flex;align-items:center;justify-content:space-between;">
+    <!-- 有 Logo 时插入，无则省略整个 fixed-logo-dark -->
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/[brand]-white.png" alt="[公司名] Logo" class="logo-img-cover">
+    </div>
+    <div class="cover-top reveal" style="display:flex;align-items:center;">
         <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">[部门名称]</span>
-        <!-- 有 Logo 时插入，无则省略整个 logo 容器 -->
-        <img src="./logos/[brand]-white.png" alt="[公司名] Logo"
-             style="height:clamp(20px,3vh,36px);object-fit:contain;opacity:0.92;">
     </div>
     <div class="cover-main">
         <h1 class="cover-title reveal">[主标题]</h1>
