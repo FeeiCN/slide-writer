@@ -259,6 +259,11 @@ cp _base.html [输出文件名].html
   - Phase 2 结构规划时已确定每页用哪类组件，只需 Grep 提取对应章节
   - 例：只用到 `info-card` 和 `agenda-item` → 只读「信息卡片」和「目录/议程」两节
 
+- **`icons.md`**（用到含图标槽的组件时按需 Grep）
+  - 287 个 Feather Icons，按图标名一行一条，Grep 关键词即可定位
+  - 涉及图标的组件：`info-card`（card-icon）、`step-card`（step-icon）、`support-card`（support-icon）、`role-card`（role-icon）、`stat-block`（stat-icon 可选）、`goal-card`（goal-icon 可选）
+  - 例：标题含"安全" → `grep "shield" icons.md` 取 SVG 填入对应图标槽
+
 ### Step 3.2：用 Edit 工具填充占位符
 
 复制完 `_base.html` 后，**依次用 Edit 工具替换 5 个占位符**，不要重写整个文件：
@@ -446,6 +451,7 @@ new: 所有 <section> 幻灯片 HTML
 | [themes/_index.md](themes/_index.md) | 主题识别规则 + 集团/子品牌关键词表 + logo 索引 + 双 logo 规则 | Phase 0 主题检测（只读此一个文件） |
 | `themes/[id].md` | 单公司主题文件（~30 行）：CSS 变量 + logo 路径 + 补充规则 | Phase 3 Step 3.1（只读匹配到的那一个） |
 | [components.md](components.md) | 所有可用组件的 HTML 片段参考 | Phase 3 按需 Grep 对应章节，不必全读 |
+| [icons.md](icons.md) | 287 个 Feather Icons 内联 SVG，用于 info-card / step-card 图标 | 生成含 info-card / step-card 的页面时按需 Grep |
 | `logos/[变体]-white.png` | 公司 Logo 白色版（深色幻灯片使用） | Phase 3 Step 3.1（有 logo 时） |
 | `logos/[变体]-blue.png` / `logos/[变体]-color.png` | 公司 Logo 彩色版（白色幻灯片使用） | Phase 3 Step 3.1（有 logo 时） |
 | [index.html](index.html) | 完整示例文档，含所有组件的真实渲染样例 | 需要查阅组件骨架细节时（只读参考） |
