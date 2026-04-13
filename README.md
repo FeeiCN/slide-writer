@@ -70,6 +70,8 @@ You focus on goals, viewpoints, and judgment. Slide-Writer handles structure, wr
 - Animations are implemented with CSS transitions
 - Pure HTML + CSS + JavaScript, with no build tool and no runtime dependency
 
+**Always up to date**: automatically pulls the latest version from the repository at the start of every run, so you always get the newest themes, components, and generation rules without any manual update.
+
 ## Template Role
 
 `index.html` is the single generation baseline in this repository.
