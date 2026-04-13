@@ -218,6 +218,7 @@ Phase 1 收集到「公司」字段后，如与初步判断不一致，以用户
 - 一页只保留一种主关系，不要同时把”对比 + 流程 + 目录 + 图表”塞进同一页。
 - 如果内容天然属于 `support-board`、`demand-flow-board`、双阶段流程这类强结构页面，就不要退回普通卡片页。
 - 如果只是 2-4 个短支撑点，优先用现有组件，不要新造大量自定义 HTML。
+- **卡片未铺满一行时，容器必须收窄并居中**：按实际卡片数等比缩小容器宽度（`max-width`），同时 `margin:0 auto` 居中，禁止让少量卡片在全宽容器里偏向左侧留大片空白。
 - 只有当 `components.md` 现有骨架都不适配时，才允许做轻量自定义布局。
 
 ### 布局多样性约束（强制）
@@ -313,14 +314,21 @@ new:
 - 白底页 → 彩色版（`-color.png` / `-blue.png`）
 - 深色页 → 白色版（`-white.png`）；无则用彩色版 + `style=”filter:brightness(0) invert(1)”`
 
-白底页：填充 `%%LOGO_GROUP%%` 占位符
+白底页：填充 `%%LOGO_GROUP%%` 占位符（**必须先按主题规则决定单/双，再从下方选对应模板**）
 ```html
-<!-- 单 logo -->
+<!-- 双 logo（蚂蚁集团主题默认；子品牌：集团+子品牌；无子品牌：集团+支付宝）-->
+<div id=”globalLogoGroup” class=”logo-group-dual”>
+    <img src=”./logos/logo-antgroup-blue.png” alt=”蚂蚁集团”>
+    <span class=”logo-divider”></span>
+    <img src=”./logos/logo-alipay-blue.png” alt=”支付宝”>
+</div>
+
+<!-- 单 logo（集团层面内容 / 其他主题无双logo规则时）-->
 <div id=”globalLogoGroup” class=”logo-group-single”>
     <img src=”./logos/[brand]-color.png” alt=”[公司]”>
 </div>
 
-<!-- 双 logo -->
+<!-- 其他主题双 logo（明确有子品牌时）-->
 <div id=”globalLogoGroup” class=”logo-group-dual”>
     <img src=”./logos/[集团]-color.png” alt=”[集团]”>
     <span class=”logo-divider”></span>
@@ -388,10 +396,17 @@ new: 所有 <section> 幻灯片 HTML
         <div class="arc arc-2"></div>
         <div class="arc arc-3"></div>
     </div>
-    <!-- 深色页 logo：写法见 Step 3.2 ③；无 logo 时省略整个 .fixed-logo-dark -->
-    <div class="fixed-logo-dark logo-group-single">
-        <img src="./logos/[brand]-white.png" alt="[公司名] Logo" class="logo-img-cover">
+    <!-- 深色页 logo：按 Step 3.2 ③ 主题规则决定单/双；蚂蚁集团默认双 logo；无 logo 时省略整个 .fixed-logo-dark -->
+    <!-- 双 logo 示例（蚂蚁集团默认）：-->
+    <div class="fixed-logo-dark logo-group-dual">
+        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
+        <span class="logo-divider"></span>
+        <img src="./logos/logo-alipay-white.png" alt="支付宝" class="logo-img-cover">
     </div>
+    <!-- 单 logo 示例（集团层面或其他主题）：
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/[brand]-white.png" alt="[公司名]" class="logo-img-cover">
+    </div> -->
     <div class="cover-top reveal" style="display:flex;align-items:center;">
         <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">[部门名称]</span>
     </div>
@@ -423,10 +438,17 @@ new: 所有 <section> 幻灯片 HTML
 **章节过渡页：**
 ```html
 <section class="slide slide-section" id="slide-N">
-    <!-- 深色页 logo：写法见 Step 3.2 ③；无 logo 时省略整个 .fixed-logo-dark -->
+    <!-- 深色页 logo：按 Step 3.2 ③ 主题规则决定单/双；蚂蚁集团默认双 logo；无 logo 时省略整个 .fixed-logo-dark -->
+    <!-- 双 logo 示例（蚂蚁集团默认）：-->
+    <div class="fixed-logo-dark logo-group-dual">
+        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
+        <span class="logo-divider"></span>
+        <img src="./logos/logo-alipay-white.png" alt="支付宝" class="logo-img-cover">
+    </div>
+    <!-- 单 logo 示例（集团层面或其他主题）：
     <div class="fixed-logo-dark logo-group-single">
         <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
-    </div>
+    </div> -->
     <p class="section-num reveal">PART [章节号]</p>
     <h2 class="section-title reveal">[章节标题]</h2>
     <p class="section-desc reveal">[一句话说明这一章节要回答的问题]</p>
@@ -436,10 +458,17 @@ new: 所有 <section> 幻灯片 HTML
 **结尾页：**
 ```html
 <section class="slide slide-qa" id="slide-N">
-    <!-- 深色页 logo：写法见 Step 3.2 ③；无 logo 时省略整个 .fixed-logo-dark -->
+    <!-- 深色页 logo：按 Step 3.2 ③ 主题规则决定单/双；蚂蚁集团默认双 logo；无 logo 时省略整个 .fixed-logo-dark -->
+    <!-- 双 logo 示例（蚂蚁集团默认）：-->
+    <div class="fixed-logo-dark logo-group-dual">
+        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
+        <span class="logo-divider"></span>
+        <img src="./logos/logo-alipay-white.png" alt="支付宝" class="logo-img-cover">
+    </div>
+    <!-- 单 logo 示例（集团层面或其他主题）：
     <div class="fixed-logo-dark logo-group-single">
         <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
-    </div>
+    </div> -->
     <h2 class="qa-title reveal">Q&amp;A</h2>
     <p class="qa-sub reveal">[感谢语]</p>
 </section>
