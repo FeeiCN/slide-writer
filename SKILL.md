@@ -48,16 +48,16 @@ compatible_with:
 
 ### 主题自动检测（必须在 Phase 1 之前执行）
 
-**读取 [themes.md](themes.md)**，从以下来源提取公司关键词，自动匹配主题：
+**读取 [themes/_index.md](themes/_index.md)**，从以下来源提取公司关键词，自动匹配主题：
 1. 用户请求原文（提到的公司名、产品名）
 2. 署名中的部门/团队名称
 3. 内容中出现的公司名
 
 **匹配规则：**
-- 识别到关键词 → 静默应用对应主题，生成时告知用户（如”已应用阿里巴巴橙色主题”）
-- 未识别到 → 默认使用蚂蚁集团蓝色主题
+- 识别到关键词 → 记录「主题 ID」和对应的 `themes/[id].md` 路径，生成时告知用户（如”已应用阿里巴巴橙色主题”）
+- 未识别到 → 默认使用蚂蚁集团蓝色主题（`themes/ant-group.md`）
 - 用户明确指定主题名 → 优先遵从用户指定
-- 多品牌冲突、竞品对比场景 → 按 [themes.md](themes.md)「多品牌冲突处理」规则执行
+- 多品牌冲突、竞品对比场景 → 按 `themes/_index.md`「多品牌冲突处理」规则执行
 
 ---
 
@@ -203,60 +203,43 @@ compatible_with:
 
 ## Phase 4：生成 HTML
 
-### Step 4.1：准备输出文件 + 确定主题 + 读取 Logo
+### Step 4.1：准备输出文件 + 读取主题和组件
 
-**生成流程（必须按顺序执行）：**
+**Step 1：复制 shell 模板**
+```
+cp _base.html [输出文件名].html
+```
+- `_base.html` 是预构建的引擎壳，含完整 CSS/JS，**禁止直接编辑 `_base.html` 本身**
+- 输出文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`
 
-1. **复制 shell 模板**：`cp _base.html [输出文件名].html`
-   - `_base.html` 是预构建的引擎壳，含完整 CSS/JS，**禁止直接编辑 `_base.html` 本身**
-   - 输出文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`
+**Step 2：并行读取以下两个文件**（同时发起，不要等一个读完再读另一个）
 
-2. **读取参考资料**（只读，不复制）：
-   - 读取 [themes.md](themes.md) 中已匹配主题的 CSS 变量块
-   - 读取 [components.md](components.md) 了解所有可用组件和页面骨架
-   - 先为每一部分内容做”内容类型判断”，再从 [components.md](components.md) 里选择最优页面骨架 / 组件组合
-   - 如果命中腾讯、字节跳动、苹果主题，额外读取 `themes.md` 中对应的「主题补充规则」
+- **`themes/[id].md`**（Phase 0 已确定的公司主题文件，约 30 行）
+  - 获取 CSS 变量块、`.slide-section` / `.slide-qa` 覆盖、logo 文件路径
+  - 腾讯 / 字节跳动 / 苹果：文件内已包含补充规则，无需额外读取
 
-**`_base.html` 占位符说明：**
+- **`components.md`**（按需读取，不必全读）
+  - Phase 2 已规划好每页用哪类组件，只需 Grep 提取对应章节
+  - 例：只用到 `info-card` 和 `agenda-item` → 只读「信息卡片」和「目录/议程」两节
+
+**`_base.html` 占位符说明（共 5 个）：**
 
 | 占位符 | 位置 | 替换内容 |
 |---|---|---|
 | `%%TITLE%%` | `<title>` | 演讲主题 — 演讲者 |
 | `<!-- %%THEME_STYLE%% -->` | `</style>` 后 | `<style>` 主题变量覆盖块 |
-| `%%LOGO_CLASS%%` | `#globalLogoGroup` 的 class | `logo-group-single` 或 `logo-group-dual` |
-| `<!-- %%LOGO_GROUP_CONTENT%% -->` | `#globalLogoGroup` 内部 | logo `<img>` 标签（白底页用） |
+| `<!-- %%LOGO_GROUP%% -->` | body 内容区 | 完整的 `<div id=”globalLogoGroup” ...>` 元素 |
 | `%%FOOTNOTE%%` | `#footnote` | 页脚说明文字 |
 | `<!-- %%SLIDES%% -->` | body 内容区 | 所有 `<section>` 幻灯片 HTML |
 
-**Logo 识别与展示逻辑（必须执行）：**
-
-查阅 [themes.md](themes.md) 中的「子品牌归属表」和「双 Logo 展示规则」：
-
-1. **先查子品牌**：用户请求中是否包含子品牌关键词？
-   - 是 → 记录「集团 ID」和「子品牌 ID」
-   - 否 → 只记录「集团 ID」，子品牌 ID 为 null
-
-2. **确认 logo 文件是否存在**：查询 themes.md 的「已有 Logo 文件」表
-   - 默认使用 themes.md 中记录的真实 PNG 文件名
-   - 集团 logo 存在 → 以 themes.md 中记录的 `./logos/...` PNG 文件名为准
-   - 子品牌 logo 存在 → 以 themes.md 中记录的 `./logos/...` PNG 文件名为准
-   - 待补充 → 对应变量设为 null
-
-3. **按 themes.md「双 Logo 展示规则」中的情况一/二/三/四生成 logo HTML 片段**，后续幻灯片直接复用
-4. **统一最终展示尺寸**：不同品牌 PNG 的原始尺寸、宽高比和透明留白都可能不同，最终必须按“视觉高度一致”处理
-   - 不以源 PNG 像素大小直接决定最终展示尺寸
-   - 统一使用 `height` / `max-height` 控制高度，配合 `width:auto`
-   - 必须保留 `object-fit:contain`，禁止拉伸、压扁、裁切
-   - 超宽 logo 可以更宽，但高度仍受同一上限约束
-   - 分隔线高度要和两侧 logo 的视觉高度匹配
-   - 同一份 deck 中，内容页、封面、章节页、结尾页的 logo 要保持一致的视觉基线
-   - 默认启用“自动适配”逻辑：根据 logo 的天然宽高比自动微调展示高度和最大宽度，而不是为每个品牌手工写死尺寸
-   - 超宽 logo 自动略微降高并收窄最大宽度；偏高或偏方的 logo 可小幅增高
-   - 双 logo 场景下，分隔线高度应跟随两侧 logo 的最终显示高度一起更新
+**Logo 识别：**
+- 子品牌 / 集团 logo 路径查 `themes/[id].md` 的「Logo」节
+- logo 展示规则（情况一/二/三/四）查 `themes/_index.md` 的「双 Logo 展示规则」节
+- 所有 logo 统一高度 `height:clamp(1.4rem,2.8vw,2.2rem);max-height:36px;width:auto;object-fit:contain`
 
 ### Step 4.2：用 Edit 工具填充占位符
 
-复制完 `_base.html` 后，**依次用 Edit 工具替换 6 个占位符**，不要重写整个文件：
+复制完 `_base.html` 后，**依次用 Edit 工具替换 5 个占位符**，不要重写整个文件：
 
 **① 标题**
 ```
@@ -264,45 +247,44 @@ old: %%TITLE%%
 new: [演讲主题] — [演讲者]
 ```
 
-**② 主题样式覆盖**
+**② 主题样式覆盖**（内容直接从 `themes/[id].md` 的 CSS 块复制）
 ```
 old: <!-- %%THEME_STYLE%% -->
 new:
 <style>
-:root {
-    --primary:       [主色];
-    --primary-dark:  [深色];
-    --primary-light: [浅色];
-    --primary-pale:  [极浅色];
-    --primary-dim:   [透明色];
-    --cover-bg:      [封面渐变];
-    --section-bg:    [章节页渐变];
-}
-.slide-section { background: [渐变] !important; }
-.slide-qa      { background: [渐变] !important; }
+:root { ... }
+.slide-section { background: ... !important; }
+.slide-qa      { background: ... !important; }
+/* 如有补充规则中的额外覆盖，一并追加 */
 </style>
 ```
 
-**③ Logo class**
+**③ Logo 组（整个 div，白底页右上角）**
 ```
-old: %%LOGO_CLASS%%
-new: logo-group-single（单 logo）或 logo-group-dual（双 logo）
+old: <!-- %%LOGO_GROUP%% -->
+new（单 logo）:
+<div id=”globalLogoGroup” class=”logo-group-single”>
+    <img src=”./logos/[brand]-color.png” alt=”[公司名]”>
+</div>
+
+new（双 logo）:
+<div id=”globalLogoGroup” class=”logo-group-dual”>
+    <img src=”./logos/[集团]-color.png” alt=”[集团]”>
+    <span class=”logo-divider”></span>
+    <img src=”./logos/[子品牌]-color.png” alt=”[子品牌]”>
+</div>
+
+new（无 logo）:
+<div id=”globalLogoGroup” class=”logo-group-single” style=”display:none;”></div>
 ```
 
-**④ Logo 内容（白底页右上角）**
-```
-old: <!-- %%LOGO_GROUP_CONTENT%% -->
-new: <img src=”./logos/[brand]-color.png” alt=”[公司名]”>
-     （双 logo 时加 <span class=”logo-divider”></span> 和第二个 <img>）
-```
-
-**⑤ 页脚说明**
+**④ 页脚说明**
 ```
 old: %%FOOTNOTE%%
 new: * 仅限内部交流使用（或用户指定的文字）
 ```
 
-**⑥ 幻灯片内容**
+**⑤ 幻灯片内容**
 ```
 old: <!-- %%SLIDES%% -->
 new: 所有 <section> 幻灯片 HTML
@@ -414,12 +396,13 @@ new: 所有 <section> 幻灯片 HTML
 
 | 文件 | 用途 | 何时读取 |
 |---|---|---|
-| [_base.html](_base.html) | 预构建引擎壳（含完整 CSS/JS），生成时 `cp` 为输出文件再用 Edit 填充 | Phase 4 Step 4.1（必须，替代旧的 index.html 复制流程） |
-| [themes.md](themes.md) | 14 家互联网公司品牌主题 CSS 变量定义 + Logo 索引 | Phase 0 主题检测 + Phase 4 生成时 |
-| [components.md](components.md) | 所有可用组件的 HTML 片段参考 | Phase 4 生成内容页时 |
-| `logos/[变体]-white.png` | 公司 Logo 白色版 PNG（深色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
-| `logos/[变体]-blue.png` / `logos/[变体]-color.png` | 公司 Logo 彩色版 PNG（白色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
-| [index.html](index.html) | 完整示例文档，含所有组件的真实渲染样例 | 需要查阅组件骨架细节时（只读参考，不再直接复制） |
+| [_base.html](_base.html) | 预构建引擎壳（含完整 CSS/JS），生成时 `cp` 为输出文件再用 Edit 填充 | Phase 4 Step 4.1（必须） |
+| [themes/_index.md](themes/_index.md) | 主题识别规则 + 集团/子品牌关键词表 + logo 索引 + 双 logo 规则 | Phase 0 主题检测（只读此一个文件） |
+| `themes/[id].md` | 单公司主题文件（~30 行）：CSS 变量 + logo 路径 + 补充规则 | Phase 4 Step 4.1（只读匹配到的那一个） |
+| [components.md](components.md) | 所有可用组件的 HTML 片段参考 | Phase 4 按需 Grep 对应章节，不必全读 |
+| `logos/[变体]-white.png` | 公司 Logo 白色版（深色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
+| `logos/[变体]-blue.png` / `logos/[变体]-color.png` | 公司 Logo 彩色版（白色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
+| [index.html](index.html) | 完整示例文档，含所有组件的真实渲染样例 | 需要查阅组件骨架细节时（只读参考） |
 
 ---
 
@@ -428,6 +411,8 @@ new: 所有 <section> 幻灯片 HTML
 在当前仓库开发本 skill 时，优先使用下面这些本地文件作为测试基线：
 
 - 生成 shell：[_base.html](_base.html)（cp 后填充占位符）
+- 主题索引：[themes/_index.md](themes/_index.md)（Phase 0 识别用）
+- 公司主题：`themes/[id].md`（14 个文件，Phase 4 按需读取）
 - 完整示例参考：[index.html](index.html)（只读）
 - 主题库：[themes.md](themes.md)
 - 组件库：[components.md](components.md)
