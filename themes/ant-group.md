@@ -4,14 +4,20 @@
 
 ## Logo
 
-**默认使用蚂蚁集团 + 支付宝双 Logo**（无论是否明确提到支付宝）：
+Logo 显示规则：
+- 检测到**子品牌**（支付宝、花呗等）→ 双 Logo：集团 ＋ 子品牌
+- 只检测到**蚂蚁集团**本身（无子品牌）→ 单 Logo：仅集团
+- **未识别到任何公司（默认 fallback）** → 双 Logo：蚂蚁集团 ＋ 支付宝
 
-- 深色页：`logo-antgroup-white.png` ＋ 分隔线 ＋ `logo-alipay-white.png`
-- 白色页：`logo-antgroup-blue.png` ＋ 分隔线 ＋ `logo-alipay-blue.png`
+双 Logo 路径：
+- 深色页：`./logos/logo-antgroup-white.png` ＋ 分隔线 ＋ `./logos/logo-alipay-white.png`
+- 白色页：`./logos/logo-antgroup-blue.png` ＋ 分隔线 ＋ `./logos/logo-alipay-blue.png`
 
-仅在用户明确说明"只用集团 logo"或场景明确不涉及支付宝时，才退回单 logo。
+单 Logo 路径：
+- 深色页：`./logos/logo-antgroup-white.png`
+- 白色页：`./logos/logo-antgroup-blue.png`
 
-其他子品牌 logo（仅在用户明确提及时使用）：
+其他子品牌（明确提及时）：
 - mybank：`./logos/logo-mybank-white.png` / `./logos/logo-mybank-color.png`
 
 ## CSS
