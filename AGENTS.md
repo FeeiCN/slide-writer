@@ -32,9 +32,10 @@ Testing is manual and browser-based. Follow the regression checklist in `TESTING
 
 ## Version Management
 
-When bumping the version number, update it in **both** files:
-- `SKILL.md` frontmatter: `version: x.y.z`
-- `README.md` badge: `version-x.y.z-blue.svg`
+When bumping the version number:
+1. Update `SKILL.md` frontmatter: `version: x.y.z`
+2. Update `README.md` badge: `version-x.y.z-blue.svg`
+3. Create a GitHub release: `gh release create vx.y.z --title "vx.y.z" --notes "..." --repo FeeiCN/slide-writer`
 
 ## Commit & Pull Request Guidelines
 
