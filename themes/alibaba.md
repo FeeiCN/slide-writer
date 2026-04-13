@@ -3,7 +3,8 @@
 品牌橙，来自阿里巴巴集团标志色。
 
 ## Logo
-- 待补充（封面 cover-top 保留部门名文字）
+- 白色页（内容页）：`./logos/alibaba.png`（橙色彩色版）
+- 深色页（封面/章节/结尾）：无白色版，使用彩色版 + `filter:brightness(0) invert(1)` 转白
 
 ## CSS
 

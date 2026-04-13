@@ -198,6 +198,7 @@ Phase 0 主题识别用。确定公司后，Phase 4 只需读取 `themes/[id].md
 | alipay | `./logos/logo-alipay-white.png` | `./logos/logo-alipay-blue.png` | 已有 |
 | mybank | `./logos/logo-mybank-white.png` | `./logos/logo-mybank-color.png` | 已有 |
 | tencent | `./logos/tencent-white.png` | `./logos/tencent-blue.png` | 已有 |
+| alibaba | 无（深色页用彩色版 + `filter:brightness(0) invert(1)`） | `./logos/alibaba.png` | 已有 |
 | 其余品牌 | — | — | 待补充 |
 
 ---
