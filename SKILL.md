@@ -43,14 +43,8 @@ compatible_with:
 |---|---|
 | Phase 0 完成后（主题确定） | `已识别主题：腾讯，应用腾讯蓝主题。` |
 | Phase 2 完成后（结构规划） | `规划完成，共 12 张幻灯片：封面 / 目录 / 背景 / …/ Q&A。` |
-| Phase 4 开始前 | `开始生成 HTML 文件，共 12 张…` |
-| Step 4.1 复制模板前 | `复制模板…` |
-| Step 4.2 ① 替换标题前 | `写入标题…` |
-| Step 4.2 ② 写入主题样式前 | `写入腾讯蓝主题样式…` |
-| Step 4.2 ③ 写入 logo 前 | `写入 Logo…` |
-| Step 4.2 ④ 写入页脚前 | `写入页脚…` |
-| Step 4.2 ⑤ 写入幻灯片前 | `写入幻灯片内容（12 张）…` |
-| Phase 5 保存完成后 | （见 Phase 5 输出规范） |
+| Phase 3 开始前 | `开始生成 HTML 文件，共 12 张…` |
+| Phase 4 保存完成后 | （见 Phase 4 输出规范） |
 
 ---
 
@@ -77,13 +71,14 @@ git pull --ff-only
   5. 未被点名的幻灯片保持原样，不做"顺手优化"
   6. 修改完成后，执行与 Mode A 相同的质量检查（不溢出、结构完整、logo 路径有效）
 
-### 主题自动检测（必须在 Phase 1 之前执行）
+### 主题自动检测
 
-**读取 [themes/_index.md](themes/_index.md)**，从以下来源提取公司关键词，优先级从高到低：
-1. Phase 1 收集的「公司」字段（用户明确填写）
-2. 用户请求原文（提到的公司名、产品名）
-3. 署名中的部门/团队名称
-4. 内容中出现的公司名
+**读取 [themes/_index.md](themes/_index.md)**，从用户请求中提取公司关键词，优先级从高到低：
+1. 用户请求原文中明确提到的公司名、产品名
+2. 署名中的部门/团队名称
+3. 内容中出现的公司名
+
+Phase 1 收集到「公司」字段后，如与初步判断不一致，以用户明确填写的为准并更新主题。
 
 **匹配规则：**
 - 识别到关键词 → 记录「主题 ID」和对应的 `themes/[id].md` 路径，生成时告知用户（如”已应用阿里巴巴橙色主题”）
@@ -129,6 +124,21 @@ git pull --ff-only
 4. **3 秒可读** — 观众应在 3 秒内看懂这页在讲什么；副标题只做提示词，不写成第二段正文；bullet 和卡片描述优先短句，不写完整段落。
 5. **第一视角** — 标题、副标题、过渡语优先”我 / 我们 / 今天想讲”；不写成”作者认为””整场发言围绕”等编辑转述口吻。
 
+推荐转换顺序：
+
+1. 先提炼演讲的 3-6 个核心判断
+2. 再为每个判断找 2-4 个支撑点
+3. 最后只挑少量最有代表性的原话做 quote
+
+不适合保留到 PPT 的内容：
+
+- 开场寒暄
+- 重复表达同一观点的不同句子
+- 口语化连接词和铺垫
+- 大段故事细节
+- 没有信息增量的抒情句
+- 可以由演讲者口头补充的背景说明
+
 ### 视觉化原则
 
 如果页面内容仍然“像一堆文字”，必须继续改写成更强的视觉结构，而不是直接交付。
@@ -144,21 +154,6 @@ git pull --ff-only
 7. **先判内容形态，再选版式** — 详见「内容类型 → 页面骨架 / 组件选择规则」。
 8. **标题区固定** — 所有内容页默认复用统一的标题区位置；标题和副标题不应因正文密度不同而上下漂移。
 9. **SVG 优先，减少文字密度** — 凡能用图形表达的关系（数量对比、趋势、占比、流程、层级、演进），必须用内联 SVG 替代文字描述；单页文字块超过 3 个时，主动考虑能否将其中 1 个改写为 SVG 图表或视觉元素；禁止用纯数字 + 文字句子描述可视化数据。
-
-推荐转换顺序：
-
-1. 先提炼演讲的 3-6 个核心判断
-2. 再为每个判断找 2-4 个支撑点
-3. 最后只挑少量最有代表性的原话做 quote
-
-不适合保留到 PPT 的内容：
-
-- 开场寒暄
-- 重复表达同一观点的不同句子
-- 口语化连接词和铺垫
-- 大段故事细节
-- 没有信息增量的抒情句
-- 可以由演讲者口头补充的背景说明
 
 ### 必须包含的页面
 | 页面类型 | 用途 | Slide Class |
@@ -182,15 +177,6 @@ git pull --ff-only
 
 超出限制 → 自动拆成多页，页间用连贯的过渡标题衔接。
 
-**演讲稿专项密度检查**（输入为演讲稿时额外执行）：
-
-生成完每一页后，对照以下标准自检，不达标则继续精简或拆页：
-
-- 这一页，站在 3 米外能在 5 秒内看完吗？→ 不能则继续删
-- 卡片 / bullet 描述里有完整段落吗？→ 有则压缩到 1 句话
-- 同一页里出现了 2 个以上并列模块吗？→ 拆成 2 页
-- 标题是结论句还是话题词？→ 必须是结论句（"我们做了 X" 而非 "X 的情况"）
-
 ### 内容类型 → 页面骨架 / 组件选择规则
 
 在把每一部分内容写成 HTML 之前，必须先做一次“内容类型判断”，再决定使用哪种布局。优先级是：**页面级骨架 > 成组组件 > 普通 bullet / 段落**。
@@ -209,16 +195,6 @@ git pull --ff-only
 | 引用原话 / 观点摘录 | `quote-box`、`insight` | 保留一句金句或关键原话 | 堆多段长引用 |
 | 结尾总结 / 行动主张 | 分组总结页、`agenda-item`、`highlight-box` | 结论页、行动建议、价值回收 | 结尾再次展开大量新信息 |
 
-### 页面选择判断顺序
-
-生成每一页前，按下面顺序判断：
-
-1. 这部分内容是在**总览结构**，还是在讲**一个结论**？
-2. 它更像**并列关系**、**对比关系**，还是**阶段关系**？
-3. 它是否涉及**多角色协同**、**组织支撑**或**流转过程**？
-4. 它的核心信息是否其实是**数字 / 构成 / 趋势**，应该优先视觉化？
-5. 如果一个页面可以同时套多个组件，优先选择**最能强化这页主关系**的那个骨架，其它信息降为支撑，而不是混搭所有组件。
-
 ### 组件选择约束
 
 - 先选页面骨架，再决定骨架内部放什么组件。
@@ -229,29 +205,29 @@ git pull --ff-only
 
 ### 布局多样性约束（强制）
 
-**同类布局不得连续出现超过 2 页。** 规划完整体结构后，扫描一遍布局序列，如果出现以下情况必须替换其中一页的布局：
+规划完整体结构后，扫描一遍布局序列，同时满足以下局部和全局要求：
 
+**局部约束（连续检查）：**
 - 连续 3 页都是 `three-col` / `info-card` 三列 → 中间插入 `stat-block`、`highlight-box` 大字判断页、`step-card` 流程页或章节过渡页
 - 连续 3 页都是普通 `styled-list` bullet → 至少 1 页改为卡片、数据或图文骨架
 - 连续 2 页都是 `step-card` 流程 → 第 3 页必须换为其他骨架
-- 整稿超过 10 页时，必须包含至少 1 页纯视觉页（大数字、金句、SVG 环形图、SVG 柱状图/折线图等），不允许全稿都是文字/卡片页
+
+**全局约束（整稿比例）：**
+- 三列卡片页（`three-col` / `info-card`）占全稿内容页比例 ≤ 40%
+- 整稿超过 8 页时，必须包含至少 1 页纯视觉页（大数字、金句、SVG 图表等）
 
 **布局多样性检查清单**（生成前对照一遍）：
 
-| 检查项 | 要求 |
-|---|---|
-| 最长同类布局连续段 | ≤ 2 页 |
-| 三列卡片页占比 | ≤ 40% |
-| 纯视觉页（大数字/图表/金句）| ≥ 1 页（超过 8 页时） |
-| 章节过渡页间隔 | 每 4–6 页内容页穿插 1 页 |
+| 检查项 | 类型 | 要求 |
+|---|---|---|
+| 最长同类布局连续段 | 局部 | ≤ 2 页 |
+| 三列卡片页占比 | 全局 | ≤ 40% |
+| 纯视觉页（大数字/图表/金句）| 全局 | ≥ 1 页（超过 8 页时） |
+| 章节过渡页间隔 | 局部 | 每 4–6 页内容页穿插 1 页 |
 
----
+### 文字润色（自动执行，无需问用户）
 
-## Phase 3：内容润色（自动执行，无需问用户）
-
-演讲稿场景的专项处理规则已在 Phase 2 定义，本阶段覆盖所有输入类型的通用润色。
-
-在生成 HTML 之前，对所有文字进行润色：
+结构规划完成后，在写 HTML 前对所有文字执行：
 
 1. **去冗余** — 删除”我们认为””需要指出的是”等无信息量的前缀。
 2. **名词化** — “进行分析”→”分析”，”做出决策”→”决策”。
@@ -262,47 +238,55 @@ git pull --ff-only
 
 ---
 
-## Phase 4：生成 HTML
+## Phase 3：生成 HTML
 
-### Step 4.1：准备输出文件 + 读取主题和组件
+### Step 3.1：准备输出文件 + 读取主题和组件
 
-**Step 1：复制 shell 模板**
+**① 复制 shell 模板**
 ```
 cp _base.html [输出文件名].html
 ```
 - `_base.html` 是预构建的引擎壳，含完整 CSS/JS，**禁止直接编辑 `_base.html` 本身**
 - 输出文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`
 
-**Step 2：并行读取以下两个文件**（同时发起，不要等一个读完再读另一个）
+**② 并行读取以下两个文件**（同时发起，不要等一个读完再读另一个）
 
 - **`themes/[id].md`**（Phase 0 已确定的公司主题文件，约 30 行）
   - 获取 CSS 变量块、`.slide-section` / `.slide-qa` 覆盖、logo 文件路径
   - 腾讯 / 字节跳动 / 苹果：文件内已包含补充规则，无需额外读取
 
 - **`components.md`**（按需读取，不必全读）
-  - Phase 2 已规划好每页用哪类组件，只需 Grep 提取对应章节
+  - Phase 2 结构规划时已确定每页用哪类组件，只需 Grep 提取对应章节
   - 例：只用到 `info-card` 和 `agenda-item` → 只读「信息卡片」和「目录/议程」两节
 
-**`_base.html` 占位符说明（共 5 个）：**
+### Step 3.2：用 Edit 工具填充占位符
 
-| 占位符 | 位置 | 替换内容 |
-|---|---|---|
-| `%%TITLE%%` | `<title>` | 演讲主题 — 演讲者 |
-| `<!-- %%THEME_STYLE%% -->` | `</style>` 后 | `<style>` 主题变量覆盖块 |
-| `<!-- %%LOGO_GROUP%% -->` | body 内容区 | 完整的 `<div id=”globalLogoGroup” ...>` 元素 |
-| `%%FOOTNOTE%%` | `#footnote` | 页脚说明文字 |
-| `<!-- %%SLIDES%% -->` | body 内容区 | 所有 `<section>` 幻灯片 HTML |
+复制完 `_base.html` 后，**依次用 Edit 工具替换 5 个占位符**，不要重写整个文件：
 
----
+**① 标题**
+```
+old: %%TITLE%%
+new: [演讲主题] — [演讲者]
+```
 
-### Logo 规范（所有页面统一遵守）
+**② 主题样式覆盖**（内容直接从 `themes/[id].md` 的 CSS 块复制）
+```
+old: <!-- %%THEME_STYLE%% -->
+new:
+<style>
+:root { ... }
+.slide-section { background: ... !important; }
+.slide-qa      { background: ... !important; }
+</style>
+```
 
-**文件选择：**
-- 白底页（内容页）→ 彩色版（`-color.png` / `-blue.png`）
-- 深色页（封面 / 章节 / 结尾）→ 白色版（`-white.png`）；无白色版时用彩色版 + `style=”filter:brightness(0) invert(1)”`
-- 路径查 `themes/[id].md` 的「Logo」节；双 logo 规则查 `themes/_index.md`「双 Logo 展示规则」
+**③ Logo 规范（白底页 + 深色页）**
 
-**白底页 `#globalLogoGroup`（由 `%%LOGO_GROUP%%` 填充）：**
+文件选择（路径查 `themes/[id].md` 的「Logo」节，双 logo 规则查 `themes/_index.md`「双 Logo 展示规则」）：
+- 白底页 → 彩色版（`-color.png` / `-blue.png`）
+- 深色页 → 白色版（`-white.png`）；无则用彩色版 + `style=”filter:brightness(0) invert(1)”`
+
+白底页：填充 `%%LOGO_GROUP%%` 占位符
 ```html
 <!-- 单 logo -->
 <div id=”globalLogoGroup” class=”logo-group-single”>
@@ -320,7 +304,7 @@ cp _base.html [输出文件名].html
 <div id=”globalLogoGroup” class=”logo-group-single” style=”display:none;”></div>
 ```
 
-**深色页（封面 / 章节 / 结尾），三种页面写法完全一致：**
+深色页（封面 / 章节 / 结尾）：内联写入各 `<section>`，三种页面写法完全一致
 ```html
 <!-- 单 logo（有白色版）-->
 <div class=”fixed-logo-dark logo-group-single”>
@@ -343,39 +327,10 @@ cp _base.html [输出文件名].html
 <!-- 无 logo：省略整个 .fixed-logo-dark，不写占位 -->
 ```
 
-**禁止事项：**
+禁止事项：
 - 不要在深色页 logo 上手写 `position:absolute`、`top:`、`right:`、`height:` 等定位和尺寸样式（CSS + JS 已统一处理）
 - 不要用裸 `<img>` 放 logo，必须套在 `.fixed-logo-dark` 容器内
 - 不要在不同页面用不同的 height clamp 值，尺寸由 CSS class 统一控制
-
----
-
-### Step 4.2：用 Edit 工具填充占位符
-
-复制完 `_base.html` 后，**依次用 Edit 工具替换 5 个占位符**，不要重写整个文件：
-
-**① 标题**
-```
-old: %%TITLE%%
-new: [演讲主题] — [演讲者]
-```
-
-**② 主题样式覆盖**（内容直接从 `themes/[id].md` 的 CSS 块复制）
-```
-old: <!-- %%THEME_STYLE%% -->
-new:
-<style>
-:root { ... }
-.slide-section { background: ... !important; }
-.slide-qa      { background: ... !important; }
-</style>
-```
-
-**③ 白底页 Logo 组**
-```
-old: <!-- %%LOGO_GROUP%% -->
-new: 按上方「Logo 规范 · 白底页」写法填入
-```
 
 **④ 页脚说明**
 ```
@@ -394,9 +349,7 @@ new: 所有 <section> 幻灯片 HTML
 - `--primary-pale` 会自动影响 `info-card` 背景、`agenda-item` hover、`highlight-box` 等，无需逐一覆盖。
 - logo 统一使用 `./logos/...` 相对路径。
 
-**内容页布局原则：** 按 Phase 2「内容类型 → 页面骨架 / 组件选择规则」执行。
-
-### Step 4.3：幻灯片 HTML 结构
+### Step 3.3：幻灯片 HTML 结构
 
 **封面页：**
 ```html
@@ -406,7 +359,7 @@ new: 所有 <section> 幻灯片 HTML
         <div class="arc arc-2"></div>
         <div class="arc arc-3"></div>
     </div>
-    <!-- 有 Logo 时插入，无则省略整个 fixed-logo-dark -->
+    <!-- 深色页 logo：写法见 Step 3.2 ③；无 logo 时省略整个 .fixed-logo-dark -->
     <div class="fixed-logo-dark logo-group-single">
         <img src="./logos/[brand]-white.png" alt="[公司名] Logo" class="logo-img-cover">
     </div>
@@ -438,18 +391,10 @@ new: 所有 <section> 幻灯片 HTML
 </section>
 ```
 
-**页面骨架优先级：**
-- 目录页优先使用“分组目录页”或 `agenda-item` 列表，而不是普通 bullet。
-- 开场第一页正文优先考虑“开场钩子页”或 2×2 信息面板。
-- 讲专项体系时优先考虑 `support-board`。
-- 讲跨角色协同时优先考虑 `demand-flow-board`。
-- 讲两阶段推进逻辑时优先考虑 `step-flow-top + step-flow-bridge + step-flow-bottom`。
-- 普通内容页也优先使用统一标题区 + `slide-body`，不要混用多套标题位置。
-
 **章节过渡页：**
 ```html
 <section class="slide slide-section" id="slide-N">
-    <!-- 按「Logo 规范 · 深色页」写法插入，无 logo 时省略 -->
+    <!-- 深色页 logo：写法见 Step 3.2 ③；无 logo 时省略整个 .fixed-logo-dark -->
     <div class="fixed-logo-dark logo-group-single">
         <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
     </div>
@@ -462,7 +407,7 @@ new: 所有 <section> 幻灯片 HTML
 **结尾页：**
 ```html
 <section class="slide slide-qa" id="slide-N">
-    <!-- 按「Logo 规范 · 深色页」写法插入，无 logo 时省略 -->
+    <!-- 深色页 logo：写法见 Step 3.2 ③；无 logo 时省略整个 .fixed-logo-dark -->
     <div class="fixed-logo-dark logo-group-single">
         <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
     </div>
@@ -471,9 +416,18 @@ new: 所有 <section> 幻灯片 HTML
 </section>
 ```
 
+**演讲稿专项密度检查**（输入为演讲稿时，每页生成后执行）：
+
+对照以下标准自检，不达标则继续精简或拆页：
+
+- 这一页，站在 3 米外能在 5 秒内看完吗？→ 不能则继续删
+- 卡片 / bullet 描述里有完整段落吗？→ 有则压缩到 1 句话
+- 同一页里出现了 2 个以上并列模块吗？→ 拆成 2 页
+- 标题是结论句还是话题词？→ 必须是结论句（"我们做了 X" 而非 "X 的情况"）
+
 ---
 
-## Phase 5：输出
+## Phase 4：输出
 
 1. **保存** — 将文件保存到当前工作目录。文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`、`alibaba-ai-strategy.html`；主题关键词是中文时转为拼音或英译，避免中文文件名造成路径兼容问题。
 2. **用浏览器打开** — 执行 `open [文件名].html` 自动在默认浏览器中打开。
@@ -488,39 +442,15 @@ new: 所有 <section> 幻灯片 HTML
 
 | 文件 | 用途 | 何时读取 |
 |---|---|---|
-| [_base.html](_base.html) | 预构建引擎壳（含完整 CSS/JS），生成时 `cp` 为输出文件再用 Edit 填充 | Phase 4 Step 4.1（必须） |
+| [_base.html](_base.html) | 预构建引擎壳（含完整 CSS/JS），生成时 `cp` 为输出文件再用 Edit 填充 | Phase 3 Step 3.1（必须） |
 | [themes/_index.md](themes/_index.md) | 主题识别规则 + 集团/子品牌关键词表 + logo 索引 + 双 logo 规则 | Phase 0 主题检测（只读此一个文件） |
-| `themes/[id].md` | 单公司主题文件（~30 行）：CSS 变量 + logo 路径 + 补充规则 | Phase 4 Step 4.1（只读匹配到的那一个） |
-| [components.md](components.md) | 所有可用组件的 HTML 片段参考 | Phase 4 按需 Grep 对应章节，不必全读 |
-| `logos/[变体]-white.png` | 公司 Logo 白色版（深色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
-| `logos/[变体]-blue.png` / `logos/[变体]-color.png` | 公司 Logo 彩色版（白色幻灯片使用） | Phase 4 Step 4.1（有 logo 时） |
+| `themes/[id].md` | 单公司主题文件（~30 行）：CSS 变量 + logo 路径 + 补充规则 | Phase 3 Step 3.1（只读匹配到的那一个） |
+| [components.md](components.md) | 所有可用组件的 HTML 片段参考 | Phase 3 按需 Grep 对应章节，不必全读 |
+| `logos/[变体]-white.png` | 公司 Logo 白色版（深色幻灯片使用） | Phase 3 Step 3.1（有 logo 时） |
+| `logos/[变体]-blue.png` / `logos/[变体]-color.png` | 公司 Logo 彩色版（白色幻灯片使用） | Phase 3 Step 3.1（有 logo 时） |
 | [index.html](index.html) | 完整示例文档，含所有组件的真实渲染样例 | 需要查阅组件骨架细节时（只读参考） |
 
 ---
-
-## 本地开发与测试
-
-在当前仓库开发本 skill 时，优先使用下面这些本地文件作为测试基线：
-
-- 生成 shell：[_base.html](_base.html)（cp 后填充占位符）
-- 主题索引：[themes/_index.md](themes/_index.md)（Phase 0 识别用）
-- 公司主题：`themes/[id].md`（14 个文件，Phase 4 按需读取）
-- 完整示例参考：[index.html](index.html)（只读）
-- 主题库：[themes.md](themes.md)
-- 组件库：[components.md](components.md)
-- Logo 素材：[logos](logos)
-- 仅在需要外部文件时再使用 PNG/AVIF fallback
-- 测试样例：[examples](examples)
-- 测试说明：[TESTING.md](TESTING.md)
-
-如果用户是在这个仓库里开发或调试 skill，优先复用这些本地文件，不要回退到 Claude 全局目录中的旧副本。
-
-生成本地测试稿时：
-
-- 默认从 [index.html](index.html) 出发
-- 只替换主题变量、logo 路径和具体内容
-- 不要从已有 `test-*.html` 继续复制
-- 生成后优先运行 `./scripts/smoke-test.sh [文件名].html` 做静态检查，再进行浏览器人工验收
 
 
 ## 非目标 / 不处理的事情
