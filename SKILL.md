@@ -292,10 +292,62 @@ cp _base.html [输出文件名].html
 | `%%FOOTNOTE%%` | `#footnote` | 页脚说明文字 |
 | `<!-- %%SLIDES%% -->` | body 内容区 | 所有 `<section>` 幻灯片 HTML |
 
-**Logo 识别：**
-- 子品牌 / 集团 logo 路径查 `themes/[id].md` 的「Logo」节
-- logo 展示规则（情况一/二/三/四）查 `themes/_index.md` 的「双 Logo 展示规则」节
-- 所有 logo 统一高度 `height:clamp(1.4rem,2.8vw,2.2rem);max-height:36px;width:auto;object-fit:contain`
+---
+
+### Logo 规范（所有页面统一遵守）
+
+**文件选择：**
+- 白底页（内容页）→ 彩色版（`-color.png` / `-blue.png`）
+- 深色页（封面 / 章节 / 结尾）→ 白色版（`-white.png`）；无白色版时用彩色版 + `style=”filter:brightness(0) invert(1)”`
+- 路径查 `themes/[id].md` 的「Logo」节；双 logo 规则查 `themes/_index.md`「双 Logo 展示规则」
+
+**白底页 `#globalLogoGroup`（由 `%%LOGO_GROUP%%` 填充）：**
+```html
+<!-- 单 logo -->
+<div id=”globalLogoGroup” class=”logo-group-single”>
+    <img src=”./logos/[brand]-color.png” alt=”[公司]”>
+</div>
+
+<!-- 双 logo -->
+<div id=”globalLogoGroup” class=”logo-group-dual”>
+    <img src=”./logos/[集团]-color.png” alt=”[集团]”>
+    <span class=”logo-divider”></span>
+    <img src=”./logos/[子品牌]-color.png” alt=”[子品牌]”>
+</div>
+
+<!-- 无 logo -->
+<div id=”globalLogoGroup” class=”logo-group-single” style=”display:none;”></div>
+```
+
+**深色页（封面 / 章节 / 结尾），三种页面写法完全一致：**
+```html
+<!-- 单 logo（有白色版）-->
+<div class=”fixed-logo-dark logo-group-single”>
+    <img src=”./logos/[brand]-white.png” alt=”[公司]” class=”logo-img-cover”>
+</div>
+
+<!-- 单 logo（无白色版，用彩色版转白）-->
+<div class=”fixed-logo-dark logo-group-single”>
+    <img src=”./logos/[brand]-color.png” alt=”[公司]” class=”logo-img-cover”
+         style=”filter:brightness(0) invert(1);”>
+</div>
+
+<!-- 双 logo -->
+<div class=”fixed-logo-dark logo-group-dual”>
+    <img src=”./logos/[集团]-white.png” alt=”[集团]” class=”logo-img-cover”>
+    <span class=”logo-divider”></span>
+    <img src=”./logos/[子品牌]-white.png” alt=”[子品牌]” class=”logo-img-cover”>
+</div>
+
+<!-- 无 logo：省略整个 .fixed-logo-dark，不写占位 -->
+```
+
+**禁止事项：**
+- 不要在深色页 logo 上手写 `position:absolute`、`top:`、`right:`、`height:` 等定位和尺寸样式（CSS + JS 已统一处理）
+- 不要用裸 `<img>` 放 logo，必须套在 `.fixed-logo-dark` 容器内
+- 不要在不同页面用不同的 height clamp 值，尺寸由 CSS class 统一控制
+
+---
 
 ### Step 4.2：用 Edit 工具填充占位符
 
@@ -315,27 +367,13 @@ new:
 :root { ... }
 .slide-section { background: ... !important; }
 .slide-qa      { background: ... !important; }
-/* 如有补充规则中的额外覆盖，一并追加 */
 </style>
 ```
 
-**③ Logo 组（整个 div，白底页右上角）**
+**③ 白底页 Logo 组**
 ```
 old: <!-- %%LOGO_GROUP%% -->
-new（单 logo）:
-<div id=”globalLogoGroup” class=”logo-group-single”>
-    <img src=”./logos/[brand]-color.png” alt=”[公司名]”>
-</div>
-
-new（双 logo）:
-<div id=”globalLogoGroup” class=”logo-group-dual”>
-    <img src=”./logos/[集团]-color.png” alt=”[集团]”>
-    <span class=”logo-divider”></span>
-    <img src=”./logos/[子品牌]-color.png” alt=”[子品牌]”>
-</div>
-
-new（无 logo）:
-<div id=”globalLogoGroup” class=”logo-group-single” style=”display:none;”></div>
+new: 按上方「Logo 规范 · 白底页」写法填入
 ```
 
 **④ 页脚说明**
@@ -421,9 +459,10 @@ new: 所有 <section> 幻灯片 HTML
 **章节过渡页：**
 ```html
 <section class="slide slide-section" id="slide-N">
-    <!-- 有 Logo 时插入右上角 -->
-    <img src="./logos/[brand]-white.png" alt="[公司名] Logo"
-         style="position:absolute;top:clamp(1.2rem,2.5vh,2rem);right:clamp(1.5rem,3vw,2.5rem);height:clamp(18px,2.5vh,28px);width:auto;object-fit:contain;opacity:0.7;">
+    <!-- 按「Logo 规范 · 深色页」写法插入，无 logo 时省略 -->
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
+    </div>
     <p class="section-num reveal">PART [章节号]</p>
     <h2 class="section-title reveal">[章节标题]</h2>
     <p class="section-desc reveal">[一句话说明这一章节要回答的问题]</p>
@@ -433,9 +472,10 @@ new: 所有 <section> 幻灯片 HTML
 **结尾页：**
 ```html
 <section class="slide slide-qa" id="slide-N">
-    <!-- 有 Logo 时插入右上角 -->
-    <img src="./logos/[brand]-white.png" alt="[公司名] Logo"
-         style="position:absolute;top:clamp(1.2rem,2.5vh,2rem);right:clamp(1.5rem,3vw,2.5rem);height:clamp(18px,2.5vh,28px);width:auto;object-fit:contain;opacity:0.7;">
+    <!-- 按「Logo 规范 · 深色页」写法插入，无 logo 时省略 -->
+    <div class="fixed-logo-dark logo-group-single">
+        <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
+    </div>
     <h2 class="qa-title reveal">Q&amp;A</h2>
     <p class="qa-sub reveal">[感谢语]</p>
 </section>
