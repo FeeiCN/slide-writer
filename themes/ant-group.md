@@ -6,8 +6,8 @@
 
 Logo 显示规则：
 - 检测到**子品牌**（支付宝、花呗等）→ 双 Logo：集团 ＋ 子品牌
-- 只检测到**蚂蚁集团**本身（无子品牌）→ 单 Logo：仅集团
-- **未识别到任何公司（默认 fallback）** → 双 Logo：蚂蚁集团 ＋ 支付宝
+- **其他所有情况（默认）** → 双 Logo：蚂蚁集团 ＋ 支付宝
+- 例外：内容明确为**集团层面**（投资者关系、集团战略、ESG报告等）→ 单 Logo：仅集团
 
 双 Logo 路径：
 - 深色页：`./logos/logo-antgroup-white.png` ＋ 分隔线 ＋ `./logos/logo-alipay-white.png`
