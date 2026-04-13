@@ -11,7 +11,15 @@
       "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-antgroup-blue.png)",
       "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-alipay-white.png)",
       "Bash(base64 -i /Users/feei/Projects/Slide-Writer/logo-alipay-blue.png)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(gh release:*)",
+      "Bash(brew install:*)",
+      "Bash(git rm:*)",
+      "Read(//Users/feei/Downloads/**)"
     ]
   }
 }

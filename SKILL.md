@@ -19,6 +19,7 @@ entry: SKILL.md
 language: zh-CN
 compatible_with:
   - claude-code
+  - codex
 ---
 
 # Slide-Writer
@@ -529,4 +530,3 @@ new: 所有 <section> 幻灯片 HTML
 - 不伪造演讲者身份、职位、部门信息
 - 不擅自修改未被点名的现有页面
 - 不保证所有品牌主题都与官方品牌规范完全一致
-- 不自动设计复杂动画或图表引擎
