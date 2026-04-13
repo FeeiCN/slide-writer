@@ -304,7 +304,12 @@ new:
 
 **③ Logo 规范（白底页 + 深色页）**
 
-文件选择（路径查 `themes/[id].md` 的「Logo」节，双 logo 规则查 `themes/_index.md`「双 Logo 展示规则」）：
+**第一步：读 `themes/[id].md` 的「Logo」节，确定用哪个模板（单 / 双 / 无）**，再确定路径：
+- 主题文件有明确的单/双规则 → 按规则执行
+- 主题文件无明确规则 → 默认单 logo
+- 双 logo 的 HTML 写法查 `themes/_index.md`「双 Logo 展示规则」
+
+文件选择：
 - 白底页 → 彩色版（`-color.png` / `-blue.png`）
 - 深色页 → 白色版（`-white.png`）；无则用彩色版 + `style=”filter:brightness(0) invert(1)”`
 
