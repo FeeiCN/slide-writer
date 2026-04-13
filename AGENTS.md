@@ -30,6 +30,12 @@ Keep outputs dependency-free and self-contained: HTML, CSS, and JavaScript stay 
 
 Testing is manual and browser-based. Follow the regression checklist in `TESTING.md`, especially after changing `SKILL.md`, `themes.md`, `components.md`, or `index.html`. Verify no slide overflows `100vh`, logos load correctly, navigation and fullscreen still work, and different page types keep visual rhythm. When relevant, test both a fresh generation and an edit pass on an existing deck.
 
+## Version Management
+
+When bumping the version number, update it in **both** files:
+- `SKILL.md` frontmatter: `version: x.y.z`
+- `README.md` badge: `version-x.y.z-blue.svg`
+
 ## Commit & Pull Request Guidelines
 
 Git history is currently minimal (`Initial commit`), so keep commit subjects short, imperative, and specific, for example `Refine Tencent theme spacing`. Pull requests should explain the user-visible change, list files touched, mention the sample or scenario used for validation, and include screenshots or exported deck previews when layout or theme behavior changes.

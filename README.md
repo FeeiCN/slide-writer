@@ -7,7 +7,7 @@
 [Live Demo](https://feei.cn/slide-writer/)
 [中文](README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Website](https://img.shields.io/badge/Website-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
 
