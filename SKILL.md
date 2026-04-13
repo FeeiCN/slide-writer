@@ -2,7 +2,7 @@
 name: slide-writer
 display_name: Slide-Writer
 description: 把想法、大纲、文档或草稿变成结构清晰、设计精良的企业级 HTML 演示文稿。
-version: 0.1.0
+version: 0.2.0
 author: Feei
 homepage: https://github.com/FeeiCN/slide-writer
 repository: https://github.com/FeeiCN/slide-writer
