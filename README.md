@@ -14,7 +14,7 @@
 > Focus on goals, viewpoints, and judgment. Slide-Writer handles structure, writing, refinement, and presentation.
 
 <p align="center">
-  <img src="examples/slide-writer.png" alt="Slide-Writer Demo" width="100%"/>
+  <img src="examples/before-after.png" alt="Slide-Writer Demo" width="100%"/>
 </p>
 
 Slide-Writer is a writing skill built specifically for presentation workflows. It helps turn ideas, outlines, documents, speech drafts, notes, data, or existing decks into enterprise-grade HTML slide presentations that are structured, clear, and presentation-ready.
