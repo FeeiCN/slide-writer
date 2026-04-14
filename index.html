@@ -1175,6 +1175,41 @@ body.on-blue #globalLogoGroup {
     letter-spacing: 0.06em;
     white-space: nowrap;
 }
+
+.flow-item {
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.62rem 0.82rem;
+}
+
+.flow-item.changed {
+    background: var(--primary-pale);
+    border-color: rgba(22,119,255,0.22);
+}
+
+.flow-label {
+    font-size: clamp(0.8rem, 1.2vw, 0.96rem);
+    font-weight: 800;
+    color: var(--text-1);
+    line-height: 1.25;
+}
+
+.flow-item.changed .flow-label {
+    color: var(--primary-dark);
+}
+
+.flow-sub {
+    margin-top: 0.22rem;
+    font-size: var(--small-size);
+    color: var(--text-3);
+    line-height: 1.4;
+}
+
+.flow-item.changed .flow-sub {
+    color: var(--primary);
+    opacity: 0.8;
+}
 </style>
 </head>
 <body>
@@ -1237,7 +1272,7 @@ body.on-blue #globalLogoGroup {
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
         <h2 class="header-title">模板总览</h2>
-        <p class="header-sub">从基础布局、信息组件，到图文混排、数据图表和表格，全部给出可复用页面。</p>
+        <p class="header-sub">从基础布局、信息卡片、文字流程，到图文混排、图表表格，再到流程格、路线图与洞察面板，全部给出可复用页面。</p>
     </div>
     <div class="slide-body" style="justify-content:center;">
         <div class="agenda-wrap">
@@ -1246,6 +1281,8 @@ body.on-blue #globalLogoGroup {
             <div class="agenda-item reveal"><span class="agenda-num">03</span><span class="agenda-text">文字组件、层级评分与流程</span><span class="agenda-tag">文本</span></div>
             <div class="agenda-item reveal"><span class="agenda-num">04</span><span class="agenda-text">图文混排与轻量可视化</span><span class="agenda-tag">图文</span></div>
             <div class="agenda-item reveal"><span class="agenda-num">05</span><span class="agenda-text">表格与 SVG 图表</span><span class="agenda-tag">图表</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">06</span><span class="agenda-text">流程格与浏览器截图框</span><span class="agenda-tag">流程</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">07</span><span class="agenda-text">月份路线图与洞察数据面板</span><span class="agenda-tag">骨架</span></div>
         </div>
     </div>
 </section>
@@ -1290,25 +1327,30 @@ body.on-blue #globalLogoGroup {
     <div class="slide-body" style="justify-content:center;">
         <div class="grid-3">
             <div class="stat-block reveal">
+                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
                 <div class="stat-num">85%</div>
                 <div class="stat-label">代码生成采纳率</div>
             </div>
             <div class="stat-block reveal">
+                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                 <div class="stat-num">12 天</div>
                 <div class="stat-label">需求到首版交付周期</div>
             </div>
             <div class="stat-block reveal">
+                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg></div>
                 <div class="stat-num"><span class="stat-num red" style="color:var(--red);font-size:inherit;">-40%</span></div>
                 <div class="stat-label">重复排版时间</div>
             </div>
         </div>
         <div class="two-col">
             <div class="goal-card reveal">
+                <div class="goal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
                 <div class="goal-num-big">85<span class="unit">%</span></div>
                 <div class="goal-label">AI 生成页占比目标</div>
                 <div class="goal-sublabel">2026 年底前达成</div>
             </div>
             <div class="goal-card reveal">
+                <div class="goal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                 <div class="goal-num-big">3<span class="unit">秒</span></div>
                 <div class="goal-label">单页可读理解时间</div>
                 <div class="goal-sublabel">演讲型 deck 的内容密度上限</div>
@@ -1327,18 +1369,22 @@ body.on-blue #globalLogoGroup {
     <div class="slide-body" style="justify-content:center;">
         <div class="grid-2">
             <div class="info-card reveal">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
                 <div class="card-title">默认蓝色</div>
                 <div class="card-body">适合放主要能力、价值点或默认重点信息。</div>
             </div>
             <div class="info-card red reveal">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
                 <div class="card-title">红色变体</div>
                 <div class="card-body">适合放风险、阻塞项或需要优先处理的问题。</div>
             </div>
             <div class="info-card green reveal">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
                 <div class="card-title">绿色变体</div>
                 <div class="card-body">适合展示成果、达标项、正向变化或已收敛事项。</div>
             </div>
             <div class="info-card orange reveal">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
                 <div class="card-title">橙色变体</div>
                 <div class="card-body">适合放机会点、行动项或需要持续推进的方向。</div>
             </div>
@@ -1356,21 +1402,25 @@ body.on-blue #globalLogoGroup {
     <div class="slide-body" style="justify-content:center;">
         <div class="grid-4">
             <div class="step-card step-card-1 reveal">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg></div>
                 <div class="step-num">STEP 01</div>
                 <div class="step-title">启动阶段</div>
                 <div class="step-desc">先明确目标、受众与判断。</div>
             </div>
             <div class="step-card step-card-2 reveal">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
                 <div class="step-num">STEP 02</div>
                 <div class="step-title">内容收集</div>
                 <div class="step-desc">收拢大纲、草稿与关键数据。</div>
             </div>
             <div class="step-card step-card-3 reveal">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></div>
                 <div class="step-num">STEP 03</div>
                 <div class="step-title">结构改写</div>
                 <div class="step-desc">拆成适合演讲的页面节奏。</div>
             </div>
             <div class="step-card step-card-4 reveal">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
                 <div class="step-num">STEP 04</div>
                 <div class="step-title">生成交付</div>
                 <div class="step-desc">输出可直接播放的单文件 HTML。</div>
@@ -1378,7 +1428,7 @@ body.on-blue #globalLogoGroup {
         </div>
         <div class="two-col">
             <div class="support-card reveal">
-                <div class="support-icon">🛡️</div>
+                <div class="support-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
                 <div class="support-title">支撑体系示例</div>
                 <ul class="support-items">
                     <li>统一模板引擎</li>
@@ -1387,7 +1437,7 @@ body.on-blue #globalLogoGroup {
                 </ul>
             </div>
             <div class="role-card reveal">
-                <div class="role-icon">👨‍💻</div>
+                <div class="role-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
                 <div class="role-name">角色演进示例</div>
                 <div class="role-arrow">传统写稿 → AI 协同演示</div>
                 <div class="role-evolution">表达者保留判断，系统负责结构化、润色和页面呈现。</div>
@@ -1475,21 +1525,25 @@ body.on-blue #globalLogoGroup {
             </div>
             <div class="step-flow-grid reveal">
                 <div class="step-card step-card-1">
+                    <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
                     <div class="step-num">STEP 01</div>
                     <div class="step-title">输入</div>
                 </div>
                 <div class="step-flow-arrow">→</div>
                 <div class="step-card step-card-2">
+                    <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
                     <div class="step-num">STEP 02</div>
                     <div class="step-title">拆解</div>
                 </div>
                 <div class="step-flow-arrow">→</div>
                 <div class="step-card step-card-3">
+                    <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
                     <div class="step-num">STEP 03</div>
                     <div class="step-title">生成</div>
                 </div>
                 <div class="step-flow-arrow">→</div>
                 <div class="step-card step-card-4">
+                    <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
                     <div class="step-num">STEP 04</div>
                     <div class="step-title">验收</div>
                 </div>
@@ -1790,12 +1844,14 @@ body.on-blue #globalLogoGroup {
     <div class="slide-body" style="justify-content:center;max-width:85%;margin:0 auto;">
         <div class="step-flow-top reveal">
             <div class="step-card step-card-1">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
                 <div class="step-num">PHASE 01</div>
                 <div class="step-title">判断与规划</div>
                 <div class="step-desc">先明确目标、问题边界、优先级和章节结构。</div>
             </div>
             <div class="step-flow-arrow">→</div>
             <div class="step-card step-card-2">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
                 <div class="step-num">PHASE 02</div>
                 <div class="step-title">方案成型</div>
                 <div class="step-desc">把结构转成页面形态，建立统一表达骨架。</div>
@@ -1804,11 +1860,13 @@ body.on-blue #globalLogoGroup {
         <div class="step-flow-bridge reveal"><span>进入落地执行层</span></div>
         <div class="step-flow-bottom reveal">
             <div class="step-card step-card-3">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
                 <div class="step-num">EXEC 01</div>
                 <div class="step-title">组件化填充</div>
                 <div class="step-desc">把数据、卡片、图文和流程图填入合适的页面结构。</div>
             </div>
             <div class="step-card step-card-4">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
                 <div class="step-num">EXEC 02</div>
                 <div class="step-title">验收与修订</div>
                 <div class="step-desc">校验溢出、节奏、品牌与交互，完成最终交付。</div>
@@ -1913,13 +1971,223 @@ body.on-blue #globalLogoGroup {
     </div>
 </section>
 
-<!-- SLIDE 19: END -->
-<section class="slide slide-qa" id="slide-19">
+<!-- SLIDE 19: flow-item -->
+<section class="slide slide-white" id="slide-19">
+    <div class="slide-header center-stack">
+        <span class="header-mark"></span>
+        <h2 class="header-title">流程格</h2>
+        <p class="header-sub">横向 4 列 × 2 行紧凑矩阵，蓝色格表示已 AI 化，灰色格表示待推进。</p>
+    </div>
+    <div class="slide-body" style="justify-content:center;">
+        <div style="display:flex;flex-direction:column;gap:clamp(0.5rem,1vh,0.8rem);">
+            <p class="slide-subtitle reveal">AI for DevOps 流程覆盖</p>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(0.3rem,0.8vw,0.6rem);" class="reveal">
+                <div class="flow-item changed"><div class="flow-label">需求收集</div><div class="flow-sub">快速生成版本</div></div>
+                <div class="flow-item changed"><div class="flow-label">系统设计</div><div class="flow-sub">结合上下文设计</div></div>
+                <div class="flow-item changed"><div class="flow-label">代码实现</div><div class="flow-sub">Agent 实现，人把关</div></div>
+                <div class="flow-item changed"><div class="flow-label">测试</div><div class="flow-sub">代码测试同步生成</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(0.3rem,0.8vw,0.6rem);" class="reveal">
+                <div class="flow-item changed"><div class="flow-label">代码审查</div><div class="flow-sub">对抗性校验</div></div>
+                <div class="flow-item changed"><div class="flow-label">部署</div><div class="flow-sub">验证后自动上线</div></div>
+                <div class="flow-item"><div class="flow-label">监测</div><div class="flow-sub">可观测性驱动</div></div>
+                <div class="flow-item"><div class="flow-label">反馈闭环</div><div class="flow-sub">持续迭代优化</div></div>
+            </div>
+            <div class="insight reveal">
+                <span class="insight-dot"></span>
+                <span>蓝色格（<code>flow-item changed</code>）表示已 AI 化环节，灰色格为待推进，两者可自由混用。</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 20: browser-mockup -->
+<section class="slide slide-white" id="slide-20">
+    <div class="slide-header center-stack">
+        <span class="header-mark"></span>
+        <h2 class="header-title">浏览器截图框</h2>
+        <p class="header-sub">macOS 风格浏览器窗口，给截图加上地址栏和三点按钮，比裸图更有上下文感。</p>
+    </div>
+    <div class="slide-body" style="justify-content:center;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;align-items:center;" class="reveal">
+            <div style="border-radius:10px;overflow:hidden;border:1px solid #E0E0E0;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
+                <!-- 标题栏 -->
+                <div style="background:#F2F2F2;padding:0.45rem 0.75rem;display:flex;align-items:center;gap:0.55rem;border-bottom:1px solid #DCDCDC;">
+                    <div style="display:flex;gap:5px;flex-shrink:0;">
+                        <span style="width:10px;height:10px;border-radius:50%;background:#FF5F57;display:inline-block;"></span>
+                        <span style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;display:inline-block;"></span>
+                        <span style="width:10px;height:10px;border-radius:50%;background:#28C840;display:inline-block;"></span>
+                    </div>
+                    <div style="flex:1;background:#fff;border:1px solid #DCDCDC;border-radius:6px;padding:0.18em 0.65em;font-size:clamp(0.58rem,0.92vw,0.74rem);color:#111;font-family:monospace;font-weight:800;">slide-writer.feei.cn</div>
+                </div>
+                <!-- 占位截图区 -->
+                <div style="width:100%;height:clamp(120px,18vh,200px);background:linear-gradient(135deg,#EAF3FF 0%,#D0E8FF 50%,#E8F2FF 100%);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:var(--small-size);font-weight:700;">截图 / 界面图 放这里</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.65rem;">
+                <h3 style="font-size:clamp(1rem,1.4vw,1.15rem);font-weight:800;color:var(--text-1);">适合展示的内容</h3>
+                <ul class="mini-list">
+                    <li>网站、后台系统或产品界面截图</li>
+                    <li>工具 Demo、数据大屏、配置页面</li>
+                    <li>内嵌真实 URL，增强可信度</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>用法提示：</strong>裸图缺乏上下文，加上浏览器边框后观众能立刻识别这是"真实系统截图"，而不是设计稿。
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 21: roadmap-col -->
+<section class="slide slide-white" id="slide-21">
+    <div class="slide-header center-stack">
+        <span class="header-mark"></span>
+        <h2 class="header-title">月份路线图</h2>
+        <p class="header-sub">4 列月份网格，顶部色条区分阶段，适合季度计划和项目节奏展示。</p>
+    </div>
+    <div class="slide-body" style="justify-content:center;">
+        <div style="display:flex;flex-direction:column;gap:clamp(0.8rem,1.6vh,1.1rem);" class="reveal">
+            <!-- 月份列头 -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(0.7rem,1.3vw,1rem);align-items:end;">
+                <div style="padding:0 0.4rem 0.5rem;border-bottom:1px solid rgba(22,119,255,0.12);min-height:60px;display:flex;align-items:flex-end;">
+                    <div>
+                        <div style="font-size:clamp(0.58rem,0.88vw,0.72rem);font-weight:800;letter-spacing:0.08em;color:#7B8BA5;text-transform:uppercase;margin-bottom:0.2rem;">March</div>
+                        <div style="font-size:clamp(1.4rem,2.6vw,2rem);font-weight:900;color:#22324A;line-height:1;">3月</div>
+                    </div>
+                </div>
+                <div style="padding:0 0.4rem 0.5rem;border-bottom:1px solid rgba(22,119,255,0.12);min-height:60px;display:flex;align-items:flex-end;">
+                    <div>
+                        <div style="font-size:clamp(0.58rem,0.88vw,0.72rem);font-weight:800;letter-spacing:0.08em;color:#7B8BA5;text-transform:uppercase;margin-bottom:0.2rem;">April</div>
+                        <div style="font-size:clamp(1.4rem,2.6vw,2rem);font-weight:900;color:#22324A;line-height:1;">4月</div>
+                    </div>
+                </div>
+                <div style="padding:0 0.4rem 0.5rem;border-bottom:1px solid rgba(22,119,255,0.12);min-height:60px;display:flex;align-items:flex-end;">
+                    <div>
+                        <div style="font-size:clamp(0.58rem,0.88vw,0.72rem);font-weight:800;letter-spacing:0.08em;color:#7B8BA5;text-transform:uppercase;margin-bottom:0.2rem;">May</div>
+                        <div style="font-size:clamp(1.4rem,2.6vw,2rem);font-weight:900;color:#22324A;line-height:1;">5月</div>
+                    </div>
+                </div>
+                <div style="padding:0 0.4rem 0.5rem;border-bottom:1px solid rgba(22,119,255,0.12);min-height:60px;display:flex;align-items:flex-end;">
+                    <div>
+                        <div style="font-size:clamp(0.58rem,0.88vw,0.72rem);font-weight:800;letter-spacing:0.08em;color:#7B8BA5;text-transform:uppercase;margin-bottom:0.2rem;">June</div>
+                        <div style="font-size:clamp(1.4rem,2.6vw,2rem);font-weight:900;color:#22324A;line-height:1;">6月</div>
+                    </div>
+                </div>
+            </div>
+            <div style="font-size:var(--small-size);color:#7B8BA5;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">关键事项</div>
+            <!-- 内容卡片列 -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(0.6rem,1.2vw,0.9rem);align-items:start;">
+                <div style="background:linear-gradient(180deg,#FEFEFF 0%,#F6FAFF 100%);border:1px solid rgba(22,119,255,0.10);border-radius:18px;padding:clamp(0.75rem,1.3vw,0.95rem);box-shadow:0 10px 24px rgba(22,119,255,0.05);position:relative;overflow:hidden;">
+                    <div style="position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,#1677FF 0%,#69B1FF 100%);"></div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.6rem;">
+                        <div style="font-size:clamp(0.88rem,1.55vw,1.15rem);font-weight:900;color:#22324A;">基础搭建</div>
+                        <span style="display:inline-flex;align-items:center;padding:0.22em 0.6em;border-radius:999px;background:rgba(22,119,255,0.09);color:#1766D1;font-size:clamp(0.54rem,0.8vw,0.66rem);font-weight:800;">进行中</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:0.4rem;">
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">模板框架搭建</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">组件库整理</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;line-height:1.5;">Prompt 规范制定</div>
+                    </div>
+                </div>
+                <div style="background:linear-gradient(180deg,#FEFEFF 0%,#F6FAFF 100%);border:1px solid rgba(47,84,235,0.10);border-radius:18px;padding:clamp(0.75rem,1.3vw,0.95rem);box-shadow:0 10px 24px rgba(47,84,235,0.05);position:relative;overflow:hidden;">
+                    <div style="position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,#2F54EB 0%,#85A5FF 100%);"></div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.6rem;">
+                        <div style="font-size:clamp(0.88rem,1.55vw,1.15rem);font-weight:900;color:#22324A;">场景扩展</div>
+                        <span style="display:inline-flex;align-items:center;padding:0.22em 0.6em;border-radius:999px;background:rgba(47,84,235,0.09);color:#2F54EB;font-size:clamp(0.54rem,0.8vw,0.66rem);font-weight:800;">规划中</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:0.4rem;">
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">主题多套切换</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">图标库集成</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;line-height:1.5;">骨架页补充</div>
+                    </div>
+                </div>
+                <div style="background:linear-gradient(180deg,#FEFEFF 0%,#F0FFFE 100%);border:1px solid rgba(19,194,194,0.12);border-radius:18px;padding:clamp(0.75rem,1.3vw,0.95rem);box-shadow:0 10px 24px rgba(19,194,194,0.05);position:relative;overflow:hidden;">
+                    <div style="position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,#13C2C2 0%,#5CDBD3 100%);"></div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.6rem;">
+                        <div style="font-size:clamp(0.88rem,1.55vw,1.15rem);font-weight:900;color:#22324A;">团队推广</div>
+                        <span style="display:inline-flex;align-items:center;padding:0.22em 0.6em;border-radius:999px;background:rgba(19,194,194,0.09);color:#08979C;font-size:clamp(0.54rem,0.8vw,0.66rem);font-weight:800;">待启动</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:0.4rem;">
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">内部培训工坊</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">使用手册沉淀</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;line-height:1.5;">反馈收集机制</div>
+                    </div>
+                </div>
+                <div style="background:linear-gradient(180deg,#FEFEFF 0%,#FFF8F0 100%);border:1px solid rgba(250,140,22,0.12);border-radius:18px;padding:clamp(0.75rem,1.3vw,0.95rem);box-shadow:0 10px 24px rgba(250,140,22,0.05);position:relative;overflow:hidden;">
+                    <div style="position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,#FA8C16 0%,#FFC069 100%);"></div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.6rem;">
+                        <div style="font-size:clamp(0.88rem,1.55vw,1.15rem);font-weight:900;color:#22324A;">持续迭代</div>
+                        <span style="display:inline-flex;align-items:center;padding:0.22em 0.6em;border-radius:999px;background:rgba(250,140,22,0.09);color:#D46B08;font-size:clamp(0.54rem,0.8vw,0.66rem);font-weight:800;">常态化</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:0.4rem;">
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">真实 Deck 反哺</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;">缺失布局补充</div>
+                        <div style="font-size:clamp(0.62rem,0.95vw,0.76rem);color:var(--text-3);padding:0.25em 0;line-height:1.5;">质量验收闭环</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 22: insight-panel -->
+<section class="slide slide-white" id="slide-22">
+    <div class="slide-header center-stack">
+        <span class="header-mark"></span>
+        <h2 class="header-title">洞察数据面板</h2>
+        <p class="header-sub">一句核心判断 + 内嵌 2×2 小数字格 + 补充说明，适合数据结论页。</p>
+    </div>
+    <div class="slide-body" style="justify-content:center;">
+        <div class="two-col reveal">
+            <div style="background:linear-gradient(135deg,#F7FAFF 0%,#EEF5FF 52%,#FFFFFF 100%);border:1px solid rgba(22,119,255,0.12);border-radius:20px;padding:clamp(0.9rem,1.5vw,1.15rem);box-shadow:0 12px 30px rgba(22,119,255,0.06);display:flex;flex-direction:column;gap:0.65rem;position:relative;overflow:hidden;">
+                <div style="position:absolute;right:-0.35rem;top:-0.4rem;width:3rem;height:3rem;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,0.16) 0%,rgba(22,119,255,0) 72%);"></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.7rem;">
+                    <span class="tag tag-blue">Q1 效率观察</span>
+                    <div style="font-size:clamp(0.62rem,0.9vw,0.72rem);font-weight:800;letter-spacing:0.08em;color:#7B8BA5;text-transform:uppercase;">Q1 2026</div>
+                </div>
+                <div style="font-size:clamp(1.1rem,1.8vw,1.55rem);font-weight:900;color:#22324A;line-height:1.2;max-width:92%;">深度用户效率提升远高于平均水平</div>
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.55rem;">
+                    <div style="background:rgba(255,255,255,0.86);border:1px solid rgba(22,119,255,0.08);border-radius:14px;padding:0.58rem 0.68rem;">
+                        <div style="font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:900;color:#1677FF;line-height:1;">85%</div>
+                        <div style="font-size:clamp(0.56rem,0.84vw,0.66rem);color:#5B6B82;margin-top:0.14rem;">代码生成采纳率</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.86);border:1px solid rgba(22,119,255,0.08);border-radius:14px;padding:0.58rem 0.68rem;">
+                        <div style="font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:900;color:#1677FF;line-height:1;">3×</div>
+                        <div style="font-size:clamp(0.56rem,0.84vw,0.66rem);color:#5B6B82;margin-top:0.14rem;">深度用户效率倍增</div>
+                    </div>
+                </div>
+                <div style="font-size:clamp(0.62rem,0.92vw,0.73rem);line-height:1.55;color:#4F5F77;">下一步重点：在浅度用户群体中推广深度用法，扩大效率提升覆盖面。</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#FFF8F0 0%,#FFF3E8 52%,#FFFFFF 100%);border:1px solid rgba(250,140,22,0.14);border-radius:20px;padding:clamp(0.9rem,1.5vw,1.15rem);box-shadow:0 12px 30px rgba(250,140,22,0.06);display:flex;flex-direction:column;gap:0.65rem;position:relative;overflow:hidden;">
+                <div style="position:absolute;right:-0.35rem;top:-0.4rem;width:3rem;height:3rem;border-radius:50%;background:radial-gradient(circle,rgba(250,140,22,0.14) 0%,rgba(250,140,22,0) 72%);"></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.7rem;">
+                    <span class="tag tag-red">Q1 问题洞察</span>
+                    <div style="font-size:clamp(0.62rem,0.9vw,0.72rem);font-weight:800;letter-spacing:0.08em;color:#7B8BA5;text-transform:uppercase;">Q1 2026</div>
+                </div>
+                <div style="font-size:clamp(1.1rem,1.8vw,1.55rem);font-weight:900;color:#22324A;line-height:1.2;max-width:92%;">制作耗时仍集中在结构梳理阶段</div>
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.55rem;">
+                    <div style="background:rgba(255,255,255,0.86);border:1px solid rgba(232,56,13,0.10);border-radius:14px;padding:0.58rem 0.68rem;">
+                        <div style="font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:900;color:var(--red);line-height:1;">60%</div>
+                        <div style="font-size:clamp(0.56rem,0.84vw,0.66rem);color:#5B6B82;margin-top:0.14rem;">时间花在结构梳理</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.86);border:1px solid rgba(232,56,13,0.10);border-radius:14px;padding:0.58rem 0.68rem;">
+                        <div style="font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:900;color:var(--red);line-height:1;">-40%</div>
+                        <div style="font-size:clamp(0.56rem,0.84vw,0.66rem);color:#5B6B82;margin-top:0.14rem;">排版时间已压缩</div>
+                    </div>
+                </div>
+                <div style="font-size:clamp(0.62rem,0.92vw,0.73rem);line-height:1.55;color:#4F5F77;">优先解法：提供结构化输入模板，帮用户把"想清楚"的时间前移到开始前。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 23: END -->
+<section class="slide slide-qa" id="slide-23">
     <div class="fixed-logo-dark logo-group-single">
         <img src="./logos/slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
     </div>
     <h2 class="qa-title reveal">Q&amp;A</h2>
-    <p class="qa-sub reveal">这份 `index.html` 现在同时包含组件级示例和从旧模板沉淀出的整页布局骨架，可直接作为生成时的参考模板。</p>
+    <p class="qa-sub reveal">这份 `index.html` 覆盖 components.md 全部组件：布局、数字、卡片、文字、流程、图文、表格、SVG 图表、流程格、浏览器截图框、路线图与洞察面板，可直接作为生成参考模板。</p>
 </section>
 
 <script>
