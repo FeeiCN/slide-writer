@@ -7,12 +7,16 @@
 [在线演示](https://feei.cn/slide-writer/)
 [English](README.md)
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Website](https://img.shields.io/badge/Website-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
 
 
 > 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
+
+<p align="center">
+  <img src="examples/slide-writer.png" alt="Slide-Writer Demo" width="100%"/>
+</p>
 
 一个专为 PPT 场景设计的写作 Skill。它帮助您将想法、大纲、文档、演讲稿、笔记、数据或现有 PPT，快速整理为结构清晰、表达准确、适合演示的企业级 HTML 演示PPT。
 
