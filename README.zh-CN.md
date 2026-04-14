@@ -7,7 +7,7 @@
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![在线演示](https://img.shields.io/badge/在线演示-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
-[English](README.md)
+[![English](https://img.shields.io/badge/Docs-English-blue.svg)](README.md)
 
 > 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
 

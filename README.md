@@ -7,7 +7,7 @@
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
-[中文](README.zh-CN.md)
+[![中文](https://img.shields.io/badge/文档-中文-red.svg)](README.zh-CN.md)
 
 > Focus on goals, viewpoints, and judgment. Slide-Writer handles structure, writing, refinement, and presentation.
 
