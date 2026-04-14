@@ -19,7 +19,10 @@
       "Bash(gh release:*)",
       "Bash(brew install:*)",
       "Bash(git rm:*)",
-      "Read(//Users/feei/Downloads/**)"
+      "Read(//Users/feei/Downloads/**)",
+      "Bash(git pull:*)",
+      "Bash(awk '{printf \"%.1f KB\\\\n\", $1/1024}')",
+      "Bash(git -C /Users/feei/Projects/Slide-Writer pull --ff-only)"
     ]
   }
 }
