@@ -352,11 +352,13 @@ body.on-blue #globalLogoGroup {
     text-align: center;
 }
 
-.stat-num {
-    font-size: clamp(1.8rem, 4vw, 3.5rem);
+.stat-num,
+.stat-number {
+    font-size: clamp(2.2rem, 4.8vw, 4.2rem);
     font-weight: 900;
     color: var(--primary);
     line-height: 1;
+    font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
@@ -374,7 +376,9 @@ body.on-blue #globalLogoGroup {
     opacity: 0.3;
 }
 .stat-icon svg { width: 100%; height: 100%; display: block; }
-.stat-block:has(.stat-num.red) .stat-icon { color: var(--red); }
+.stat-num.red ~ .stat-label,
+.stat-number.red ~ .stat-label,
+.stat-block:has(.stat-num.red, .stat-number.red) .stat-icon { color: var(--red); }
 
 .mini-list {
     list-style: none;
@@ -1603,10 +1607,10 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-10">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">左图右文</h2>
-        <p class="header-sub">这一页单独演示“左图右文”，避免两种版式挤在一页里。</p>
+        <h2 class="header-title">图文双栏</h2>
+        <p class="header-sub">同一页并排展示“左图右文”和“右图左文”，更适合快速理解图文混排的两种常见用法。</p>
     </div>
-    <div class="slide-body" style="justify-content:center;">
+    <div class="slide-body" style="justify-content:center;gap:1rem;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:center;" class="reveal">
             <div style="border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:var(--primary-pale);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:var(--small-size);font-weight:700;">左图右文示意</div>
             <div style="display:flex;flex-direction:column;gap:0.6rem;">
@@ -1618,17 +1622,6 @@ body.on-blue #globalLogoGroup {
                 </ul>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- SLIDE 10B -->
-<section class="slide slide-white" id="slide-10b">
-    <div class="slide-header center-stack">
-        <span class="header-mark"></span>
-        <h2 class="header-title">右图左文</h2>
-        <p class="header-sub">当文字是主结论、图像是辅助证据时，这种布局更稳。</p>
-    </div>
-    <div class="slide-body" style="justify-content:center;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:center;" class="reveal">
             <div style="display:flex;flex-direction:column;gap:0.6rem;">
                 <h3 style="font-size:clamp(1rem,1.4vw,1.15rem);font-weight:800;color:var(--text-1);">右图左文</h3>
@@ -1734,10 +1727,10 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-13">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">SVG 图表</h2>
-        <p class="header-sub">无需外部图表库，颜色和字体自动跟随主题变量。</p>
+        <h2 class="header-title">图表组件</h2>
+        <p class="header-sub">把柱状、折线和环形图放在同一页，便于横向对比不同图表适合承载的信息类型。</p>
     </div>
-    <div class="slide-body" style="justify-content:center;">
+    <div class="slide-body" style="justify-content:center;gap:0.9rem;">
         <div class="two-col">
             <svg viewBox="0 0 520 240" style="width:100%;max-width:520px;height:auto;display:block;margin:0 auto;" class="reveal">
                 <line x1="60" y1="20" x2="60" y2="190" stroke="var(--border,#E4E8EF)" stroke-width="1.5"/>
@@ -1788,19 +1781,8 @@ body.on-blue #globalLogoGroup {
                 <text x="480" y="190" text-anchor="middle" style="fill:var(--text-3,#8C8C8C);font-size:11px;">May</text>
             </svg>
         </div>
-    </div>
-</section>
-
-<!-- SLIDE 14 -->
-<section class="slide slide-white" id="slide-14">
-    <div class="slide-header center-stack">
-        <span class="header-mark"></span>
-        <h2 class="header-title">环形图</h2>
-        <p class="header-sub">适合用户结构、资源分配、业务构成等比例型信息。</p>
-    </div>
-    <div class="slide-body" style="justify-content:center;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:2rem;" class="reveal">
-            <svg viewBox="0 0 200 200" style="width:clamp(140px,20vw,190px);flex-shrink:0;">
+        <div style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:1.2rem;align-items:center;" class="reveal">
+            <svg viewBox="0 0 200 200" style="width:clamp(138px,16vw,180px);justify-self:center;">
                 <circle cx="100" cy="100" r="70" fill="none" stroke="var(--bg-page,#F5F7FA)" stroke-width="30"/>
                 <circle cx="100" cy="100" r="70" fill="none" style="stroke:var(--primary,#1677FF);" stroke-width="30" stroke-dasharray="198 242" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
                 <circle cx="100" cy="100" r="70" fill="none" style="stroke:var(--primary-light,#4096FF);" stroke-width="30" stroke-dasharray="132 308" stroke-dashoffset="-198" transform="rotate(-90 100 100)"/>
@@ -1808,21 +1790,21 @@ body.on-blue #globalLogoGroup {
                 <text x="100" y="96" text-anchor="middle" style="fill:var(--text-1,#141414);font-size:18px;font-weight:900;">75%</text>
                 <text x="100" y="113" text-anchor="middle" style="fill:var(--text-3,#8C8C8C);font-size:10px;">核心指标</text>
             </svg>
-            <div style="display:flex;flex-direction:column;gap:0.6rem;">
-                <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <span style="width:12px;height:12px;border-radius:3px;background:var(--primary,#1677FF);flex-shrink:0;"></span>
-                    <span style="font-size:var(--small-size);color:var(--text-2);">类别 A <strong style="color:var(--text-1);">45%</strong></span>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.65rem;">
+                <div class="card" style="padding:0.85rem;">
+                    <div class="card-title">柱状图</div>
+                    <div class="card-body">适合对比不同阶段、季度或分组之间的绝对差异。</div>
                 </div>
-                <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <span style="width:12px;height:12px;border-radius:3px;background:var(--primary-light,#4096FF);flex-shrink:0;"></span>
-                    <span style="font-size:var(--small-size);color:var(--text-2);">类别 B <strong style="color:var(--text-1);">30%</strong></span>
+                <div class="card" style="padding:0.85rem;">
+                    <div class="card-title">折线图</div>
+                    <div class="card-body">适合表达趋势变化、拐点和连续时间序列。</div>
                 </div>
-                <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <span style="width:12px;height:12px;border-radius:3px;background:var(--primary-pale,#E6F4FF);flex-shrink:0;border:1px solid var(--border);"></span>
-                    <span style="font-size:var(--small-size);color:var(--text-2);">类别 C <strong style="color:var(--text-1);">25%</strong></span>
+                <div class="card" style="padding:0.85rem;">
+                    <div class="card-title">环形图</div>
+                    <div class="card-body">适合表达占比关系，建议控制在 3 段以内。</div>
                 </div>
-                <div class="highlight-box" style="margin-top:0.6rem;">
-                    <strong>用法提示：</strong>环形图只适合讲占比关系，不适合承载太多维度，建议控制在 3 段以内。
+                <div class="highlight-box" style="margin:0;">
+                    <strong>用法提示：</strong>先判断要讲的是“差异”“趋势”还是“占比”，再选图表，不要让图形先行。
                 </div>
             </div>
         </div>
@@ -1926,10 +1908,10 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-18">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">横向支撑板</h2>
-        <p class="header-sub">这一页只保留 `support-board`，让结构更聚焦。</p>
+        <h2 class="header-title">推进机制</h2>
+        <p class="header-sub">把横向支撑板和流转看板放在同一页，既能讲清支撑体系，也能展示需求如何流转到交付。</p>
     </div>
-    <div class="slide-body" style="justify-content:center;gap:clamp(0.8rem,1.4vh,1rem);">
+    <div class="slide-body" style="justify-content:center;gap:clamp(0.7rem,1.2vh,0.95rem);">
         <div class="support-board reveal">
             <div class="support-board-title">专项示例</div>
             <div class="support-board-main">横向支撑板布局</div>
@@ -1975,17 +1957,6 @@ body.on-blue #globalLogoGroup {
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- SLIDE 18B -->
-<section class="slide slide-white" id="slide-18b">
-    <div class="slide-header center-stack">
-        <span class="header-mark"></span>
-        <h2 class="header-title">流转看板</h2>
-        <p class="header-sub">这一页单独演示 `demand-flow-board`，避免和支撑板挤在一起。</p>
-    </div>
-    <div class="slide-body" style="justify-content:center;">
         <div class="demand-flow reveal">
             <div class="demand-flow-board">
                 <div class="demand-flow-stage-head">

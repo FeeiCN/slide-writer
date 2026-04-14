@@ -352,11 +352,13 @@ body.on-blue #globalLogoGroup {
     text-align: center;
 }
 
-.stat-num {
-    font-size: clamp(1.8rem, 4vw, 3.5rem);
+.stat-num,
+.stat-number {
+    font-size: clamp(2.2rem, 4.8vw, 4.2rem);
     font-weight: 900;
     color: var(--primary);
     line-height: 1;
+    font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
@@ -375,7 +377,8 @@ body.on-blue #globalLogoGroup {
 }
 .stat-icon svg { width: 100%; height: 100%; display: block; }
 .stat-num.red ~ .stat-label,
-.stat-block:has(.stat-num.red) .stat-icon { color: var(--red); }
+.stat-number.red ~ .stat-label,
+.stat-block:has(.stat-num.red, .stat-number.red) .stat-icon { color: var(--red); }
 
 .mini-list {
     list-style: none;
