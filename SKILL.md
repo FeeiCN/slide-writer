@@ -294,15 +294,19 @@ cp _base.html [输出文件名].html
 
 ### Step 3.2：用 Edit 工具填充占位符
 
-复制完 `_base.html` 后，**依次用 Edit 工具替换 5 个占位符**，不要重写整个文件：
+复制完 `_base.html` 后，**依次用 Edit 工具替换占位符**，不要重写整个文件。
 
-**① 标题**
+`_base.html` 已内置蚂蚁集团默认值：双 logo（蚂蚁集团 + 支付宝）、页脚”* 仅限内部交流使用”。**②③④ 仅在用户明确指定不同内容时才需替换，否则保持默认不改。**
+
+**① 标题（必填）**
 ```
 old: %%TITLE%%
 new: [演讲主题] — [演讲者]
 ```
 
-**② 主题样式覆盖**（内容直接从 `themes/[id].md` 的 CSS 块复制）
+**② 主题样式覆盖（仅非蚂蚁集团主题，或用户指定其他配色时）**
+
+读 `themes/[id].md` 的 CSS 块，用 Edit 工具替换：
 ```
 old: <!-- %%THEME_STYLE%% -->
 new:
@@ -312,28 +316,15 @@ new:
 .slide-qa      { background: ... !important; }
 </style>
 ```
+> 蚂蚁集团主题：跳过此步，`<!-- %%THEME_STYLE%% -->` 保留为注释即可。
 
-**③ Logo 规范（白底页 + 深色页）**
+**③ Logo（仅用户指定非默认 logo 时）**
 
-**第一步：读 `themes/[id].md` 的「Logo」节，确定用哪个模板（单 / 双 / 无）**，再确定路径：
-- 主题文件有明确的单/双规则 → 按规则执行
-- 主题文件无明确规则 → 默认单 logo
-- 双 logo 的 HTML 写法查 `themes/_index.md`「双 Logo 展示规则」
+默认已内置双 logo（蚂蚁集团蓝色 + 支付宝蓝色）。需要更换时，用 Edit 工具替换 `globalLogoGroup` 节点：
 
-文件选择：
-- 白底页 → 彩色版（`-color.png` / `-blue.png`）
-- 深色页 → 白色版（`-white.png`）；无则用彩色版 + `style=”filter:brightness(0) invert(1)”`
-
-白底页：填充 `%%LOGO_GROUP%%` 占位符（**必须先按主题规则决定单/双，再从下方选对应模板**）
+白底页模板选项：
 ```html
-<!-- 双 logo（蚂蚁集团主题默认；子品牌：集团+子品牌；无子品牌：集团+支付宝）-->
-<div id=”globalLogoGroup” class=”logo-group-dual”>
-    <img src=”./logos/logo-antgroup-blue.png” alt=”蚂蚁集团”>
-    <span class=”logo-divider”></span>
-    <img src=”./logos/logo-alipay-blue.png” alt=”支付宝”>
-</div>
-
-<!-- 单 logo（集团层面内容 / 其他主题无双logo规则时）-->
+<!-- 单 logo -->
 <div id=”globalLogoGroup” class=”logo-group-single”>
     <img src=”./logos/[brand]-color.png” alt=”[公司]”>
 </div>
@@ -377,13 +368,15 @@ new:
 - 不要用裸 `<img>` 放 logo，必须套在 `.fixed-logo-dark` 容器内
 - 不要在不同页面用不同的 height clamp 值，尺寸由 CSS class 统一控制
 
-**④ 页脚说明**
+**④ 页脚说明（仅用户指定不同文字时）**
+
+默认已内置”* 仅限内部交流使用”。需要更换时：
 ```
-old: %%FOOTNOTE%%
-new: * 仅限内部交流使用（或用户指定的文字）
+old: * 仅限内部交流使用
+new: [用户指定的文字]
 ```
 
-**⑤ 幻灯片内容**
+**⑤ 幻灯片内容（必填）**
 ```
 old: <!-- %%SLIDES%% -->
 new: 所有 <section> 幻灯片 HTML
