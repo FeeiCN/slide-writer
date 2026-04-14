@@ -120,10 +120,10 @@ Phase 1 收集到「公司」字段后，如与初步判断不一致，以用户
 如果运行环境支持 `AskUserQuestion`，一次性补问缺失项；如果不支持，就用一条普通消息补问，或在低风险场景下按默认值直接继续：
 
 - 公司缺失 → 从内容、署名、部门名称中推断；仍无法识别则默认蚂蚁集团+支付宝双 Logo
-- 受众缺失 → 默认”管理层/跨部门汇报”
-- 页数缺失 → 默认 5-8 页
+- 受众缺失 → 从内容语气、术语密度、场景词（”汇报””提案””分享””复盘”等）推断；无法推断则默认”个人汇报”
+- 页数缺失 → 根据内容信息量推断合理页数（要点数量、章节数、数据密度）；无法推断则默认 10-13 页
 - 日期缺失 → 默认今天
-- 署名缺失 → 默认留空，但不要伪造职位
+- 署名缺失 → 从内容署名、部门信息或当前用户信息推断；无法推断则默认”路人甲”
 
 ---
 
@@ -174,25 +174,27 @@ Phase 1 收集到「公司」字段后，如与初步判断不一致，以用户
 10. **视觉效果分层叠加** — 重点卡片可叠加渐变背景 + 顶部色条 + 阶段 pill 标签，形成层次感；装饰性径向渐变光圈作为点缀，不要每张卡都加；具体写法见 `components.md`「设计效果规范」章节。
 
 ### 必须包含的页面
-| 页面类型 | 用途 | Slide Class |
-|---|---|---|
-| 封面页 | 主题、副标题、演讲者 + 角色/岗位/Title、日期 | `slide-cover` |
-| 目录页 | 用 agenda-item 列出所有章节 | `slide-white` |
-| 章节过渡页 | 每个大章节开始前 | `slide-section` |
-| 结尾页 | Q&A 或感谢 | `slide-qa` |
+| 页面类型 | 用途 | Slide Class | 豁免条件 |
+|---|---|---|---|
+| 封面页 | 主题、副标题、演讲者 + 角色/岗位/Title、日期 | `slide-cover` | 无豁免，必须有 |
+| 目录页 | 用 agenda-item 列出所有章节 | `slide-white` | **总页数 ≤ 6 时省略** |
+| 章节过渡页 | 每个大章节开始前 | `slide-section` | **该逻辑分组内容页 < 3 时省略**；用户明确要求页数少时，章节页总数不超过内容页数的 1/3 |
+| 结尾页 | Q&A 或感谢 | `slide-qa` | 无豁免，必须有 |
+
+> **小型 PPT 规则（用户要求 ≤ 6 页时）：** 封面 + 内容页 + 结尾，不强插目录和章节过渡页。内容页数以用户指定为准，不因结构要求而强行扩充。
 
 ### 内容页密度规则
 
 | 内容类型 | 普通场景上限 | 演讲稿场景上限 |
 |---|---|---|
-| 文字要点 | 6-8 条 bullet | **4 条**，每条 ≤ 15 字 |
-| 信息卡片（横向列） | 4-5 列 info-card | **3 列**，卡片描述 ≤ 30 字 |
-| 信息卡片（纵向堆叠） | 单列 ≤ 6 张，描述 ≤ 30 字/张 | 单列 ≤ 4 张，描述 ≤ 20 字/张 |
-| 数据统计 | 4-6 个 stat-block | 4 个，配 1 句解读 |
-| 对比/流程 | 3-5 个 step-card | **3 个**，描述 ≤ 20 字 |
-| 表格 | 最多 6 行 × 5 列 | 最多 4 行 × 4 列 |
-| 引用原话 | 1 段，40-80 字 | 1 句，**≤ 40 字** |
-| 卡片描述正文 | 3-4 句话 | **2 句话**，禁止完整段落 |
+| 文字要点 | 10-12 条 bullet | **6-8 条**，每条 ≤ 25 字 |
+| 信息卡片（横向列） | 5-6 列 info-card | **4-5 列**，卡片描述 ≤ 50 字 |
+| 信息卡片（纵向堆叠） | 单列 ≤ 8 张，描述 ≤ 50 字/张 | 单列 ≤ 6 张，描述 ≤ 35 字/张 |
+| 数据统计 | 6-8 个 stat-block | 6 个，配 1 句解读 |
+| 对比/流程 | 4-6 个 step-card | **4 个**，描述 ≤ 35 字 |
+| 表格 | 最多 10 行 × 6 列 | 最多 8 行 × 5 列 |
+| 引用原话 | 1-2 段，80-150 字 | 1 段，**≤ 80 字** |
+| 卡片描述正文 | 5-6 句话 | **3-4 句话**，可含完整段落 |
 
 超出限制 → 自动拆成多页，页间用连贯的过渡标题衔接。
 
@@ -259,7 +261,7 @@ Phase 1 收集到「公司」字段后，如与初步判断不一致，以用户
 
 1. **去冗余** — 删除”我们认为””需要指出的是”等无信息量的前缀。
 2. **名词化** — “进行分析”→”分析”，”做出决策”→”决策”。
-3. **数字化** — 有数据的地方补充具体数字；没有数据时保持概括性但有力。
+3. **数字化** — 只润色原文中已有数字的表达形式（如"百分之三十七"→"37%"）；**禁止在原文无数据的地方自行编造具体数字**，无数据时保持概括性但有力的表达。
 4. **动词有力** — 用”推进””落地””打通””提升””收敛”替代”做””进行””开展”。
 5. **层级清晰** — 主标题是结论/判断，副标题是补充说明，内容是支撑。
 6. **引用克制** — 原话引用只保留最有代表性的句子；同页不出现多段长引用。
@@ -320,53 +322,32 @@ new:
 
 **③ Logo（仅用户指定非默认 logo 时）**
 
-默认已内置双 logo（蚂蚁集团蓝色 + 支付宝蓝色）。需要更换时，用 Edit 工具替换 `globalLogoGroup` 节点：
+`#globalLogoGroup` 是唯一的 logo 节点，`position:fixed` 悬停在右上角。每个 logo 槽放两张 img：`.logo-light`（白底页显示）和 `.logo-dark`（深色页显示），CSS 按 `body.on-blue` 自动切换，**全程只改这一处，不在任何 `<section>` 里写 logo**。
 
-白底页模板选项：
 ```html
 <!-- 单 logo -->
 <div id=”globalLogoGroup” class=”logo-group-single”>
-    <img src=”./logos/[brand]-color.png” alt=”[公司]”>
+    <img class=”logo-light” src=”./logos/[brand]-color.png” alt=”[公司]”>
+    <img class=”logo-dark”  src=”./logos/[brand]-white.png” alt=”[公司]”>
 </div>
 
-<!-- 其他主题双 logo（明确有子品牌时）-->
+<!-- 双 logo（集团 + 子品牌）-->
 <div id=”globalLogoGroup” class=”logo-group-dual”>
-    <img src=”./logos/[集团]-color.png” alt=”[集团]”>
+    <img class=”logo-light” src=”./logos/[集团]-color.png” alt=”[集团]”>
+    <img class=”logo-dark”  src=”./logos/[集团]-white.png” alt=”[集团]”>
     <span class=”logo-divider”></span>
-    <img src=”./logos/[子品牌]-color.png” alt=”[子品牌]”>
+    <img class=”logo-light” src=”./logos/[子品牌]-color.png” alt=”[子品牌]”>
+    <img class=”logo-dark”  src=”./logos/[子品牌]-white.png” alt=”[子品牌]”>
 </div>
+
+<!-- 无白色版时，logo-dark 用彩色版加 filter 转白 -->
+<img class=”logo-dark” src=”./logos/[brand]-color.png” alt=”[公司]” style=”filter:brightness(0) invert(1);”>
 
 <!-- 无 logo -->
 <div id=”globalLogoGroup” class=”logo-group-single” style=”display:none;”></div>
 ```
 
-深色页（封面 / 章节 / 结尾）：内联写入各 `<section>`，三种页面写法完全一致
-```html
-<!-- 单 logo（有白色版）-->
-<div class=”fixed-logo-dark logo-group-single”>
-    <img src=”./logos/[brand]-white.png” alt=”[公司]” class=”logo-img-cover”>
-</div>
-
-<!-- 单 logo（无白色版，用彩色版转白）-->
-<div class=”fixed-logo-dark logo-group-single”>
-    <img src=”./logos/[brand]-color.png” alt=”[公司]” class=”logo-img-cover”
-         style=”filter:brightness(0) invert(1);”>
-</div>
-
-<!-- 双 logo -->
-<div class=”fixed-logo-dark logo-group-dual”>
-    <img src=”./logos/[集团]-white.png” alt=”[集团]” class=”logo-img-cover”>
-    <span class=”logo-divider”></span>
-    <img src=”./logos/[子品牌]-white.png” alt=”[子品牌]” class=”logo-img-cover”>
-</div>
-
-<!-- 无 logo：省略整个 .fixed-logo-dark，不写占位 -->
-```
-
-禁止事项：
-- 不要在深色页 logo 上手写 `position:absolute`、`top:`、`right:`、`height:` 等定位和尺寸样式（CSS + JS 已统一处理）
-- 不要用裸 `<img>` 放 logo，必须套在 `.fixed-logo-dark` 容器内
-- 不要在不同页面用不同的 height clamp 值，尺寸由 CSS class 统一控制
+> 禁止在 `<section>` 内写任何 logo 相关代码；禁止在 `#globalLogoGroup` 上手写定位样式，CSS 已统一处理。
 
 **④ 页脚说明（仅用户指定不同文字时）**
 
@@ -385,74 +366,23 @@ new: 所有 <section> 幻灯片 HTML
 **主题应用说明：**
 - `.slide-section` 和 `.slide-qa` 在基础 CSS 中使用硬编码渐变，必须用 `!important` 覆盖。
 - `--primary-pale` 会自动影响 `info-card` 背景、`agenda-item` hover、`highlight-box` 等，无需逐一覆盖。
-- logo 统一使用 `./logos/...` 相对路径。
 
-### Step 3.2.5：大屏自适应（4K / 超宽屏）
+### Step 3.2.5：大屏自适应（已内置，无需手动写入）
 
-`_base.html` 已内置 `--deck-safe-width` 变量，可将内容限制在 16:9 安全区内。但 **4K 缩放逻辑** 和 **大屏 CSS 覆盖** 需手动写入输出文件。
+4K 缩放 CSS（`@media (min-width:1921px)`）和 `updateViewportScale()` JS 已直接内置于 `_base.html`，`cp` 后自动继承，**生成时不需要做任何额外操作**。
 
-**什么时候必须加：** 演讲场景（投大屏、连接 4K 显示器）一律加；仅供个人浏览的可以不加。
-
-**① 在 `</head>` 前插入大屏 CSS 覆盖块**（放在 `%%THEME_STYLE%%` 之后）：
-
-```html
-<style>
-/* ── Large screens (4K+): lift fixed px caps ── */
-@media (min-width: 1921px) {
-    :root {
-        --title-size:   clamp(1.5rem, 5vw, 6rem);
-        --h2-size:      clamp(1.25rem, 3.5vw, 4rem);
-        --h3-size:      clamp(1rem, 2.5vw, 3rem);
-        --body-size:    clamp(0.75rem, 1.5vw, 2rem);
-        --small-size:   clamp(0.65rem, 1vw, 1.5rem);
-        --slide-padding: clamp(1rem, 4vw, 6rem);
-        --content-gap:   clamp(0.5rem, 2vw, 3rem);
-        --element-gap:   clamp(0.25rem, 1vw, 1.5rem);
-    }
-    .card, .container, .content-box {
-        max-width: min(90vw, calc(1000px * var(--vp-scale, 1)));
-        max-height: min(80vh, calc(700px * var(--vp-scale, 1)));
-    }
-    .slide img { width: 100%; max-height: 50vh; }
-    .info-card { min-height: calc(88px * var(--vp-scale, 1)); }
-    .nav-dots  { gap: calc(8px * var(--vp-scale, 1)); }
-    .nav-dot   { width: calc(8px * var(--vp-scale, 1)); height: calc(8px * var(--vp-scale, 1)); }
-    .progress-bar { height: calc(3px * var(--vp-scale, 1)); }
-    #globalLogoGroup img { max-height: none !important; width: auto !important; }
-    #footnote { font-size: 0.65rem !important; }
-    /* 有特殊固定尺寸的元素（同心圆、进度条高度等）在此追加 slide 级覆盖 */
-}
-</style>
-```
-
-**② 在 JS 初始化区块中插入 `updateViewportScale()`**（放在 `DOMContentLoaded` 回调内、动画初始化之前）：
-
-```js
-/* Large-screen scaling — must run before animations */
-function updateViewportScale() {
-    const scale = Math.max(1, window.innerWidth / 1600);
-    document.documentElement.style.fontSize = (scale * 16) + 'px';
-    document.documentElement.style.setProperty('--vp-scale', scale);
-}
-updateViewportScale();
-window.addEventListener('resize', updateViewportScale);
-```
-
-**③ 写 inline 固定尺寸时的规范：**
+写 inline 固定尺寸时仍须遵守以下规范，确保自定义内容在大屏下等比缩放：
 
 | 场景 | 写法 |
 |---|---|
-| 普通间距、字号 | 用 `clamp()` 或 CSS 变量，自动随 rem 缩放，无需额外处理 |
-| 固定 px 尺寸（圆点、色条高度、图标盒子） | `calc(Npx * var(--vp-scale, 1))`，让大屏等比放大 |
+| 普通间距、字号 | 用 `clamp()` 或 CSS 变量，自动随 rem 缩放 |
+| 固定 px 尺寸（圆点、色条高度、图标盒子） | `calc(Npx * var(--vp-scale, 1))` |
 | 容器最大宽度 | `min(calc(XYZpx * var(--vp-scale, 1)), 100%)` |
-| `max-width` 直接写死 px | **禁止**，改用上一行的写法或 `clamp()` |
+| `max-width` 直接写死 px | **禁止**，改用上一行写法或 `clamp()` |
 
-**④ 内容区宽度约束（所有幻灯片必须遵守）：**
-
-`_base.html` 已在 `.slide-header` 和 `.slide-body` 上设置 `width: min(100%, var(--deck-safe-width))`，超宽屏下内容不会撑满全宽。自定义 inline 容器也必须遵守：
+内容区宽度约束（所有幻灯片必须遵守）：
 
 ```html
-<!-- 全宽内容页的内容容器 -->
 <div style="width:min(100%,var(--deck-safe-width));margin:0 auto;">...</div>
 ```
 
@@ -468,17 +398,6 @@ window.addEventListener('resize', updateViewportScale);
         <div class="arc arc-2"></div>
         <div class="arc arc-3"></div>
     </div>
-    <!-- 深色页 logo：按 Step 3.2 ③ 主题规则决定单/双；蚂蚁集团默认双 logo；无 logo 时省略整个 .fixed-logo-dark -->
-    <!-- 双 logo 示例（蚂蚁集团默认）：-->
-    <div class="fixed-logo-dark logo-group-dual">
-        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
-        <span class="logo-divider"></span>
-        <img src="./logos/logo-alipay-white.png" alt="支付宝" class="logo-img-cover">
-    </div>
-    <!-- 单 logo 示例（集团层面或其他主题）：
-    <div class="fixed-logo-dark logo-group-single">
-        <img src="./logos/[brand]-white.png" alt="[公司名]" class="logo-img-cover">
-    </div> -->
     <div class="cover-top reveal" style="display:flex;align-items:center;">
         <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">[部门名称]</span>
     </div>
@@ -510,17 +429,6 @@ window.addEventListener('resize', updateViewportScale);
 **章节过渡页：**
 ```html
 <section class="slide slide-section" id="slide-N">
-    <!-- 深色页 logo：按 Step 3.2 ③ 主题规则决定单/双；蚂蚁集团默认双 logo；无 logo 时省略整个 .fixed-logo-dark -->
-    <!-- 双 logo 示例（蚂蚁集团默认）：-->
-    <div class="fixed-logo-dark logo-group-dual">
-        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
-        <span class="logo-divider"></span>
-        <img src="./logos/logo-alipay-white.png" alt="支付宝" class="logo-img-cover">
-    </div>
-    <!-- 单 logo 示例（集团层面或其他主题）：
-    <div class="fixed-logo-dark logo-group-single">
-        <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
-    </div> -->
     <p class="section-num reveal">PART [章节号]</p>
     <h2 class="section-title reveal">[章节标题]</h2>
     <p class="section-desc reveal">[一句话说明这一章节要回答的问题]</p>
@@ -530,17 +438,6 @@ window.addEventListener('resize', updateViewportScale);
 **结尾页：**
 ```html
 <section class="slide slide-qa" id="slide-N">
-    <!-- 深色页 logo：按 Step 3.2 ③ 主题规则决定单/双；蚂蚁集团默认双 logo；无 logo 时省略整个 .fixed-logo-dark -->
-    <!-- 双 logo 示例（蚂蚁集团默认）：-->
-    <div class="fixed-logo-dark logo-group-dual">
-        <img src="./logos/logo-antgroup-white.png" alt="蚂蚁集团" class="logo-img-cover">
-        <span class="logo-divider"></span>
-        <img src="./logos/logo-alipay-white.png" alt="支付宝" class="logo-img-cover">
-    </div>
-    <!-- 单 logo 示例（集团层面或其他主题）：
-    <div class="fixed-logo-dark logo-group-single">
-        <img src="./logos/[brand]-white.png" alt="[公司]" class="logo-img-cover">
-    </div> -->
     <h2 class="qa-title reveal">Q&amp;A</h2>
     <p class="qa-sub reveal">[感谢语]</p>
 </section>
@@ -561,10 +458,49 @@ window.addEventListener('resize', updateViewportScale);
 
 1. **保存** — 将文件保存到当前工作目录。文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`、`alibaba-ai-strategy.html`；主题关键词是中文时转为拼音或英译，避免中文文件名造成路径兼容问题。
 2. **用浏览器打开** — 执行 `open [文件名].html` 自动在默认浏览器中打开。
-3. **告知用户：**
-   - 文件路径、幻灯片总数、应用的主题名称
+3. **执行 Phase 4.1 单体化** — 浏览器打开后，立即执行单体化，将所有外部图片内嵌为 base64，确保文件零依赖、可直接传播。无需询问用户，默认执行。
+4. **告知用户：**
+   - 文件路径、文件大小（KB）、幻灯片总数、应用的主题名称
    - 导航：方向键 / 空格翻页，点击右侧圆点导航，`F` 全屏
    - 如需修改：直接编辑 HTML 文件，或告知我继续修改
+
+---
+
+## Phase 4.1：单体化（每次必须执行）
+
+将所有外部图片引用替换为 base64 内嵌 Data URI，使 HTML 文件完全自包含，无需 `logos/` 目录，可直接复制传播。
+
+**执行步骤：**
+
+**① 扫描文件中所有外部图片引用**
+
+```bash
+grep -o 'src="[^"]*"' [文件名].html | grep -v 'data:' | sort -u
+```
+
+**② 对每个本地图片路径，执行 base64 内嵌替换**
+
+```bash
+LOGO_B64=$(base64 -i [图片路径] | tr -d '\n') && \
+sed -i '' "s|src=\"[图片相对路径]\"|src=\"data:image/png;base64,${LOGO_B64}\"|g" [文件名].html
+```
+
+- 图片格式为 `.png` → `data:image/png;base64,`
+- 图片格式为 `.jpg`/`.jpeg` → `data:image/jpeg;base64,`
+- 图片格式为 `.svg` → `data:image/svg+xml;base64,`
+- 多张图片逐一替换，每次替换后验证 `grep -c 'data:image'` 计数递增
+
+**③ 验证无残留外部引用**
+
+```bash
+grep -o 'src="[^"]*"' [文件名].html | grep -v 'data:'
+```
+
+输出为空则表示所有图片已内嵌。
+
+**④ 告知用户最终结果**
+
+输出一行说明：文件路径 + 文件大小（`wc -c` 换算为 KB）+ 确认无外部依赖。
 
 ---
 

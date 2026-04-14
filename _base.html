@@ -65,9 +65,11 @@ html {
     background: var(--bg-page);
 }
 
-body.on-blue #globalLogoGroup {
-    opacity: 0;
-    pointer-events: none;
+#globalLogoGroup .logo-dark  { display: none; }
+body.on-blue #globalLogoGroup .logo-light { display: none; }
+body.on-blue #globalLogoGroup .logo-dark  { display: block; }
+body.on-blue #globalLogoGroup .logo-divider {
+    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.35) 28%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.35) 72%, transparent 100%);
 }
 
 .slide {
@@ -1067,42 +1069,10 @@ body.on-blue #globalLogoGroup {
     background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.18) 28%, rgba(0,0,0,0.32) 50%, rgba(0,0,0,0.18) 72%, transparent 100%);
 }
 
-.fixed-logo-dark .logo-divider {
-    width: 1.5px;
-    height: clamp(1.4rem, 2.8vw, 2.2rem);
-    flex-shrink: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.35) 28%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.35) 72%, transparent 100%);
-}
-
-.logo-img-cover {
-    height: clamp(1.4rem, 2.8vw, 2.2rem);
-    max-height: 36px;
-    max-width: clamp(5.5rem, 11vw, 9rem);
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.fixed-logo-dark .logo-img-cover {
-    filter: brightness(0) invert(1);
-}
-
-#globalLogoGroup.logo-group-single img,
-.fixed-logo-dark.logo-group-single .logo-img-cover {
+#globalLogoGroup.logo-group-single img {
     height: clamp(2.1rem, 3.8vw, 3rem);
     max-height: 52px;
     max-width: clamp(8rem, 16vw, 13rem);
-}
-
-.fixed-logo-dark {
-    position: absolute;
-    top: clamp(1.15rem, 2.8vh, 1.9rem);
-    right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(0.5rem, 1vw, 0.9rem);
-    width: clamp(8.5rem, 15vw, 11.5rem);
 }
 
 #fullscreenBtn {
@@ -1159,7 +1129,6 @@ body.on-blue #globalLogoGroup {
     .agenda-tag { justify-self: start; }
     .nav-dots { display: none; }
     #globalLogoGroup { display: none; }
-    .fixed-logo-dark { right: clamp(1rem, 4vw, 1.4rem); width: 8rem; }
     .step-flow-arrow { display: none; }
     .cover-bottom { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
 }
@@ -1227,16 +1196,45 @@ body.on-blue #globalLogoGroup {
 }
 </style>
 <!-- %%THEME_STYLE%% -->
+<style>
+/* ── Large screens (4K+): lift fixed px caps ── */
+@media (min-width: 1921px) {
+    :root {
+        --title-size:    clamp(1.5rem, 5vw, 6rem);
+        --h2-size:       clamp(1.25rem, 3.5vw, 4rem);
+        --h3-size:       clamp(1rem, 2.5vw, 3rem);
+        --body-size:     clamp(0.75rem, 1.5vw, 2rem);
+        --small-size:    clamp(0.65rem, 1vw, 1.5rem);
+        --slide-padding: clamp(1rem, 4vw, 6rem);
+        --content-gap:   clamp(0.5rem, 2vw, 3rem);
+        --element-gap:   clamp(0.25rem, 1vw, 1.5rem);
+    }
+    .card, .container, .content-box {
+        max-width: min(90vw, calc(1000px * var(--vp-scale, 1)));
+        max-height: min(80vh, calc(700px * var(--vp-scale, 1)));
+    }
+    .slide img { width: 100%; max-height: 50vh; }
+    .info-card { min-height: calc(88px * var(--vp-scale, 1)); }
+    .nav-dots  { gap: calc(8px * var(--vp-scale, 1)); }
+    .nav-dot   { width: calc(8px * var(--vp-scale, 1)); height: calc(8px * var(--vp-scale, 1)); }
+    .progress-bar { height: calc(3px * var(--vp-scale, 1)); }
+    #globalLogoGroup img { max-height: none !important; width: auto !important; }
+    #footnote { font-size: 0.65rem !important; }
+}
+</style>
 </head>
 <body>
 
 <div class="progress-bar" id="progressBar"></div>
 
 <div id="globalLogoGroup" class="logo-group-dual">
-    <img src="./logos/logo-antgroup-blue.png" alt="蚂蚁集团">
+    <img class="logo-light" src="./logos/logo-antgroup-blue.png"  alt="蚂蚁集团">
+    <img class="logo-dark"  src="./logos/logo-antgroup-white.png" alt="蚂蚁集团">
     <span class="logo-divider"></span>
-    <img src="./logos/logo-alipay-blue.png" alt="支付宝">
+    <img class="logo-light" src="./logos/logo-alipay-blue.png"  alt="支付宝">
+    <img class="logo-dark"  src="./logos/logo-alipay-white.png" alt="支付宝">
 </div>
+
 
 <nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
 
@@ -1440,6 +1438,15 @@ class MiniSlidePresentation {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    /* Large-screen scaling — runs before all other init */
+    function updateViewportScale() {
+        const scale = Math.max(1, window.innerWidth / 1600);
+        document.documentElement.style.fontSize = (scale * 16) + 'px';
+        document.documentElement.style.setProperty('--vp-scale', scale);
+    }
+    updateViewportScale();
+    window.addEventListener('resize', updateViewportScale);
+
     function tuneLogoImage(img, groupSize) {
         if (!img) return;
 
@@ -1487,15 +1494,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function tuneLogoGroups() {
-        document.querySelectorAll('#globalLogoGroup, .fixed-logo-dark').forEach(group => {
-            const imgs = Array.from(group.querySelectorAll('img'));
-            imgs.forEach(img => tuneLogoImage(img, imgs.length));
+        document.querySelectorAll('#globalLogoGroup').forEach(group => {
+            const allImgs = Array.from(group.querySelectorAll('img'));
+            const slotCount = group.classList.contains('logo-group-dual') ? 2
+                            : group.classList.contains('logo-group-single') ? 1
+                            : allImgs.length;
+            allImgs.forEach(img => tuneLogoImage(img, slotCount));
 
             requestAnimationFrame(() => {
-                const heights = imgs
+                /* Only measure visible imgs for divider height */
+                const heights = allImgs
+                    .filter(img => getComputedStyle(img).display !== 'none')
                     .map(img => img.getBoundingClientRect().height)
                     .filter(Boolean);
-                const divider = group.querySelector('.logo-divider, span');
+                const divider = group.querySelector('.logo-divider');
                 if (!divider || !heights.length) return;
                 divider.style.height = `${Math.round(Math.max(...heights) * 0.88)}px`;
             });
