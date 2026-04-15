@@ -11,6 +11,8 @@
 
 > Focus on goals, viewpoints, and judgment. Slide-Writer handles structure, writing, refinement, and presentation.
 
+> Works best with **Claude Code** or **Codex**, paired with a capable model — Claude Sonnet, Claude Opus, or GPT-4o recommended.
+
 <p align="center">
   <img src="examples/before-after.png" alt="Slide-Writer Demo" width="100%"/>
 </p>

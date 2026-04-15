@@ -11,6 +11,8 @@
 
 > 您只需专注目标、观点与判断，Slide-Writer 负责结构、写作、优化与呈现。
 
+> 推荐搭配 **Claude Code** 或 **Codex** 使用，模型建议选择 Claude Sonnet、Claude Opus 或 GPT-4o。
+
 <p align="center">
   <img src="examples/before-after.png" alt="Slide-Writer Demo" width="100%"/>
 </p>
