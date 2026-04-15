@@ -133,10 +133,15 @@ body.on-blue #globalLogoGroup {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: clamp(0.35rem, 1vh, 0.85rem);
     width: min(100%, var(--deck-safe-width));
     margin-left: auto;
     margin-right: auto;
+}
+
+.slide-body.align-top {
+    justify-content: flex-start;
 }
 
 .slide-content > :not(.slide-header) {
@@ -301,6 +306,9 @@ body.on-blue #globalLogoGroup {
 .grid-4 {
     display: grid;
     gap: clamp(0.75rem, 1.5vw, 1rem);
+    align-items: stretch;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -444,10 +452,27 @@ body.on-blue #globalLogoGroup {
 .three-col {
     display: grid;
     gap: clamp(0.8rem, 1.6vw, 1.1rem);
+    align-items: stretch;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.grid-2,
+.two-col {
+    max-width: min(1240px, 100%);
+}
+
+.grid-3,
+.three-col {
+    max-width: min(1180px, 100%);
+}
+
+.grid-4 {
+    max-width: min(1240px, 100%);
+}
 
 .goal-card,
 .info-card,
@@ -459,6 +484,16 @@ body.on-blue #globalLogoGroup {
     border: 1px solid var(--border);
     background: var(--bg-white);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.goal-card,
+.info-card,
+.support-card,
+.role-card,
+.step-card,
+.card,
+.quote-box {
+    height: 100%;
 }
 
 .goal-card {
@@ -966,7 +1001,7 @@ body.on-blue #globalLogoGroup {
     z-index: 0;
     pointer-events: none;
     background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 700'><defs><pattern id='dp' x='0' y='0' width='11' height='11' patternUnits='userSpaceOnUse'><circle cx='5.5' cy='5.5' r='1.6' fill='%23C8C8C8'/></pattern></defs><path d='M160,50 L190,38 L240,36 L285,42 L318,58 L342,84 L355,115 L348,150 L326,174 L304,190 L275,202 L250,218 L228,248 L208,260 L190,252 L170,236 L150,210 L142,178 L140,145 L145,105 L150,72 Z' fill='url(%23dp)'/><path d='M218,272 L274,266 L300,288 L312,326 L306,372 L288,418 L264,448 L238,456 L212,438 L198,402 L194,358 L200,308 L208,280 Z' fill='url(%23dp)'/><path d='M638,52 L684,44 L726,50 L748,72 L742,98 L720,116 L688,122 L658,112 L638,90 L635,68 Z' fill='url(%23dp)'/><path d='M638,148 L694,140 L736,148 L760,178 L764,224 L752,280 L730,336 L700,378 L668,398 L642,388 L622,356 L612,304 L612,244 L620,192 L630,164 Z' fill='url(%23dp)'/><path d='M754,40 L860,32 L974,40 L1070,56 L1140,82 L1188,114 L1204,150 L1188,180 L1152,200 L1102,214 L1040,220 L978,230 L918,238 L870,244 L828,258 L790,250 L756,232 L734,206 L730,170 L736,132 L744,86 Z' fill='url(%23dp)'/><path d='M1082,372 L1164,356 L1228,368 L1258,398 L1252,438 L1216,462 L1158,468 L1098,452 L1068,422 L1066,392 Z' fill='url(%23dp)'/></svg>") center 42% / 82% auto no-repeat;
-    opacity: 0.45;
+    opacity: 0.22;
 }
 
 .slide-white.decorated-world::after {
@@ -974,8 +1009,8 @@ body.on-blue #globalLogoGroup {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 55%;
-    height: 38%;
+    width: 48%;
+    height: 30%;
     z-index: 0;
     pointer-events: none;
     background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 300'><path d='M720,0 C600,60 460,200 60,300' fill='none' stroke='%231677FF' stroke-width='1.5' opacity='0.35'/><path d='M720,80 C650,140 540,240 200,300' fill='none' stroke='%231677FF' stroke-width='1.5' opacity='0.28'/></svg>") bottom right / 100% 100% no-repeat;
