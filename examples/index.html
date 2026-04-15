@@ -1071,6 +1071,14 @@ body.on-blue #globalLogoGroup {
     transform: scale(1.2);
 }
 
+body.on-blue .nav-dot {
+    background: rgba(255,255,255,0.35);
+}
+
+body.on-blue .nav-dot.active {
+    background: rgba(255,255,255,0.9);
+}
+
 #globalLogoGroup {
     position: fixed;
     top: clamp(1.15rem, 2.8vh, 1.9rem);
@@ -1158,6 +1166,19 @@ body.on-blue #globalLogoGroup {
     transition: background 0.2s, opacity 0.2s;
 }
 
+#fullscreenBtn svg {
+    color: #333;
+    transition: color 0.3s;
+}
+
+body.on-blue #fullscreenBtn {
+    background: rgba(255,255,255,0.18);
+}
+
+body.on-blue #fullscreenBtn svg {
+    color: #fff;
+}
+
 #footnote {
     position: fixed;
     bottom: clamp(0.6rem, 1.5vh, 1rem);
@@ -1167,6 +1188,22 @@ body.on-blue #globalLogoGroup {
     z-index: 997;
     pointer-events: none;
     transition: opacity 0.4s ease;
+}
+
+#powered-by {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    right: calc(10px + 2rem + 0.5rem);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    z-index: 997;
+    pointer-events: auto;
+    transition: opacity 0.4s ease, color 0.4s ease;
+    white-space: nowrap;
+}
+
+body.on-blue #powered-by {
+    color: rgba(255,255,255,0.55);
 }
 
 /* --- reveal animation --- */
@@ -1296,6 +1333,31 @@ body.on-blue #globalLogoGroup {
     opacity: 0.8;
 }
 </style>
+<style>
+@media (min-width: 1921px) {
+    :root {
+        --title-size: clamp(1.5rem, 5vw, 6rem);
+        --h2-size: clamp(1.25rem, 3.5vw, 4rem);
+        --h3-size: clamp(1rem, 2.5vw, 3rem);
+        --body-size: clamp(0.75rem, 1.5vw, 2rem);
+        --small-size: clamp(0.65rem, 1vw, 1.5rem);
+        --slide-padding: clamp(1rem, 4vw, 6rem);
+        --content-gap: clamp(0.5rem, 2vw, 3rem);
+        --element-gap: clamp(0.25rem, 1vw, 1.5rem);
+    }
+    .card, .container, .content-box {
+        max-width: min(90vw, calc(1000px * var(--vp-scale, 1)));
+        max-height: min(80vh, calc(700px * var(--vp-scale, 1)));
+    }
+    .slide img { width: 100%; max-height: 50vh; }
+    .info-card { min-height: calc(88px * var(--vp-scale, 1)); }
+    .nav-dots { gap: calc(8px * var(--vp-scale, 1)); }
+    .nav-dot { width: calc(8px * var(--vp-scale, 1)); height: calc(8px * var(--vp-scale, 1)); }
+    .progress-bar { height: calc(3px * var(--vp-scale, 1)); }
+    #globalLogoGroup img { max-height: none !important; width: auto !important; }
+    #footnote, #powered-by { font-size: 0.65rem !important; }
+}
+</style>
 </head>
 <body>
 
@@ -1324,6 +1386,7 @@ body.on-blue #globalLogoGroup {
 </button>
 
 <div id="footnote">* 内部演示模板，可按场景替换页脚说明。</div>
+<div id="powered-by">Powered by <a href="https://github.com/FeeiCN/slide-writer" style="color:inherit;text-decoration:none;" target="_blank">Slide-Writer</a></div>
 <div id="pageCounter" style="opacity:0;">1 / 1</div>
 <div id="wheelHint"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>Space</kbd> 翻页 &nbsp;·&nbsp; <kbd>F</kbd> 全屏</div>
 
@@ -1353,39 +1416,37 @@ body.on-blue #globalLogoGroup {
     </div>
 </section>
 
-<!-- SLIDE 1.5: EXAMPLES GALLERY -->
+<!-- SLIDE 1.5: AGENDA -->
 <section class="slide slide-white" id="slide-gallery">
+    <div class="slide-header center-stack">
+        <span class="header-mark"></span>
+        <h2 class="header-title">这份示例怎么看</h2>
+        <p class="header-sub">先看真实产出，再看为什么做、怎么做，最后看最关键的组件骨架，而不是把整份文档写成组件词典。</p>
+    </div>
+    <div class="slide-body" style="justify-content:center;">
+        <div class="agenda-wrap" style="max-width:min(980px,100%);">
+            <div class="agenda-item reveal"><span class="agenda-num">01</span><span class="agenda-text">在线示例：直接打开完整 HTML 演示文稿</span><span class="agenda-tag">Demo</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">02</span><span class="agenda-text">为什么做 Slide-Writer：把“写稿 + 排版 + 品牌化”从体力活变成系统能力</span><span class="agenda-tag">Why</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">03</span><span class="agenda-text">怎么做的：用规则、主题、模板和组件把生成过程工程化</span><span class="agenda-tag">How</span></div>
+            <div class="agenda-item reveal"><span class="agenda-num">04</span><span class="agenda-text">有哪些组件示例：删减后保留最能代表生成能力的页面骨架</span><span class="agenda-tag">Kit</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 2: AGENDA -->
+<section class="slide slide-white" id="slide-2">
     <div class="slide-header">
         <span class="header-mark"></span>
         <h2 class="header-title">在线示例</h2>
-        <p class="header-sub">点击任意演示文稿即可打开完整版</p>
+        <p class="header-sub">先看完整作品，而不是先看零件。下面这些示例覆盖企业演讲、历史人文、政策研究和日常科普等不同输入场景。</p>
     </div>
     <div class="slide-body" style="justify-content:center;">
         <style>
         .ppt-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: clamp(0.7rem, 1.2vw, 1rem);
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.8rem, 1.4vw, 1rem);
             width: 100%;
-        }
-        .ppt-page-sep {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            width: 100%;
-            margin: clamp(0.1rem, 0.5vh, 0.3rem) 0;
-        }
-        .ppt-page-sep-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-        .ppt-page-sep-label {
-            font-size: clamp(0.58rem, 0.82vw, 0.7rem);
-            color: var(--text-3);
-            font-weight: 600;
-            white-space: nowrap;
-            letter-spacing: 0.04em;
         }
         .ppt-thumb {
             display: flex;
@@ -1395,7 +1456,6 @@ body.on-blue #globalLogoGroup {
             color: inherit;
             cursor: pointer;
         }
-        /* 16:9 幻灯片缩略图框 */
         .ppt-preview {
             position: relative;
             width: 100%;
@@ -1410,12 +1470,7 @@ body.on-blue #globalLogoGroup {
             box-shadow: 0 12px 36px rgba(22,119,255,0.22), 0 2px 6px rgba(0,0,0,0.1);
             transform: translateY(-3px) scale(1.015);
         }
-        /* 渐变封面背景 */
-        .ppt-preview-bg {
-            position: absolute;
-            inset: 0;
-        }
-        /* 装饰弧线 */
+        .ppt-preview-bg { position: absolute; inset: 0; }
         .ppt-arc {
             position: absolute;
             right: -18%;
@@ -1429,7 +1484,6 @@ body.on-blue #globalLogoGroup {
         }
         .ppt-arc-2 { width: 50%; border-color: rgba(255,255,255,0.12); }
         .ppt-arc-3 { width: 36%; border-color: rgba(255,255,255,0.09); }
-        /* 缩略图内文字 */
         .ppt-preview-inner {
             position: absolute;
             inset: 0;
@@ -1451,7 +1505,6 @@ body.on-blue #globalLogoGroup {
             color: #fff;
             line-height: 1.25;
         }
-        /* 播放按钮 hover 时出现 */
         .ppt-play-btn {
             position: absolute;
             inset: 0;
@@ -1479,7 +1532,6 @@ body.on-blue #globalLogoGroup {
             color: var(--primary);
             margin-left: 10%;
         }
-        /* 底部 slide 计数条 */
         .ppt-dots {
             display: flex;
             gap: 3px;
@@ -1494,11 +1546,11 @@ body.on-blue #globalLogoGroup {
             background: rgba(255,255,255,0.55);
         }
         .ppt-dot.active { background: rgba(255,255,255,0.95); width: clamp(16px, 2.8vw, 24px); }
-        /* 底部文字 */
         .ppt-caption {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
+            gap: 0.5rem;
         }
         .ppt-caption-title {
             font-size: clamp(0.72rem, 1.1vw, 0.88rem);
@@ -1510,26 +1562,9 @@ body.on-blue #globalLogoGroup {
             font-size: clamp(0.58rem, 0.85vw, 0.7rem);
             color: var(--text-3);
             white-space: nowrap;
-            margin-left: 0.5rem;
             flex-shrink: 0;
         }
-        .ppt-star-badge {
-            position: absolute;
-            top: 8%;
-            right: 7%;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            background: linear-gradient(135deg, #F5A623, #F7C948);
-            color: #5C3800;
-            font-size: clamp(0.5rem, 0.75vw, 0.62rem);
-            font-weight: 800;
-            padding: 0.18em 0.55em;
-            border-radius: 999px;
-            letter-spacing: 0.04em;
-            box-shadow: 0 2px 8px rgba(245,166,35,0.45);
-            z-index: 2;
-        }
+        .ppt-star-badge,
         .ppt-test-badge {
             position: absolute;
             top: 8%;
@@ -1537,230 +1572,89 @@ body.on-blue #globalLogoGroup {
             display: flex;
             align-items: center;
             gap: 3px;
-            background: rgba(255,255,255,0.18);
-            color: rgba(255,255,255,0.85);
             font-size: clamp(0.5rem, 0.75vw, 0.62rem);
-            font-weight: 700;
             padding: 0.18em 0.55em;
             border-radius: 999px;
             letter-spacing: 0.04em;
-            border: 1px solid rgba(255,255,255,0.3);
             z-index: 2;
         }
+        .ppt-star-badge {
+            background: linear-gradient(135deg, #F5A623, #F7C948);
+            color: #5C3800;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(245,166,35,0.45);
+        }
+        .ppt-test-badge {
+            background: rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.85);
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        @media (max-width: 900px) {
+            .ppt-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         </style>
-
-        <!-- 第 1 页：6 张 -->
         <div class="ppt-grid reveal">
-
-            <!-- tencent-pony-ma ★ -->
             <a class="ppt-thumb" href="tencent-pony-ma.html" target="_blank">
                 <div class="ppt-preview">
                     <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A1F52 0%,#0B3C94 38%,#0B60D6 70%,#3A85F0 100%);"></div>
                     <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
-                    <div class="ppt-star-badge">
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        精选
-                    </div>
+                    <div class="ppt-star-badge">精选</div>
                     <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
                         <div class="ppt-preview-label">企业年会</div>
                         <div class="ppt-preview-title">腾讯 2025<br>年度员工大会</div>
                     </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
+                    <div class="ppt-play-btn"><div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div></div>
                 </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">腾讯 2025 年度员工大会<svg style="display:inline;vertical-align:middle;margin-left:4px;color:#F5A623;" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-                    <div class="ppt-caption-slides">11 张</div>
-                </div>
+                <div class="ppt-caption"><div class="ppt-caption-title">腾讯 2025 年度员工大会</div><div class="ppt-caption-slides">11 张</div></div>
             </a>
-
-            <!-- zhuge-liang-life -->
-            <a class="ppt-thumb" href="zhuge-liang-life.html" target="_blank">
-                <div class="ppt-preview">
-                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#2D1B00 0%,#6B3A1F 35%,#A0522D 65%,#CD853F 100%);"></div>
-                    <div class="ppt-test-badge">测试</div>
-                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
-                    <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
-                        <div class="ppt-preview-label">历史人文</div>
-                        <div class="ppt-preview-title">诸葛亮的一生</div>
-                    </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
-                </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">诸葛亮的一生</div>
-                    <div class="ppt-caption-slides">13 张</div>
-                </div>
-            </a>
-
-            <!-- shenzhen-reform-experience -->
-            <a class="ppt-thumb" href="shenzhen-reform-experience.html" target="_blank">
-                <div class="ppt-preview">
-                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
-                    <div class="ppt-test-badge">测试</div>
-                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
-                    <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
-                        <div class="ppt-preview-label">政策研究</div>
-                        <div class="ppt-preview-title">深圳改革开放<br>经验分享</div>
-                    </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
-                </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">深圳改革开放经验分享</div>
-                    <div class="ppt-caption-slides">13 张</div>
-                </div>
-            </a>
-
-            <!-- why-eat -->
-            <a class="ppt-thumb" href="why-eat.html" target="_blank">
-                <div class="ppt-preview">
-                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
-                    <div class="ppt-test-badge">测试</div>
-                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
-                    <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
-                        <div class="ppt-preview-label">饮食科学</div>
-                        <div class="ppt-preview-title">为什么要吃饭？</div>
-                    </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
-                </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">为什么要吃饭？</div>
-                    <div class="ppt-caption-slides">5 张</div>
-                </div>
-            </a>
-
-            <!-- why-sleep -->
-            <a class="ppt-thumb" href="why-sleep.html" target="_blank">
-                <div class="ppt-preview">
-                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
-                    <div class="ppt-test-badge">测试</div>
-                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
-                    <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
-                        <div class="ppt-preview-label">健康科普</div>
-                        <div class="ppt-preview-title">人为什么要睡觉</div>
-                    </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
-                </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">人为什么要睡觉</div>
-                    <div class="ppt-caption-slides">3 张</div>
-                </div>
-            </a>
-
-            <!-- why-exercise -->
-            <a class="ppt-thumb" href="why-exercise.html" target="_blank">
-                <div class="ppt-preview">
-                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
-                    <div class="ppt-test-badge">测试</div>
-                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
-                    <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
-                        <div class="ppt-preview-label">健康科普</div>
-                        <div class="ppt-preview-title">人为什么要健身</div>
-                    </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
-                </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">人为什么要健身</div>
-                    <div class="ppt-caption-slides">3 张</div>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- 分页线 -->
-        <div class="ppt-page-sep">
-            <div class="ppt-page-sep-line"></div>
-            <div class="ppt-page-sep-line"></div>
-        </div>
-
-        <!-- 第 2 页 -->
-        <div class="ppt-grid reveal">
-
-            <!-- alibaba-jack-ma ★ -->
             <a class="ppt-thumb" href="alibaba-jack-ma.html" target="_blank">
                 <div class="ppt-preview">
                     <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#7A2000 0%,#CC3800 35%,#FF6A00 65%,#FF9A50 100%);"></div>
-                    <div class="ppt-star-badge">
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        精选
-                    </div>
                     <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-star-badge">精选</div>
                     <div class="ppt-preview-inner">
-                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
                         <div class="ppt-preview-label">企业演讲</div>
                         <div class="ppt-preview-title">相信未来<br>担当当下</div>
                     </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
+                    <div class="ppt-play-btn"><div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div></div>
                 </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">马云·清华经管2014毕业典礼演讲</div>
-                    <div class="ppt-caption-slides">12 张</div>
-                </div>
+                <div class="ppt-caption"><div class="ppt-caption-title">马云毕业演讲</div><div class="ppt-caption-slides">12 张</div></div>
             </a>
-
-            <!-- bai-juyi-life -->
-            <a class="ppt-thumb" href="bai-juyi-life.html" target="_blank">
+            <a class="ppt-thumb" href="shenzhen-reform-experience.html" target="_blank">
                 <div class="ppt-preview">
-                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#1a0a2e 0%,#3d1f6e 35%,#6b3fa0 65%,#9b6fd4 100%);"></div>
-                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
                     <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">政策研究</div>
+                        <div class="ppt-preview-title">深圳改革开放<br>经验分享</div>
+                    </div>
+                    <div class="ppt-play-btn"><div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                </div>
+                <div class="ppt-caption"><div class="ppt-caption-title">深圳改革开放经验分享</div><div class="ppt-caption-slides">13 张</div></div>
+            </a>
+            <a class="ppt-thumb" href="zhuge-liang-life.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#2D1B00 0%,#6B3A1F 35%,#A0522D 65%,#CD853F 100%);"></div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-test-badge">测试</div>
                     <div class="ppt-preview-inner">
                         <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
                         <div class="ppt-preview-label">历史人文</div>
-                        <div class="ppt-preview-title">白居易的一生</div>
+                        <div class="ppt-preview-title">诸葛亮的一生</div>
                     </div>
-                    <div class="ppt-play-btn">
-                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    </div>
+                    <div class="ppt-play-btn"><div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div></div>
                 </div>
-                <div class="ppt-caption">
-                    <div class="ppt-caption-title">白居易的一生</div>
-                    <div class="ppt-caption-slides">4 张</div>
-                </div>
+                <div class="ppt-caption"><div class="ppt-caption-title">诸葛亮的一生</div><div class="ppt-caption-slides">13 张</div></div>
             </a>
-
         </div>
         <div class="insight reveal">
             <span class="insight-dot"></span>
-            <span>以上均由 <strong>Slide-Writer Skill</strong> 一次生成，单文件交付，浏览器直接打开，零外部依赖。</span>
-        </div>
-    </div>
-</section>
-
-<!-- SLIDE 2: AGENDA -->
-<section class="slide slide-white" id="slide-2">
-    <div class="slide-header center-stack">
-        <span class="header-mark"></span>
-        <h2 class="header-title">模板总览</h2>
-        <p class="header-sub">从基础布局、信息卡片、文字流程，到图文混排、图表表格，再到流程格、路线图与洞察面板，全部给出可复用页面。</p>
-    </div>
-    <div class="slide-body" style="justify-content:center;">
-        <div class="agenda-wrap">
-            <div class="agenda-item reveal"><span class="agenda-num">01</span><span class="agenda-text">布局容器与基础数字组件</span><span class="agenda-tag">布局</span></div>
-            <div class="agenda-item reveal"><span class="agenda-num">02</span><span class="agenda-text">信息卡片与角色表达</span><span class="agenda-tag">卡片</span></div>
-            <div class="agenda-item reveal"><span class="agenda-num">03</span><span class="agenda-text">文字组件、层级评分与流程</span><span class="agenda-tag">文本</span></div>
-            <div class="agenda-item reveal"><span class="agenda-num">04</span><span class="agenda-text">图文混排与轻量可视化</span><span class="agenda-tag">图文</span></div>
-            <div class="agenda-item reveal"><span class="agenda-num">05</span><span class="agenda-text">表格与 SVG 图表</span><span class="agenda-tag">图表</span></div>
-            <div class="agenda-item reveal"><span class="agenda-num">06</span><span class="agenda-text">流程格与浏览器截图框</span><span class="agenda-tag">流程</span></div>
-            <div class="agenda-item reveal"><span class="agenda-num">07</span><span class="agenda-text">月份路线图与洞察数据面板</span><span class="agenda-tag">骨架</span></div>
+            <span>所有示例都以 <strong>单 HTML 文件</strong> 交付，浏览器直接打开即可，主题、结构、动画和图片都已内联。</span>
         </div>
     </div>
 </section>
@@ -1769,28 +1663,39 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-3">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">分栏布局</h2>
-        <p class="header-sub">这一页演示 `two-col` 和 `three-col` 两种布局容器的用法。</p>
+        <h2 class="header-title">为什么做 Slide-Writer</h2>
+        <p class="header-sub">它要解决的不是“生成一页 PPT”，而是把输入整理、结构重写、品牌化排版和最终交付这整条链路做成一套稳定系统。</p>
     </div>
     <div class="slide-body" style="justify-content:center;">
-        <div class="two-col">
-            <div class="card reveal-left">
-                <div class="card-title">`two-col`</div>
-                <div class="card-body">适合做“左观点右解释”“左图右文”“A / B 对比”等双栏结构。单栏内容更完整，适合两个平级块。</div>
+        <div class="grid-3">
+            <div class="stat-block reveal">
+                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+                <div class="stat-num">任意输入</div>
+                <div class="stat-label">一句话、大纲、讲稿、笔记、已有 HTML 都能接住</div>
             </div>
-            <div class="card reveal">
-                <div class="card-title">使用建议</div>
-                <ul class="mini-list">
-                    <li>优先承载两个平行模块。</li>
-                    <li>每栏内部结构保持一致更稳。</li>
-                    <li>避免左右内容量差距过大。</li>
-                </ul>
+            <div class="stat-block reveal">
+                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg></div>
+                <div class="stat-num">14 套</div>
+                <div class="stat-label">品牌主题自动识别，不再手工切换 logo 和主色</div>
+            </div>
+            <div class="stat-block reveal">
+                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                <div class="stat-num">单文件</div>
+                <div class="stat-label">CSS、JS、图片全部内联，浏览器直接打开</div>
             </div>
         </div>
-        <div class="three-col">
-            <div class="card reveal"><div class="card-title">列 1</div><div class="card-body">适合放概念、阶段或分类。</div></div>
-            <div class="card reveal"><div class="card-title">列 2</div><div class="card-body">三列适合密度更轻、更并列的表达。</div></div>
-            <div class="card reveal"><div class="card-title">列 3</div><div class="card-body">用于能力矩阵、策略分层、优势拆分。</div></div>
+        <div class="two-col">
+            <div class="highlight-box reveal">
+                <strong>真正消耗时间的环节：</strong>不是写出几句话，而是把零散素材整理成结构、把结构变成页面，再把页面调成一家公司正式能用的演示文稿。
+            </div>
+            <div class="card reveal">
+                <div class="card-title">Slide-Writer 试图替代的，是反复重复的体力劳动</div>
+                <ul class="mini-list">
+                    <li>减少从草稿到可讲版本之间的人工转译</li>
+                    <li>统一品牌主题、组件骨架和交付格式</li>
+                    <li>把临时 Prompt 变成可复用的生成系统</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
@@ -1799,39 +1704,34 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-4">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">数字组件</h2>
-        <p class="header-sub">一页里的重心先给数字，再给目标或说明，能快速建立视觉抓手。</p>
+        <h2 class="header-title">它替代的是排版与转译，不是内容判断</h2>
+        <p class="header-sub">README 里最重要的那句话是边界定义：你只需专注目标、观点与判断，系统负责结构、写作、优化与呈现。</p>
     </div>
     <div class="slide-body" style="justify-content:center;">
-        <div class="grid-3">
-            <div class="stat-block reveal">
-                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
-                <div class="stat-num">85%</div>
-                <div class="stat-label">代码生成采纳率</div>
-            </div>
-            <div class="stat-block reveal">
-                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-                <div class="stat-num">12 天</div>
-                <div class="stat-label">需求到首版交付周期</div>
-            </div>
-            <div class="stat-block reveal">
-                <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg></div>
-                <div class="stat-num"><span class="stat-num red" style="color:var(--red);font-size:inherit;">-40%</span></div>
-                <div class="stat-label">重复排版时间</div>
-            </div>
-        </div>
         <div class="two-col">
             <div class="goal-card reveal">
-                <div class="goal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
-                <div class="goal-num-big">85<span class="unit">%</span></div>
-                <div class="goal-label">AI 生成页占比目标</div>
-                <div class="goal-sublabel">2026 年底前达成</div>
+                <div class="goal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+                <div class="goal-num-big">内容<span class="unit">判断</span></div>
+                <div class="goal-label">由人负责</div>
+                <div class="goal-sublabel">主题、观点、证据取舍和表达重点仍由作者决定</div>
             </div>
             <div class="goal-card reveal">
-                <div class="goal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-                <div class="goal-num-big">3<span class="unit">秒</span></div>
-                <div class="goal-label">单页可读理解时间</div>
-                <div class="goal-sublabel">演讲型 deck 的内容密度上限</div>
+                <div class="goal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"></path></svg></div>
+                <div class="goal-num-big">页面<span class="unit">组织</span></div>
+                <div class="goal-label">由系统接管</div>
+                <div class="goal-sublabel">负责重写、分页、品牌样式和浏览器交付</div>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="info-card reveal">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                <div class="card-title">对个人的价值</div>
+                <div class="card-body">让你把时间花在内容本身，而不是在 Keynote 里反复调边距、换字体和找配色。</div>
+            </div>
+            <div class="info-card orange reveal">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+                <div class="card-title">对团队的价值</div>
+                <div class="card-body">每次生成都沿用同一套规则、模板和主题，输出更稳定，也更容易持续迭代。</div>
             </div>
         </div>
     </div>
@@ -1841,31 +1741,42 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-5">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">信息卡片</h2>
-        <p class="header-sub">这类组件适合替代长段正文，控制每张卡只讲一个点。</p>
+        <h2 class="header-title">怎么做的</h2>
+        <p class="header-sub">Slide-Writer 的核心不是一串 Prompt，而是把主题识别、结构规划、页面骨架和交付壳层工程化。</p>
     </div>
     <div class="slide-body" style="justify-content:center;">
-        <div class="grid-2">
-            <div class="info-card reveal">
-                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
-                <div class="card-title">默认蓝色</div>
-                <div class="card-body">适合放主要能力、价值点或默认重点信息。</div>
+        <div class="step-flow-grid reveal">
+            <div class="step-card step-card-1">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+                <div class="step-num">STEP 01</div>
+                <div class="step-title">接收输入</div>
+                <div class="step-desc">一句话、大纲、讲稿、笔记、已有 HTML</div>
             </div>
-            <div class="info-card red reveal">
-                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
-                <div class="card-title">红色变体</div>
-                <div class="card-body">适合放风险、阻塞项或需要优先处理的问题。</div>
+            <div class="step-flow-arrow">→</div>
+            <div class="step-card step-card-2">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg></div>
+                <div class="step-num">STEP 02</div>
+                <div class="step-title">识别主题</div>
+                <div class="step-desc">自动匹配品牌、logo、封面和章节页样式</div>
             </div>
-            <div class="info-card green reveal">
-                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-                <div class="card-title">绿色变体</div>
-                <div class="card-body">适合展示成果、达标项、正向变化或已收敛事项。</div>
+            <div class="step-flow-arrow">→</div>
+            <div class="step-card step-card-3">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"></path></svg></div>
+                <div class="step-num">STEP 03</div>
+                <div class="step-title">规划结构</div>
+                <div class="step-desc">决定页数、章节节奏、拆页和组件骨架</div>
             </div>
-            <div class="info-card orange reveal">
-                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
-                <div class="card-title">橙色变体</div>
-                <div class="card-body">适合放机会点、行动项或需要持续推进的方向。</div>
+            <div class="step-flow-arrow">→</div>
+            <div class="step-card step-card-4">
+                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                <div class="step-num">STEP 04</div>
+                <div class="step-title">单体交付</div>
+                <div class="step-desc">输出浏览器直接可打开的独立 HTML 文件</div>
             </div>
+        </div>
+        <div class="insight reveal">
+            <span class="insight-dot"></span>
+            <span>真正决定质量的，不是最后一层页面渲染，而是前面几步是否已经把内容判断转换成了可演示的结构。</span>
         </div>
     </div>
 </section>
@@ -1874,51 +1785,53 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-6">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">阶段与角色</h2>
-        <p class="header-sub">这三类卡片分别解决“流程怎么走”“支撑靠什么”“角色如何演进”。</p>
+        <h2 class="header-title">仓库里的几个核心部件，各自承担一层责任</h2>
+        <p class="header-sub">README 里的仓库结构不是文件清单，而是一套分层设计：规则、主题、组件、模板、示例各管一段。</p>
     </div>
     <div class="slide-body" style="justify-content:center;">
-        <div class="grid-4">
-            <div class="step-card step-card-1 reveal">
-                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg></div>
-                <div class="step-num">STEP 01</div>
-                <div class="step-title">启动阶段</div>
-                <div class="step-desc">先明确目标、受众与判断。</div>
-            </div>
-            <div class="step-card step-card-2 reveal">
-                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
-                <div class="step-num">STEP 02</div>
-                <div class="step-title">内容收集</div>
-                <div class="step-desc">收拢大纲、草稿与关键数据。</div>
-            </div>
-            <div class="step-card step-card-3 reveal">
-                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></div>
-                <div class="step-num">STEP 03</div>
-                <div class="step-title">结构改写</div>
-                <div class="step-desc">拆成适合演讲的页面节奏。</div>
-            </div>
-            <div class="step-card step-card-4 reveal">
-                <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
-                <div class="step-num">STEP 04</div>
-                <div class="step-title">生成交付</div>
-                <div class="step-desc">输出可直接播放的单文件 HTML。</div>
-            </div>
-        </div>
-        <div class="two-col">
-            <div class="support-card reveal">
-                <div class="support-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-                <div class="support-title">支撑体系示例</div>
-                <ul class="support-items">
-                    <li>统一模板引擎</li>
-                    <li>品牌主题库</li>
-                    <li>人工验收清单</li>
-                </ul>
-            </div>
-            <div class="role-card reveal">
-                <div class="role-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-                <div class="role-name">角色演进示例</div>
-                <div class="role-arrow">传统写稿 → AI 协同演示</div>
-                <div class="role-evolution">表达者保留判断，系统负责结构化、润色和页面呈现。</div>
+        <div class="support-board reveal">
+            <div class="support-board-title">Slide-Writer Architecture</div>
+            <div class="support-board-main">规则定义边界，主题负责品牌，组件负责表达，模板负责最终浏览器交付。</div>
+            <div class="support-board-grid">
+                <div class="support-board-col" style="border-left:4px solid var(--primary);">
+                    <div class="support-board-col-title">规则层</div>
+                    <div class="support-board-items">
+                        <div class="support-mini-card">
+                            <div class="support-mini-card-title">SKILL.md <span class="support-owner">规则</span></div>
+                            <div class="support-mini-card-body">定义阶段、密度上限、布局多样性和验收门槛。</div>
+                        </div>
+                        <div class="support-mini-card">
+                            <div class="support-mini-card-title">themes/_index.md <span class="support-owner">识别</span></div>
+                            <div class="support-mini-card-body">从内容里识别品牌关键词，决定使用哪套主题。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="support-board-col" style="border-left:4px solid var(--orange);">
+                    <div class="support-board-col-title">表达层</div>
+                    <div class="support-board-items">
+                        <div class="support-mini-card">
+                            <div class="support-mini-card-title">components.md <span class="support-owner">骨架</span></div>
+                            <div class="support-mini-card-body">提供高频页面组件，但不是表达能力上限。</div>
+                        </div>
+                        <div class="support-mini-card">
+                            <div class="support-mini-card-title">themes/[id].md <span class="support-owner">品牌</span></div>
+                            <div class="support-mini-card-body">控制主色、logo、封面、章节页和结尾页风格。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="support-board-col" style="border-left:4px solid var(--green);">
+                    <div class="support-board-col-title">交付层</div>
+                    <div class="support-board-items">
+                        <div class="support-mini-card">
+                            <div class="support-mini-card-title">template.html <span class="support-owner">壳层</span></div>
+                            <div class="support-mini-card-body">负责导航、动画、全屏、固定 UI 和浏览器适配。</div>
+                        </div>
+                        <div class="support-mini-card">
+                            <div class="support-mini-card-title">examples/ <span class="support-owner">验证</span></div>
+                            <div class="support-mini-card-body">用真实输入和真实输出持续校准生成质量。</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1930,8 +1843,8 @@ body.on-blue #globalLogoGroup {
         <img src="./slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
     </div>
     <p class="section-num reveal">PART 02</p>
-    <h2 class="section-title reveal">文字与流程</h2>
-    <p class="section-desc reveal">一页里要有判断、有层级、有扫读感，文本组件和流程组件是最稳的基础设施。</p>
+    <h2 class="section-title reveal">组件示例</h2>
+    <p class="section-desc reveal">下面保留的是最常用、最能代表生成能力的页面骨架：文字、流程、图文、可视化和整页结构。</p>
 </section>
 
 <!-- SLIDE 8 -->
@@ -2154,8 +2067,8 @@ body.on-blue #globalLogoGroup {
 <section class="slide slide-white" id="slide-13">
     <div class="slide-header center-stack">
         <span class="header-mark"></span>
-        <h2 class="header-title">图表组件</h2>
-        <p class="header-sub">把柱状、折线和环形图放在同一页，便于横向对比不同图表适合承载的信息类型。</p>
+        <h2 class="header-title">更多组件细节（附录）</h2>
+        <p class="header-sub">前面的页面已经覆盖核心骨架；这里继续保留更细的图表、整页结构、路线图和洞察面板，供生成时直接参考。</p>
     </div>
     <div class="slide-body" style="justify-content:center;gap:0.9rem;">
         <div class="two-col">
@@ -2632,18 +2545,30 @@ body.on-blue #globalLogoGroup {
         <img src="./slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
     </div>
     <h2 class="qa-title reveal">Q&amp;A</h2>
-    <p class="qa-sub reveal">这份 `examples/index.html` 覆盖 components.md 全部组件：布局、数字、卡片、文字、流程、图文、表格、SVG 图表、流程格、浏览器截图框、路线图与洞察面板，可直接作为生成参考模板。</p>
+    <p class="qa-sub reveal">这份 `examples/index.html` 现在先讲 Demo、Why、How，再进入组件示例；前半段更像产品介绍，后半段继续保留页面骨架参考，便于生成时直接取用。</p>
 </section>
 
 <script>
+function updateViewportScale() {
+    const scale = Math.max(1, window.innerWidth / 1600);
+    document.documentElement.style.fontSize = (scale * 16) + 'px';
+    document.documentElement.style.setProperty('--vp-scale', scale);
+}
+
+function markStatBlocks() {
+    document.querySelectorAll('.stat-block').forEach((block) => {
+        const hasRedMetric = block.querySelector('.stat-num.red, .stat-number.red');
+        block.classList.toggle('red', !!hasRedMetric);
+    });
+}
+
 class MiniSlidePresentation {
     constructor() {
         this.slides = Array.from(document.querySelectorAll('.slide'));
         this.totalSlides = this.slides.length;
         this.currentIndex = 0;
-        this.isScrolling = false;
-        this.scrollTimeout = null;
         this.lastHash = '';
+        this.wheelLocked = false;
 
         this.progressBar = document.getElementById('progressBar');
         this.navDotsContainer = document.getElementById('navDots');
@@ -2691,6 +2616,8 @@ class MiniSlidePresentation {
 
                 const fn = document.getElementById('footnote');
                 if (fn) fn.style.opacity = idx === 0 ? '0' : '1';
+                const pb = document.getElementById('powered-by');
+                if (pb) pb.style.opacity = idx === 0 ? '0' : '1';
 
                 const isBlueSide = entry.target.classList.contains('slide-cover') ||
                     entry.target.classList.contains('slide-section') ||
@@ -2779,10 +2706,15 @@ class MiniSlidePresentation {
         let hideTimer = null;
         const hint = document.getElementById('wheelHint');
         document.addEventListener('wheel', (e) => {
-            e.preventDefault();
             hint.classList.add('visible');
             clearTimeout(hideTimer);
             hideTimer = setTimeout(() => hint.classList.remove('visible'), 2000);
+            if (Math.abs(e.deltaY) < 24 || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+            e.preventDefault();
+            if (this.wheelLocked) return;
+            this.wheelLocked = true;
+            this.goTo(this.currentIndex + (e.deltaY > 0 ? 1 : -1));
+            window.setTimeout(() => { this.wheelLocked = false; }, 650);
         }, { passive: false });
     }
 
@@ -2875,6 +2807,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    updateViewportScale();
+    window.addEventListener('resize', updateViewportScale);
+    markStatBlocks();
     new MiniSlidePresentation();
     tuneLogoGroups();
     window.addEventListener('resize', tuneLogoGroups);

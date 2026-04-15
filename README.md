@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="themes/logos/slide-writer.png" alt="Slide-Writer" width="200"/>
+  <img src="examples/slide-writer.png" alt="Slide-Writer" width="200"/>
 </p>
 
 # Slide-Writer
@@ -12,7 +12,9 @@
 > Focus on goals, viewpoints, and judgment. Slide-Writer handles structure, writing, refinement, and presentation.
 
 <p align="center">
-  <img src="examples/before-after.png" alt="Slide-Writer Demo" width="100%"/>
+  <a href="https://feei.cn/slide-writer/examples/">
+    <img src="examples/before-after.png" alt="Slide-Writer Demo" width="100%"/>
+  </a>
 </p>
 
 ## Quick Start
