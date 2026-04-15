@@ -145,17 +145,11 @@
 ### 高亮引用框 `highlight-box`
 重要结论或引用，左蓝竖线背景。默认全宽拉伸，如需限制宽度必须同时加 `margin: 0 auto` 居中，否则会左对齐偏歪。
 ```html
-<div class="highlight-box reveal">
-    <strong>核心判断：</strong>这里写最重要的一句话结论。
-</div>
-
 <!-- 红色警示变体 -->
 <div class="highlight-box red-box reveal">危险或紧急提示</div>
 
 <!-- 限制宽度时必须同时加 margin: 0 auto，否则会左对齐偏歪 -->
-<div class="highlight-box reveal">
-    <strong>核心判断：</strong>限制宽度时居中显示。
-</div>
+<div class="highlight-box reveal">限制宽度时居中显示。</div>
 ```
 
 ### 标签 `tag`
