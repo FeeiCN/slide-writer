@@ -1303,7 +1303,7 @@ body.on-blue #globalLogoGroup {
 
 <!-- 白底内容页右上角 logo -->
 <div id="globalLogoGroup" class="logo-group-single">
-    <img src="./themes/logos/slide-writer.png" alt="Slide-Writer">
+    <img src="./slide-writer.png" alt="Slide-Writer">
 </div>
 
 <nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
@@ -1338,7 +1338,7 @@ body.on-blue #globalLogoGroup {
         <span style="color:rgba(255,255,255,0.65);font-size:clamp(0.65rem,1.1vw,0.85rem);">GitHub@FeeiCN/slide-writer</span>
     </div>
     <div class="fixed-logo-dark logo-group-single">
-        <img src="./themes/logos/slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
+        <img src="./slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
     </div>
     <div class="cover-main">
         <h1 class="cover-title reveal">Slide-Writer Skill</h1>
@@ -1350,6 +1350,398 @@ body.on-blue #globalLogoGroup {
     </div>
     <div class="cover-bottom">
         <div class="cover-date reveal">2026.04.12</div>
+    </div>
+</section>
+
+<!-- SLIDE 1.5: EXAMPLES GALLERY -->
+<section class="slide slide-white" id="slide-gallery">
+    <div class="slide-header">
+        <span class="header-mark"></span>
+        <h2 class="header-title">在线示例</h2>
+        <p class="header-sub">点击任意演示文稿即可打开完整版</p>
+    </div>
+    <div class="slide-body" style="justify-content:center;">
+        <style>
+        .ppt-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: clamp(0.7rem, 1.2vw, 1rem);
+            width: 100%;
+        }
+        .ppt-page-sep {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            width: 100%;
+            margin: clamp(0.1rem, 0.5vh, 0.3rem) 0;
+        }
+        .ppt-page-sep-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .ppt-page-sep-label {
+            font-size: clamp(0.58rem, 0.82vw, 0.7rem);
+            color: var(--text-3);
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.04em;
+        }
+        .ppt-thumb {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        /* 16:9 幻灯片缩略图框 */
+        .ppt-preview {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13), 0 1px 3px rgba(0,0,0,0.08);
+            transition: box-shadow 0.22s ease, transform 0.22s ease;
+            border: 1.5px solid rgba(0,0,0,0.07);
+        }
+        .ppt-thumb:hover .ppt-preview {
+            box-shadow: 0 12px 36px rgba(22,119,255,0.22), 0 2px 6px rgba(0,0,0,0.1);
+            transform: translateY(-3px) scale(1.015);
+        }
+        /* 渐变封面背景 */
+        .ppt-preview-bg {
+            position: absolute;
+            inset: 0;
+        }
+        /* 装饰弧线 */
+        .ppt-arc {
+            position: absolute;
+            right: -18%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 65%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.18);
+            pointer-events: none;
+        }
+        .ppt-arc-2 { width: 50%; border-color: rgba(255,255,255,0.12); }
+        .ppt-arc-3 { width: 36%; border-color: rgba(255,255,255,0.09); }
+        /* 缩略图内文字 */
+        .ppt-preview-inner {
+            position: absolute;
+            inset: 0;
+            padding: 10% 10% 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .ppt-preview-label {
+            font-size: clamp(0.45rem, 0.9vw, 0.68rem);
+            font-weight: 700;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.06em;
+            margin-bottom: 0.3em;
+        }
+        .ppt-preview-title {
+            font-size: clamp(0.58rem, 1.1vw, 0.82rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.25;
+        }
+        /* 播放按钮 hover 时出现 */
+        .ppt-play-btn {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.28);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .ppt-thumb:hover .ppt-play-btn { opacity: 1; }
+        .ppt-play-circle {
+            width: clamp(2rem, 3.5vw, 2.8rem);
+            height: clamp(2rem, 3.5vw, 2.8rem);
+            border-radius: 50%;
+            background: rgba(255,255,255,0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+        }
+        .ppt-play-circle svg {
+            width: 38%;
+            height: 38%;
+            color: var(--primary);
+            margin-left: 10%;
+        }
+        /* 底部 slide 计数条 */
+        .ppt-dots {
+            display: flex;
+            gap: 3px;
+            position: absolute;
+            bottom: 6%;
+            left: 10%;
+        }
+        .ppt-dot {
+            width: clamp(10px, 1.8vw, 16px);
+            height: 2.5px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.55);
+        }
+        .ppt-dot.active { background: rgba(255,255,255,0.95); width: clamp(16px, 2.8vw, 24px); }
+        /* 底部文字 */
+        .ppt-caption {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+        .ppt-caption-title {
+            font-size: clamp(0.72rem, 1.1vw, 0.88rem);
+            font-weight: 800;
+            color: var(--text-1);
+            line-height: 1.3;
+        }
+        .ppt-caption-slides {
+            font-size: clamp(0.58rem, 0.85vw, 0.7rem);
+            color: var(--text-3);
+            white-space: nowrap;
+            margin-left: 0.5rem;
+            flex-shrink: 0;
+        }
+        .ppt-star-badge {
+            position: absolute;
+            top: 8%;
+            right: 7%;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: linear-gradient(135deg, #F5A623, #F7C948);
+            color: #5C3800;
+            font-size: clamp(0.5rem, 0.75vw, 0.62rem);
+            font-weight: 800;
+            padding: 0.18em 0.55em;
+            border-radius: 999px;
+            letter-spacing: 0.04em;
+            box-shadow: 0 2px 8px rgba(245,166,35,0.45);
+            z-index: 2;
+        }
+        .ppt-test-badge {
+            position: absolute;
+            top: 8%;
+            right: 7%;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.85);
+            font-size: clamp(0.5rem, 0.75vw, 0.62rem);
+            font-weight: 700;
+            padding: 0.18em 0.55em;
+            border-radius: 999px;
+            letter-spacing: 0.04em;
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 2;
+        }
+        </style>
+
+        <!-- 第 1 页：6 张 -->
+        <div class="ppt-grid reveal">
+
+            <!-- tencent-pony-ma ★ -->
+            <a class="ppt-thumb" href="tencent-pony-ma.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A1F52 0%,#0B3C94 38%,#0B60D6 70%,#3A85F0 100%);"></div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-star-badge">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        精选
+                    </div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">企业年会</div>
+                        <div class="ppt-preview-title">腾讯 2025<br>年度员工大会</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">腾讯 2025 年度员工大会<svg style="display:inline;vertical-align:middle;margin-left:4px;color:#F5A623;" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                    <div class="ppt-caption-slides">11 张</div>
+                </div>
+            </a>
+
+            <!-- zhuge-liang-life -->
+            <a class="ppt-thumb" href="zhuge-liang-life.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#2D1B00 0%,#6B3A1F 35%,#A0522D 65%,#CD853F 100%);"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">历史人文</div>
+                        <div class="ppt-preview-title">诸葛亮的一生</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">诸葛亮的一生</div>
+                    <div class="ppt-caption-slides">13 张</div>
+                </div>
+            </a>
+
+            <!-- shenzhen-reform-experience -->
+            <a class="ppt-thumb" href="shenzhen-reform-experience.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">政策研究</div>
+                        <div class="ppt-preview-title">深圳改革开放<br>经验分享</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">深圳改革开放经验分享</div>
+                    <div class="ppt-caption-slides">13 张</div>
+                </div>
+            </a>
+
+            <!-- why-eat -->
+            <a class="ppt-thumb" href="why-eat.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">饮食科学</div>
+                        <div class="ppt-preview-title">为什么要吃饭？</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">为什么要吃饭？</div>
+                    <div class="ppt-caption-slides">5 张</div>
+                </div>
+            </a>
+
+            <!-- why-sleep -->
+            <a class="ppt-thumb" href="why-sleep.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">健康科普</div>
+                        <div class="ppt-preview-title">人为什么要睡觉</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">人为什么要睡觉</div>
+                    <div class="ppt-caption-slides">3 张</div>
+                </div>
+            </a>
+
+            <!-- why-exercise -->
+            <a class="ppt-thumb" href="why-exercise.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#0A3DA8 0%,#1263EA 35%,#2B8FFF 65%,#5AB6FF 100%);"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">健康科普</div>
+                        <div class="ppt-preview-title">人为什么要健身</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">人为什么要健身</div>
+                    <div class="ppt-caption-slides">3 张</div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- 分页线 -->
+        <div class="ppt-page-sep">
+            <div class="ppt-page-sep-line"></div>
+            <div class="ppt-page-sep-line"></div>
+        </div>
+
+        <!-- 第 2 页 -->
+        <div class="ppt-grid reveal">
+
+            <!-- alibaba-jack-ma ★ -->
+            <a class="ppt-thumb" href="alibaba-jack-ma.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#7A2000 0%,#CC3800 35%,#FF6A00 65%,#FF9A50 100%);"></div>
+                    <div class="ppt-star-badge">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        精选
+                    </div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">企业演讲</div>
+                        <div class="ppt-preview-title">相信未来<br>担当当下</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">马云·清华经管2014毕业典礼演讲</div>
+                    <div class="ppt-caption-slides">12 张</div>
+                </div>
+            </a>
+
+            <!-- bai-juyi-life -->
+            <a class="ppt-thumb" href="bai-juyi-life.html" target="_blank">
+                <div class="ppt-preview">
+                    <div class="ppt-preview-bg" style="background:linear-gradient(125deg,#1a0a2e 0%,#3d1f6e 35%,#6b3fa0 65%,#9b6fd4 100%);"></div>
+                    <div class="ppt-test-badge">测试</div>
+                    <div class="ppt-arc"></div><div class="ppt-arc ppt-arc-2"></div><div class="ppt-arc ppt-arc-3"></div>
+                    <div class="ppt-preview-inner">
+                        <div class="ppt-dots"><div class="ppt-dot active"></div><div class="ppt-dot"></div><div class="ppt-dot"></div><div class="ppt-dot"></div></div>
+                        <div class="ppt-preview-label">历史人文</div>
+                        <div class="ppt-preview-title">白居易的一生</div>
+                    </div>
+                    <div class="ppt-play-btn">
+                        <div class="ppt-play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                </div>
+                <div class="ppt-caption">
+                    <div class="ppt-caption-title">白居易的一生</div>
+                    <div class="ppt-caption-slides">4 张</div>
+                </div>
+            </a>
+
+        </div>
+        <div class="insight reveal">
+            <span class="insight-dot"></span>
+            <span>以上均由 <strong>Slide-Writer Skill</strong> 一次生成，单文件交付，浏览器直接打开，零外部依赖。</span>
+        </div>
     </div>
 </section>
 
@@ -1535,7 +1927,7 @@ body.on-blue #globalLogoGroup {
 <!-- SLIDE 7: SECTION -->
 <section class="slide slide-section" id="slide-7">
     <div class="fixed-logo-dark logo-group-single">
-        <img src="./themes/logos/slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
+        <img src="./slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
     </div>
     <p class="section-num reveal">PART 02</p>
     <h2 class="section-title reveal">文字与流程</h2>
@@ -2237,7 +2629,7 @@ body.on-blue #globalLogoGroup {
 <!-- SLIDE 23: END -->
 <section class="slide slide-qa" id="slide-23">
     <div class="fixed-logo-dark logo-group-single">
-        <img src="./themes/logos/slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
+        <img src="./slide-writer.png" alt="Slide-Writer" class="logo-img-cover">
     </div>
     <h2 class="qa-title reveal">Q&amp;A</h2>
     <p class="qa-sub reveal">这份 `examples/index.html` 覆盖 components.md 全部组件：布局、数字、卡片、文字、流程、图文、表格、SVG 图表、流程格、浏览器截图框、路线图与洞察面板，可直接作为生成参考模板。</p>
