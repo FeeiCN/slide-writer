@@ -54,7 +54,8 @@ git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writ
 - `SKILL.md`：Skill 定义与执行规则
 - `themes.md`：主题与 Logo 规则
 - `components.md`：页面组件库
-- `index.html`：基础模板 + 页面骨架演示
+- `template.html`：基础生成壳
+- `examples/index.html`：页面骨架演示与完整示例文档
 - `examples/`：示例输入与输出
 - `TESTING.md`：测试说明
 

@@ -54,7 +54,8 @@ git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writ
 - `SKILL.md`: skill definition and execution rules
 - `themes.md`: theme and logo rules
 - `components.md`: page component library
-- `index.html`: baseline template and page skeleton gallery
+- `template.html`: baseline generation shell
+- `examples/index.html`: page skeleton gallery and full example deck
 - `examples/`: sample inputs and outputs
 - `TESTING.md`: testing notes
 

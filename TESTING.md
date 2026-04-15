@@ -12,7 +12,7 @@
    - `examples/antgroup-quarterly-review.md`
    - `examples/alibaba-ai-rollout.md`
    - `examples/revise-existing-deck.md`
-2. 让模型基于 `SKILL.md` 生成或修改 HTML，并把结果写到仓库根目录，例如 `test-antgroup.html`。全新测试稿默认从 `index.html` 出发，不要从旧的 `test-*.html` 继续复制。
+2. 让模型基于 `SKILL.md` 生成或修改 HTML，并把结果写到仓库根目录，例如 `test-antgroup.html`。全新测试稿默认从 `template.html` 出发，并在需要组件参考时查阅 `examples/index.html`，不要从旧的 `test-*.html` 继续复制。
 3. 先在仓库根目录运行 `./scripts/smoke-test.sh test-antgroup.html`。
 4. 再运行 `./scripts/preview.sh`。
 5. 浏览器打开 `http://localhost:8000/test-antgroup.html`。
@@ -23,7 +23,7 @@
 ### 新生成
 
 ```text
-使用当前目录的 slide-writer skill，基于 examples/antgroup-quarterly-review.md 生成一个单文件 HTML 演示稿，输出到 ./test-antgroup.html。先严格读取本仓库里的 SKILL.md、themes.md、components.md 和 index.html，再开始生成。所有测试稿都从 index.html 出发，不要从已有 test-*.html 派生。
+使用当前目录的 slide-writer skill，基于 examples/antgroup-quarterly-review.md 生成一个单文件 HTML 演示稿，输出到 ./test-antgroup.html。先严格读取本仓库里的 SKILL.md、themes.md、components.md、template.html 和 examples/index.html，再开始生成。所有测试稿都从 template.html 出发，并参考 examples/index.html，不要从已有 test-*.html 派生。
 ```
 
 ### 改现有稿
@@ -71,7 +71,7 @@
 
 - 改 `themes.md` 后，至少跑一个蚂蚁系和一个阿里系样例。
 - 改 `components.md` 后，至少检查 `info-card`、`agenda-item`、`step-card`、`stat-block`，以及页面级骨架（如分组目录或支撑板）是否仍然可用。
-- 改 `index.html` 后，至少检查目录页、内容页、章节页、结尾页和 logo / progress / nav / fullscreen 行为，并确认所有内容页标题区位置一致。
+- 改 `template.html` 或 `examples/index.html` 后，至少检查目录页、内容页、章节页、结尾页和 logo / progress / nav / fullscreen 行为，并确认所有内容页标题区位置一致。
 - 改 `SKILL.md` 的生成规则后，至少同时测一次全新生成和一次增强改稿。
 
 ## 产物约定

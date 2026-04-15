@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository is a prompt-and-template package for generating browser-based slide decks. Core guidance lives in `SKILL.md`, `themes.md`, and `components.md`. The single generation baseline is `index.html`. Example inputs are stored in `examples/`, brand assets in `logos/`, and local preview tooling in `scripts/`. Temporary generated decks should stay in the repo root as `test-*.html` unless they are promoted into a curated sample.
+This repository is a prompt-and-template package for generating browser-based slide decks. Core guidance lives in `SKILL.md`, `themes.md`, and `components.md`. The generation shell is `template.html`, and the full reference example lives at `examples/index.html`. Example inputs are stored in `examples/`, brand assets in `logos/`, and local preview tooling in `scripts/`. Temporary generated decks should stay in the repo root as `test-*.html` unless they are promoted into a curated sample.
 
 ## Build, Test, and Development Commands
 
@@ -24,11 +24,11 @@ Contributors should generate or edit a single self-contained HTML file, then ope
 
 ## Coding Style & Naming Conventions
 
-Keep outputs dependency-free and self-contained: HTML, CSS, and JavaScript stay inline unless the repository already provides an asset file. Follow the existing style in `index.html`: semantic section names, descriptive CSS custom properties, and consistent 4-space indentation inside large CSS blocks. Use kebab-case for CSS classes such as `slide-cover` and `info-card`, and prefix throwaway test files as `test-*.html`.
+Keep outputs dependency-free and self-contained: HTML, CSS, and JavaScript stay inline unless the repository already provides an asset file. Follow the existing style in `examples/index.html`: semantic section names, descriptive CSS custom properties, and consistent 4-space indentation inside large CSS blocks. Use kebab-case for CSS classes such as `slide-cover` and `info-card`, and prefix throwaway test files as `test-*.html`.
 
 ## Testing Guidelines
 
-Testing is manual and browser-based. Follow the regression checklist in `TESTING.md`, especially after changing `SKILL.md`, `themes.md`, `components.md`, or `index.html`. Verify no slide overflows `100vh`, logos load correctly, navigation and fullscreen still work, and different page types keep visual rhythm. When relevant, test both a fresh generation and an edit pass on an existing deck.
+Testing is manual and browser-based. Follow the regression checklist in `TESTING.md`, especially after changing `SKILL.md`, `themes.md`, `components.md`, `template.html`, or `examples/index.html`. Verify no slide overflows `100vh`, logos load correctly, navigation and fullscreen still work, and different page types keep visual rhythm. When relevant, test both a fresh generation and an edit pass on an existing deck.
 
 ## Version Management
 

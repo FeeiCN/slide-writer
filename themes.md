@@ -277,11 +277,11 @@ Logo 文件存储于当前仓库的 [logos](logos) 目录。
 
 ## 如何应用主题
 
-在基础 CSS（从 `index.html` 复制的 `<style>` 块）**末尾**追加对应主题的变量覆盖：
+在基础 CSS（从 `examples/index.html` 复制的 `<style>` 块）**末尾**追加对应主题的变量覆盖：
 
 ```html
 <style>
-/* === 基础 CSS（从 index.html 完整复制）=== */
+/* === 基础 CSS（从 examples/index.html 完整复制）=== */
 ...
 
 /* === 主题覆盖（插入此处）=== */
@@ -649,7 +649,7 @@ Logo 文件存储于当前仓库的 [logos](logos) 目录。
 
 ```html
 <style>
-/* === 基础 CSS（完整复制自 index.html）=== */
+/* === 基础 CSS（完整复制自 examples/index.html）=== */
 ...（约 1300 行）...
 
 /* === 主题：阿里巴巴 === */

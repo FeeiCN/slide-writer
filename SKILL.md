@@ -248,9 +248,9 @@ Phase 2 完成后通知：`规划完成，共 N 张，开始生成…`
 
 **① 复制模板**
 ```bash
-cp _base.html [输出文件名].html
+cp template.html [输出文件名].html
 ```
-- 禁止直接编辑 `_base.html` 本身
+- 禁止直接编辑 `template.html` 本身
 - 文件名使用英文小写 + 连字符，例如 `antgroup-q1-review.html`
 
 **② 并行读取**（同时发起）
@@ -277,7 +277,7 @@ cp _base.html [输出文件名].html
 
 ### Step 3.2：填充占位符
 
-`_base.html` 已内置蚂蚁集团默认值（双 logo、页脚文字）。**依次用 Edit 工具替换**，不要重写整个文件；其中 logo 一律替换成 `themes/logos/*.txt` 里的 data URI。
+`template.html` 已内置蚂蚁集团默认值（双 logo、页脚文字）。**依次用 Edit 工具替换**，不要重写整个文件；其中 logo 一律替换成 `themes/logos/*.txt` 里的 data URI。
 
 **① 标题（必填）**
 ```
@@ -451,13 +451,13 @@ open [文件名].html
 
 | 文件 | 用途 | 何时读取 |
 |---|---|---|
-| [_base.html](_base.html) | 预构建引擎壳（含完整 CSS/JS） | Step 3.1 `cp`（必须） |
+| [template.html](template.html) | 预构建引擎壳（含完整 CSS/JS） | Step 3.1 `cp`（必须） |
 | [themes/_index.md](themes/_index.md) | 主题识别规则 + 子品牌表 + logo 索引 | Phase 0 主题检测 |
 | `themes/[id].md` | CSS 变量 + logo 路径 + 补充规则 | Step 3.1 并行读取 |
 | [components.md](components.md) | 组件 HTML 片段参考 | Step 3.1 按需 Grep |
 | [icons.md](icons.md) | 287 个 Feather Icons 内联 SVG | 有图标槽时按需 Grep |
 | `themes/logos/` | 品牌 logo 的 data URI 文本文件 | Step 3.2 ③ 直接读取 `.txt` |
-| [index.html](index.html) | 完整示例文档 | 需要查阅组件骨架时 |
+| [examples/index.html](examples/index.html) | 完整示例文档 | 需要查阅组件骨架时 |
 
 ---
 
@@ -494,7 +494,7 @@ open [文件名].html
 - [ ] 封面、目录、章节过渡、结尾均已规划
 
 ### Phase 3
-- [ ] `cp _base.html` 完成
+- [ ] `cp template.html` 完成
 - [ ] 填充 ① 标题 ② 主题样式 ③ logo（base64）④ 幻灯片内容
 - [ ] 当前主题所需的 logo `.txt` 文件存在并已直接写入；文件缺失时执行 Fallback
 - [ ] 每张幻灯片密度自检通过
@@ -507,7 +507,7 @@ open [文件名].html
 ### 禁止项
 - ❌ 在 `<section>` 内写 logo 代码
 - ❌ `max-width` 写死 px
-- ❌ 直接编辑 `_base.html`
+- ❌ 直接编辑 `template.html`
 - ❌ 编造原文无源的具体数字
 - ❌ 演讲稿逐段照搬
 - ❌ info-card 不加图标
