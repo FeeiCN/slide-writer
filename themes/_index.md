@@ -207,27 +207,18 @@ Phase 0 主题识别用。确定公司后，Phase 4 只需读取 `themes/[id].md
 
 核心原则：子品牌出现时，始终展示「集团 logo ＋ 分隔线 ＋ 子品牌 logo」。
 
-尺寸归一：所有 logo 使用统一高度基线 `height:clamp(1.4rem,2.8vw,2.2rem);max-height:36px;width:auto;object-fit:contain`。
+> **重要：所有 logo 统一放在 `#globalLogoGroup`，禁止在任何 `<section>` 内写 logo 代码。**
+> 深色/浅色切换由 CSS（`body.on-blue`）自动处理：`.logo-light` 在白底页显示，`.logo-dark` 在深色页显示。
+> 具体 HTML 写法见 `SKILL.md` Step 3.2 ③。
 
 ### 情况一：集团 + 子品牌 logo 均存在
-```html
-<!-- 深色背景（封面/章节/结尾）-->
-<div style="display:flex;align-items:center;gap:clamp(0.5rem,1vw,0.9rem);">
-    <img src="./logos/logo-[集团ID]-white.png" alt="[集团]"
-         style="height:clamp(1.4rem,2.8vw,2.2rem);width:auto;object-fit:contain;max-height:36px;">
-    <span style="width:1.5px;height:clamp(1.2rem,2.4vw,1.8rem);display:inline-block;
-                 background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.55),transparent);"></span>
-    <img src="./logos/logo-[子品牌ID]-white.png" alt="[子品牌]"
-         style="height:clamp(1.4rem,2.8vw,2.2rem);width:auto;object-fit:contain;max-height:36px;">
-</div>
-
-<!-- 白色背景（内容页 #globalLogoGroup）-->
-class="logo-group-dual"
-内容：<img src="./logos/logo-[集团ID]-color.png" alt="[集团]">
-      <span class="logo-divider"></span>
-      <img src="./logos/logo-[子品牌ID]-color.png" alt="[子品牌]">
-```
+在 `#globalLogoGroup` 中使用 `class="logo-group-dual"`，各放 `.logo-light`（彩色版）和 `.logo-dark`（白色版）两张 img，中间加 `<span class="logo-divider"></span>`。
 
 ### 情况二：子品牌 logo 待补充，只展示集团 logo（无分隔线）
+在 `#globalLogoGroup` 中使用 `class="logo-group-single"`，只放集团 logo 的 `.logo-light` 和 `.logo-dark`。
+
 ### 情况三：只有集团，展示集团 logo
+同情况二。
+
 ### 情况四：均无 logo，省略所有 logo 元素
+`<div id="globalLogoGroup" class="logo-group-single" style="display:none;"></div>`
