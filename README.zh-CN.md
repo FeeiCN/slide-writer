@@ -4,7 +4,7 @@
 
 # Slide-Writer
 
-[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![在线演示](https://img.shields.io/badge/在线演示-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
 [![English](https://img.shields.io/badge/Docs-English-blue.svg)](README.md)
@@ -52,7 +52,8 @@ git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writ
 ## 仓库结构
 
 - `SKILL.md`：Skill 定义与执行规则
-- `themes.md`：主题与 Logo 规则
+- `themes/_index.md`：主题识别与 Logo 索引
+- `themes/[id].md`：单主题样式与 Logo 规则
 - `components.md`：页面组件库
 - `template.html`：基础生成壳
 - `examples/index.html`：页面骨架演示与完整示例文档

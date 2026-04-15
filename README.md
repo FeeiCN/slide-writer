@@ -4,7 +4,7 @@
 
 # Slide-Writer
 
-[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/FeeiCN/slide-writer/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-feei.cn-blue.svg)](https://feei.cn/slide-writer/)
 [![中文](https://img.shields.io/badge/文档-中文-red.svg)](README.zh-CN.md)
@@ -52,7 +52,8 @@ git clone https://github.com/FeeiCN/slide-writer.git ~/.agents/skills/slide-writ
 ## Repository Structure
 
 - `SKILL.md`: skill definition and execution rules
-- `themes.md`: theme and logo rules
+- `themes/_index.md`: theme identification and logo index
+- `themes/[id].md`: per-theme style and logo rules
 - `components.md`: page component library
 - `template.html`: baseline generation shell
 - `examples/index.html`: page skeleton gallery and full example deck

@@ -2,7 +2,7 @@
 name: slide-writer
 display_name: Slide-Writer
 description: 把想法、大纲、文档或草稿变成结构清晰、设计精良的企业级 HTML 演示文稿。
-version: 0.2.0
+version: 1.0.0
 author: Feei
 homepage: https://github.com/FeeiCN/slide-writer
 repository: https://github.com/FeeiCN/slide-writer
@@ -277,62 +277,26 @@ cp template.html [输出文件名].html
 
 ### Step 3.2：填充占位符
 
-`template.html` 已内置蚂蚁集团默认值（双 logo、页脚文字）。**依次用 Edit 工具替换**，不要重写整个文件；其中 logo 一律替换成 `themes/logos/*.txt` 里的 data URI。
+`template.html` 已内置蚂蚁集团默认值（双 logo、页脚文字）。标题、主题样式、logo 全部改为脚本直接写回 HTML，不再手工替换。
 
-**① 标题（必填）**
-```
-old: %%TITLE%%
-new: [演讲主题] — [演讲者]
-```
+**① 标题**
+**② 主题样式**
+**③ Logo**
 
-**② 主题样式（非蚂蚁集团主题时必填）**
-```
-old: <!-- %%THEME_STYLE%% -->
-new: <style>:root { ... } .slide-section { ... !important; } .slide-qa { ... !important; }</style>
-```
-> 蚂蚁集团：跳过此步，保留注释。
-
-**③ Logo（所有主题必填）**
-
-logo 不再在生成时现场转码。直接读取 `themes/logos/` 中同基名 `.txt` 文件，并把文件内容原样写入 `src`：
-
-```python
-def read_logo_data_uri(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        return f.read().strip()
+```bash
+# `theme-id` 默认为 `ant-group`
+python3 scripts/apply-template-branding.py [文件名].html \
+  --title "[演讲主题]" \
+  --speaker "[演讲者]" \
+  --theme-id [theme-id]
 ```
 
-命名规则固定为：
+规则：
 
-- `./themes/logos/[brand-id]-white.txt`
-- `./themes/logos/[brand-id]-color.txt`
-
-`#globalLogoGroup` 是唯一 logo 节点（`position:fixed` 右上角），CSS 按 `body.on-blue` 自动切换 `.logo-light` / `.logo-dark`，**全程只改这一处，禁止在任何 `<section>` 内写 logo**。
-
-```html
-<!-- 单 logo -->
-<div id="globalLogoGroup" class="logo-group-single">
-    <img class="logo-light" src="[读取 white.txt 后得到的 data URI]" alt="[公司]">
-    <img class="logo-dark"  src="[读取 dark.txt 后得到的 data URI]" alt="[公司]">
-</div>
-
-<!-- 双 logo（集团 + 子品牌）-->
-<div id="globalLogoGroup" class="logo-group-dual">
-    <img class="logo-light" src="[读取 group-color.txt 后得到的 data URI]" alt="[集团]">
-    <img class="logo-dark"  src="[读取 group-white.txt 后得到的 data URI]" alt="[集团]">
-    <span class="logo-divider"></span>
-    <img class="logo-light" src="[读取 brand-color.txt 后得到的 data URI]" alt="[子品牌]">
-    <img class="logo-dark"  src="[读取 brand-white.txt 后得到的 data URI]" alt="[子品牌]">
-</div>
-
-<!-- 无白色版：logo-dark 用彩色版 + filter 转白 -->
-<img class="logo-dark" src="[读取 color.txt 后得到的 data URI]" alt="[公司]" style="filter:brightness(0) invert(1);">
-
-<!-- 无 logo（文件缺失）-->
-<div id="globalLogoGroup" class="logo-group-single" style="display:none;"></div>
-```
-
-**Fallback（文件不存在时）：** 只有彩色版 `.txt` → `logo-dark` 用彩色版 + filter 转白；彩色版 `.txt` 也不存在 → `display:none` 并告知用户。
+- `theme-id=ant-group` 时保留 `<!-- %%THEME_STYLE%% -->`
+- 其他主题从 `themes/[id].md` 的 `## CSS` 代码块注入 `<style>...</style>`
+- `#globalLogoGroup` 是唯一 logo 节点，**禁止在任何 `<section>` 内写 logo**
+- logo 文件缺失时按脚本 fallback；必要时自动隐藏并输出 warning
 
 **④ 幻灯片内容（必填）**
 ```
@@ -433,17 +397,45 @@ logo 应在 Step 3.2 ③ 直接从 `themes/logos/*.txt` 写入。此步骤仅处
 python3 scripts/inline-images.py [文件名].html
 ```
 
-**Step 4.3：告知用户**
+**Step 4.3：Smoke Test（必须执行）**
 
-- 文件路径、文件大小（KB）、幻灯片总数、主题名称
-- 导航：方向键 / 空格翻页，右侧圆点导航，`F` 全屏
-- 如需修改：直接编辑 HTML，或告知我继续
+生成完成后，必须先跑一次静态检查；失败时不得跳过，必须修复或明确说明失败原因：
 
-**Step 4.4：用浏览器打开**
+```bash
+./scripts/smoke-test.sh [文件名].html
+```
+
+**Step 4.4：用浏览器直接打开文件（必须执行）**
 
 ```bash
 open [文件名].html
 ```
+
+成功标准：浏览器直接打开本地 HTML 文件，且不依赖本地 HTTP 服务。
+
+**Step 4.5：告知用户**
+
+如果运行环境限制无法打开浏览器，必须在最终答复里明确写出：
+- 已执行到哪一步
+- 为什么无法继续打开
+- 本地文件路径
+
+- 文件路径、文件大小（KB）、幻灯片总数、主题名称
+- 导航：方向键 / 空格翻页，右侧圆点导航，`F` 全屏
+- 验证结果：`smoke-test` 是否通过、浏览器是否已直接打开本地文件
+- 如需修改：直接编辑 HTML，或告知我继续
+
+### Phase 4 完成门槛（硬性）
+
+满足以下全部条件前，**不得结束任务，不得输出“已完成”“Done”或等价表述**：
+
+- [ ] Step 4.1 已完成
+- [ ] Step 4.2 已完成
+- [ ] Step 4.3 已执行且结果已检查
+- [ ] Step 4.4 已执行，或明确记录受环境限制无法执行
+- [ ] Step 4.5 已向用户回报上述结果
+
+如果任一步未完成，最终答复必须改为“当前进度 + 阻塞原因”，不能伪装成完整交付。
 
 ---
 
@@ -501,8 +493,18 @@ open [文件名].html
 - [ ] 所有 info-card / step-card 包含图标
 
 ### Phase 4
-- [ ] Step 4.1 保存，Step 4.2 扫描无残留外部引用
-- [ ] Step 4.3 告知用户，Step 4.4 打开浏览器
+- [ ] Step 4.1 保存
+- [ ] Step 4.2 扫描无残留外部引用
+- [ ] Step 4.3 `smoke-test` 已执行并检查结果
+- [ ] Step 4.4 已执行浏览器直接打开本地文件；若受限，已明确说明阻塞
+- [ ] Step 4.5 已告知用户文件信息与验证结果
+
+### 最终答复模板（必须对照）
+- [ ] 文件路径
+- [ ] 文件大小 / 幻灯片总数 / 主题名称
+- [ ] `smoke-test` 结果
+- [ ] 浏览器打开结果或阻塞原因
+- [ ] 下一步可选动作
 
 ### 禁止项
 - ❌ 在 `<section>` 内写 logo 代码

@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>%%TITLE%%</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* =============================================
    MINI TEMPLATE
@@ -34,7 +31,7 @@
     --bg-white: #FFFFFF;
     --bg-page: #F5F7FA;
     --border: #E4E8EF;
-    --font: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --font: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
     --title-size: clamp(1.5rem, 5vw, 4rem);
     --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
     --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
@@ -45,6 +42,10 @@
     --deck-base-width: 1600;
     --deck-safe-width: min(100vw, calc(100dvh * 1.6));
     --deck-safe-side-gap: max(0px, calc((100vw - var(--deck-safe-width)) / 2));
+    --z-progress: 999;
+    --z-fixed-ui: 998;
+    --z-meta: 997;
+    --z-overlay: 1000;
 }
 
 html, body {
@@ -135,15 +136,15 @@ body.on-blue #globalLogoGroup .logo-divider {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: clamp(0.35rem, 1vh, 0.85rem);
     width: min(100%, var(--deck-safe-width));
     margin-left: auto;
     margin-right: auto;
 }
 
-.slide-body.align-top {
-    justify-content: flex-start;
+.slide-body.balance {
+    justify-content: center;
 }
 
 .slide-content > :not(.slide-header) {
@@ -388,7 +389,8 @@ body.on-blue #globalLogoGroup .logo-divider {
 .stat-icon svg { width: 100%; height: 100%; display: block; }
 .stat-num.red ~ .stat-label,
 .stat-number.red ~ .stat-label,
-.stat-block:has(.stat-num.red, .stat-number.red) .stat-icon { color: var(--red); }
+.stat-block.red .stat-icon,
+.stat-block.red .stat-label { color: var(--red); }
 
 .mini-list {
     list-style: none;
@@ -1043,7 +1045,7 @@ body.on-blue #globalLogoGroup .logo-divider {
     height: 3px;
     width: 0;
     background: var(--primary);
-    z-index: 999;
+    z-index: var(--z-progress);
     transition: width 0.25s ease;
 }
 
@@ -1055,7 +1057,7 @@ body.on-blue #globalLogoGroup .logo-divider {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    z-index: 998;
+    z-index: var(--z-fixed-ui);
 }
 
 .nav-dot {
@@ -1085,7 +1087,7 @@ body.on-blue .nav-dot.active {
     position: fixed;
     top: clamp(1.15rem, 2.8vh, 1.9rem);
     right: calc(var(--deck-safe-side-gap) + clamp(0.9rem, 2vw, 1.6rem));
-    z-index: 998;
+    z-index: var(--z-fixed-ui);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1122,7 +1124,7 @@ body.on-blue .nav-dot.active {
     position: fixed;
     right: 10px;
     bottom: clamp(0.6rem, 1.5vh, 1rem);
-    z-index: 999;
+    z-index: var(--z-progress);
     width: 2rem;
     height: 2rem;
     border: none;
@@ -1145,7 +1147,7 @@ body.on-blue #fullscreenBtn svg { color: #fff; }
     left: clamp(1rem, 3vw, 2.5rem);
     font-size: clamp(0.5rem, 0.75vw, 0.65rem);
     color: #ABABAB;
-    z-index: 997;
+    z-index: var(--z-meta);
     pointer-events: none;
     transition: opacity 0.4s ease;
 }
@@ -1156,7 +1158,7 @@ body.on-blue #fullscreenBtn svg { color: #fff; }
     right: calc(10px + 2rem + 0.5rem);
     font-size: clamp(0.5rem, 0.75vw, 0.65rem);
     color: #ABABAB;
-    z-index: 997;
+    z-index: var(--z-meta);
     pointer-events: auto;
     transition: opacity 0.4s ease;
     white-space: nowrap;
@@ -1207,7 +1209,7 @@ body.on-blue #fullscreenBtn svg { color: #fff; }
     font-size: clamp(0.5rem, 0.75vw, 0.65rem);
     color: #ABABAB;
     font-family: var(--font);
-    z-index: 997;
+    z-index: var(--z-meta);
     pointer-events: none;
     transition: opacity 0.4s ease, color 0.4s ease;
     letter-spacing: 0.06em;
@@ -1230,7 +1232,7 @@ body.on-blue #fullscreenBtn svg { color: #fff; }
     gap: 0.5em;
     white-space: nowrap;
     pointer-events: none;
-    z-index: 1000;
+    z-index: var(--z-overlay);
     opacity: 0;
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
@@ -1285,13 +1287,7 @@ body.on-blue #fullscreenBtn svg { color: #fff; }
 
 <div class="progress-bar" id="progressBar"></div>
 
-<div id="globalLogoGroup" class="logo-group-dual">
-    <img class="logo-light" data-logo-src="./themes/logos/ant-group-color.txt" alt="蚂蚁集团">
-    <img class="logo-dark" data-logo-src="./themes/logos/ant-group-white.txt" alt="蚂蚁集团">
-    <span class="logo-divider"></span>
-    <img class="logo-light" data-logo-src="./themes/logos/alipay-color.txt" alt="支付宝">
-    <img class="logo-dark" data-logo-src="./themes/logos/alipay-white.txt" alt="支付宝">
-</div>
+<div id="globalLogoGroup" class="logo-group-single" style="display:none;"></div>
 
 
 <nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
@@ -1314,14 +1310,94 @@ body.on-blue #fullscreenBtn svg { color: #fff; }
 
 
 <script>
+function updateViewportScale() {
+    const scale = Math.max(1, window.innerWidth / 1600);
+    document.documentElement.style.fontSize = (scale * 16) + 'px';
+    document.documentElement.style.setProperty('--vp-scale', scale);
+}
+
+function markStatBlocks() {
+    document.querySelectorAll('.stat-block').forEach((block) => {
+        const hasRedMetric = block.querySelector('.stat-num.red, .stat-number.red');
+        block.classList.toggle('red', !!hasRedMetric);
+    });
+}
+
+function tuneLogoImage(img, groupSize) {
+    if (!img) return;
+
+    const apply = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+
+        img.style.height = '';
+        img.style.maxWidth = '';
+
+        const ratio = img.naturalWidth / img.naturalHeight;
+        const baseHeight = parseFloat(getComputedStyle(img).height) || 32;
+        let scale = 1;
+        let maxWidth = 160;
+
+        if (ratio >= 5) {
+            scale = 0.74;
+            maxWidth = 132;
+        } else if (ratio >= 4) {
+            scale = 0.82;
+            maxWidth = 144;
+        } else if (ratio >= 3) {
+            scale = 0.9;
+            maxWidth = 156;
+        } else if (ratio <= 1.4) {
+            scale = 1.08;
+            maxWidth = 72;
+        } else if (ratio <= 1.8) {
+            scale = 1.04;
+            maxWidth = 92;
+        }
+
+        if (groupSize === 1) {
+            scale *= ratio >= 3 ? 1.08 : 1.16;
+            maxWidth += ratio <= 2.2 ? 18 : 8;
+        } else {
+            scale *= 0.96;
+        }
+
+        img.style.height = `${Math.round(baseHeight * scale)}px`;
+        img.style.maxWidth = `${maxWidth}px`;
+    };
+
+    if (img.complete) apply();
+    else img.addEventListener('load', apply, { once: true });
+}
+
+function tuneLogoGroups() {
+    document.querySelectorAll('#globalLogoGroup').forEach((group) => {
+        const allImgs = Array.from(group.querySelectorAll('img'));
+        if (!allImgs.length) return;
+
+        const slotCount = group.classList.contains('logo-group-dual') ? 2
+                        : group.classList.contains('logo-group-single') ? 1
+                        : allImgs.length;
+        allImgs.forEach(img => tuneLogoImage(img, slotCount));
+
+        requestAnimationFrame(() => {
+            const heights = allImgs
+                .filter(img => getComputedStyle(img).display !== 'none')
+                .map(img => img.getBoundingClientRect().height)
+                .filter(Boolean);
+            const divider = group.querySelector('.logo-divider');
+            if (!divider || !heights.length) return;
+            divider.style.height = `${Math.round(Math.max(...heights) * 0.88)}px`;
+        });
+    });
+}
+
 class MiniSlidePresentation {
     constructor() {
         this.slides = Array.from(document.querySelectorAll('.slide'));
         this.totalSlides = this.slides.length;
         this.currentIndex = 0;
-        this.isScrolling = false;
-        this.scrollTimeout = null;
         this.lastHash = '';
+        this.wheelLocked = false;
 
         this.progressBar = document.getElementById('progressBar');
         this.navDotsContainer = document.getElementById('navDots');
@@ -1459,10 +1535,15 @@ class MiniSlidePresentation {
         let hideTimer = null;
         const hint = document.getElementById('wheelHint');
         document.addEventListener('wheel', (e) => {
-            e.preventDefault();
             hint.classList.add('visible');
             clearTimeout(hideTimer);
             hideTimer = setTimeout(() => hint.classList.remove('visible'), 2000);
+            if (Math.abs(e.deltaY) < 24 || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+            e.preventDefault();
+            if (this.wheelLocked) return;
+            this.wheelLocked = true;
+            this.goTo(this.currentIndex + (e.deltaY > 0 ? 1 : -1));
+            window.setTimeout(() => { this.wheelLocked = false; }, 650);
         }, { passive: false });
     }
 
@@ -1493,100 +1574,11 @@ class MiniSlidePresentation {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    /* Large-screen scaling — runs before all other init */
-    function updateViewportScale() {
-        const scale = Math.max(1, window.innerWidth / 1600);
-        document.documentElement.style.fontSize = (scale * 16) + 'px';
-        document.documentElement.style.setProperty('--vp-scale', scale);
-    }
     updateViewportScale();
     window.addEventListener('resize', updateViewportScale);
-
-    async function inlineLogoDataUris() {
-        const logos = Array.from(document.querySelectorAll('img[data-logo-src]'));
-        await Promise.all(logos.map(async (img) => {
-            const ref = img.getAttribute('data-logo-src');
-            if (!ref) return;
-            try {
-                const res = await fetch(ref);
-                if (!res.ok) return;
-                img.src = (await res.text()).trim();
-            } catch (_) {}
-        }));
-    }
-
-    function tuneLogoImage(img, groupSize) {
-        if (!img) return;
-
-        const apply = () => {
-            if (!img.naturalWidth || !img.naturalHeight) return;
-
-            img.style.height = '';
-            img.style.maxWidth = '';
-
-            const ratio = img.naturalWidth / img.naturalHeight;
-            const baseHeight = parseFloat(getComputedStyle(img).height) || 32;
-            let scale = 1;
-            let maxWidth = 160;
-
-            if (ratio >= 5) {
-                scale = 0.74;
-                maxWidth = 132;
-            } else if (ratio >= 4) {
-                scale = 0.82;
-                maxWidth = 144;
-            } else if (ratio >= 3) {
-                scale = 0.9;
-                maxWidth = 156;
-            } else if (ratio <= 1.4) {
-                scale = 1.08;
-                maxWidth = 72;
-            } else if (ratio <= 1.8) {
-                scale = 1.04;
-                maxWidth = 92;
-            }
-
-            if (groupSize === 1) {
-                scale *= ratio >= 3 ? 1.08 : 1.16;
-                maxWidth += ratio <= 2.2 ? 18 : 8;
-            } else {
-                scale *= 0.96;
-            }
-
-            img.style.height = `${Math.round(baseHeight * scale)}px`;
-            img.style.maxWidth = `${maxWidth}px`;
-        };
-
-        if (img.complete) apply();
-        else img.addEventListener('load', apply, { once: true });
-    }
-
-    function tuneLogoGroups() {
-        document.querySelectorAll('#globalLogoGroup').forEach(group => {
-            const allImgs = Array.from(group.querySelectorAll('img'));
-            const slotCount = group.classList.contains('logo-group-dual') ? 2
-                            : group.classList.contains('logo-group-single') ? 1
-                            : allImgs.length;
-            allImgs.forEach(img => tuneLogoImage(img, slotCount));
-
-            requestAnimationFrame(() => {
-                /* Only measure visible imgs for divider height */
-                const heights = allImgs
-                    .filter(img => getComputedStyle(img).display !== 'none')
-                    .map(img => img.getBoundingClientRect().height)
-                    .filter(Boolean);
-                const divider = group.querySelector('.logo-divider');
-                if (!divider || !heights.length) return;
-                divider.style.height = `${Math.round(Math.max(...heights) * 0.88)}px`;
-            });
-        });
-    }
-
-inlineLogoDataUris().finally(() => {
-    document.querySelectorAll('#globalLogoGroup img').forEach((img) => tuneLogoImage(img, 'dual'));
-    new MiniSlidePresentation();
-});
+    markStatBlocks();
     tuneLogoGroups();
+    new MiniSlidePresentation();
     window.addEventListener('resize', tuneLogoGroups);
 });
 </script>
