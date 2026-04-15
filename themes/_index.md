@@ -197,11 +197,11 @@ Phase 0 主题识别用。确定公司后，Phase 4 只需读取 `themes/[id].md
 
 | 品牌 ID | 白色版 | 彩色版 | 状态 |
 |---|---|---|---|
-| ant-group | `./logos/logo-antgroup-white.png` | `./logos/logo-antgroup-blue.png` | 已有 |
-| alipay | `./logos/logo-alipay-white.png` | `./logos/logo-alipay-blue.png` | 已有 |
-| mybank | `./logos/logo-mybank-white.png` | `./logos/logo-mybank-color.png` | 已有 |
-| tencent | `./logos/tencent-white.png` | `./logos/tencent-blue.png` | 已有 |
-| alibaba | 无（深色页用彩色版 + `filter:brightness(0) invert(1)`） | `./logos/alibaba.png` | 已有 |
+| ant-group | `./themes/logos/ant-group-white.png` | `./themes/logos/ant-group-color.png` | 已有 |
+| alipay | `./themes/logos/alipay-white.png` | `./themes/logos/alipay-color.png` | 已有 |
+| mybank | `./themes/logos/mybank-white.png` | `./themes/logos/mybank-color.png` | 已有 |
+| tencent | `./themes/logos/tencent-white.png` | `./themes/logos/tencent-color.png` | 已有 |
+| alibaba | 无（深色页用彩色版 + `filter:brightness(0) invert(1)`） | `./themes/logos/alibaba-color.png` | 已有 |
 | bytedance / douyin / tiktok | — | — | 待补充 |
 | meituan | — | — | 待补充 |
 | jd | — | — | 待补充 |
@@ -217,6 +217,11 @@ Phase 0 主题识别用。确定公司后，Phase 4 只需读取 `themes/[id].md
 1. 只有彩色版，无白色版 → `logo-dark` 使用彩色版 + `style="filter:brightness(0) invert(1);"` 转白
 2. 彩色版也不存在 → `#globalLogoGroup` 设为 `display:none`，同时在 Phase 4 告知用户说明缺失情况
 3. 禁止在 logo 区域写公司名称文字作为替代
+
+**Base64 sidecar：**
+
+- 每个已存在的 PNG 都有同基名 `.txt` 文件，例如 `./themes/logos/ant-group-white.txt`
+- `.txt` 文件内容是完整 `data:image/png;base64,...`，生成 HTML 时直接读取并写入 `src`
 
 ---
 

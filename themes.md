@@ -197,27 +197,30 @@
 ## Logo 文件索引
 
 Logo 文件存储于当前仓库的 [logos](logos) 目录。
-命名规范：`[品牌ID]-white.png`（白色版）和 `[品牌ID]-blue.png` / `[品牌ID]-color.png`（彩色版）。
+命名规范统一为：`[品牌-id]-white.png`（白色版）和 `[品牌-id]-color.png`（彩色版）。
+每个 PNG 同时提供同基名 `.txt` sidecar，内容是完整 `data:image/png;base64,...`，用于生成时直接写入 HTML。
 
 ### 已有 Logo 文件
 | 品牌 ID | 白色版 | 彩色版 | 所属集团 |
 |---|---|---|---|
-| ant-group | `./logos/logo-antgroup-white.png` | `./logos/logo-antgroup-blue.png` | 蚂蚁集团（集团本身） |
-| alipay | `./logos/logo-alipay-white.png` | `./logos/logo-alipay-blue.png` | 蚂蚁集团 |
-| mybank | `./logos/logo-mybank-white.png` | `./logos/logo-mybank-color.png` | 蚂蚁集团 |
-| tencent | `./logos/tencent-white.png` | `./logos/tencent-blue.png` | 腾讯 |
+| ant-group | `./themes/logos/ant-group-white.png` | `./themes/logos/ant-group-color.png` | 蚂蚁集团（集团本身） |
+| alipay | `./themes/logos/alipay-white.png` | `./themes/logos/alipay-color.png` | 蚂蚁集团 |
+| mybank | `./themes/logos/mybank-white.png` | `./themes/logos/mybank-color.png` | 蚂蚁集团 |
+| tencent | `./themes/logos/tencent-white.png` | `./themes/logos/tencent-color.png` | 腾讯 |
+| alibaba | 无（深色页用彩色版 + `filter:brightness(0) invert(1)`） | `./themes/logos/alibaba-color.png` | 阿里巴巴 |
 
 ### 其余品牌 Logo
-标注「待补充」，用户可随时提供素材，存入 `logos/` 目录后更新本表。
+标注「待补充」，用户可随时提供素材，存入 `themes/logos/` 目录后更新本表。
 
 ### 文件说明
 
 | 品牌 ID | 白色版文件 | 彩色版文件 | 说明 |
 |---|---|---|---|
-| ant-group | `./logos/logo-antgroup-white.png` | `./logos/logo-antgroup-blue.png` | 当前仓库已有文件名使用 `blue` 作为彩色版 |
-| alipay | `./logos/logo-alipay-white.png` | `./logos/logo-alipay-blue.png` | 当前仓库已有文件名使用 `blue` 作为彩色版 |
-| mybank | `./logos/logo-mybank-white.png` | `./logos/logo-mybank-color.png` | 使用网商银行中文品牌标志 |
-| tencent | `./logos/tencent-white.png` | `./logos/tencent-blue.png` | 腾讯品牌标志已内聚到 `logos/` 目录 |
+| ant-group | `./themes/logos/ant-group-white.png` | `./themes/logos/ant-group-color.png` | 命名已统一；对应 base64 文件为 `./themes/logos/ant-group-white.txt` / `./themes/logos/ant-group-color.txt` |
+| alipay | `./themes/logos/alipay-white.png` | `./themes/logos/alipay-color.png` | 命名已统一；对应 base64 文件为 `./themes/logos/alipay-white.txt` / `./themes/logos/alipay-color.txt` |
+| mybank | `./themes/logos/mybank-white.png` | `./themes/logos/mybank-color.png` | 使用裁切更紧凑的网商银行标志；对应 base64 文件同基名 `.txt` |
+| tencent | `./themes/logos/tencent-white.png` | `./themes/logos/tencent-color.png` | 腾讯品牌标志已统一到 `color` 命名；对应 base64 文件同基名 `.txt` |
+| alibaba | 无白色版；深色页用 `./themes/logos/alibaba-color.png` + filter 转白 | `./themes/logos/alibaba-color.png` | 对应 base64 文件为 `./themes/logos/alibaba-color.txt` |
 
 ---
 
@@ -241,19 +244,19 @@ Logo 文件存储于当前仓库的 [logos](logos) 目录。
 ```html
 <!-- 深色背景（封面/章节/结尾）用 white 版 -->
 <div style="display:flex;align-items:center;gap:clamp(0.5rem,1vw,0.9rem);margin-right:clamp(0.7rem,1.5vw,1.2rem);">
-    <img src="./logos/logo-[集团ID]-white.png" alt="[集团名]"
+    <img src="./themes/logos/[集团ID]-white.png" alt="[集团名]"
          style="height:clamp(1.4rem,2.8vw,2.2rem);width:auto;object-fit:contain;max-height:36px;">
     <span style="width:1.5px;height:clamp(1.2rem,2.4vw,1.8rem);display:inline-block;flex-shrink:0;
                  background:linear-gradient(to bottom,transparent 0%,rgba(255,255,255,0.3) 28%,rgba(255,255,255,0.55) 50%,rgba(255,255,255,0.3) 72%,transparent 100%);"></span>
-    <img src="./logos/logo-[子品牌ID]-white.png" alt="[子品牌名]"
+    <img src="./themes/logos/[子品牌ID]-white.png" alt="[子品牌名]"
          style="height:clamp(1.4rem,2.8vw,2.2rem);width:auto;object-fit:contain;max-height:36px;">
 </div>
 
 <!-- 白色背景（内容页 globalLogoGroup）用 color 版 -->
 <div id="globalLogoGroup">
-    <img src="./logos/logo-[集团ID]-color.png" alt="[集团名]">
+    <img src="./themes/logos/[集团ID]-color.png" alt="[集团名]">
     <span class="logo-divider"></span>
-    <img src="./logos/logo-[子品牌ID]-color.png" alt="[子品牌名]">
+    <img src="./themes/logos/[子品牌ID]-color.png" alt="[子品牌名]">
 </div>
 ```
 
@@ -268,7 +271,7 @@ Logo 文件存储于当前仓库的 [logos](logos) 目录。
 
 ---
 
-**注意**：生成 HTML 时，logo 相对路径统一使用 `./logos/...`。若仓库中的彩色版文件名实际为 `blue`（如 `logo-antgroup-blue.png`、`logo-alipay-blue.png`），应以真实文件名为准；`mybank` 当前使用 `./logos/logo-mybank-color.png` 与 `./logos/logo-mybank-white.png`；`tencent` 当前使用 `./logos/tencent-blue.png` 与 `./logos/tencent-white.png`。无论使用哪个 PNG，最终展示都必须服从上面的统一高度规则，而不是服从源文件尺寸。
+**注意**：生成 HTML 时，若要写相对路径，统一使用 `./themes/logos/[brand-id]-white.png` / `./themes/logos/[brand-id]-color.png`；若要写单文件 deck，优先读取同基名 `.txt` 中的 data URI。无论使用哪个资源，最终展示都必须服从上面的统一高度规则，而不是服从源文件尺寸。
 
 ---
 
@@ -377,7 +380,7 @@ Logo 文件存储于当前仓库的 [logos](logos) 目录。
 - **形状克制**：优先使用矩形卡片、细边框、浅阴影，不使用过多圆润装饰、彩色标签墙或强装饰弧形背景。
 - **标题直给**：标题更像企业公告或业务判断，避免口号式、煽动式表达。
 - **图表冷静**：图表与数据模块使用蓝、灰、白三色为主，需要正向强调时再引入绿色单点标识。
-- **Logo 使用**：默认使用 `./logos/tencent-white.png` 和 `./logos/tencent-blue.png`，并服从本节上方的统一高度规则，不按源 PNG 尺寸直接展示。
+- **Logo 使用**：默认使用 `./themes/logos/tencent-white.png` 和 `./themes/logos/tencent-color.png`，并服从本节上方的统一高度规则，不按源 PNG 尺寸直接展示。
 
 #### 腾讯说明
 

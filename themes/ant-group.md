@@ -10,15 +10,15 @@ Logo 显示规则：
 - 例外：内容明确为**集团层面**（投资者关系、集团战略、ESG报告等）→ 单 Logo：仅集团
 
 双 Logo 路径：
-- 深色页：`./logos/logo-antgroup-white.png` ＋ 分隔线 ＋ `./logos/logo-alipay-white.png`
-- 白色页：`./logos/logo-antgroup-blue.png` ＋ 分隔线 ＋ `./logos/logo-alipay-blue.png`
+- 深色页：`./themes/logos/ant-group-white.png` ＋ 分隔线 ＋ `./themes/logos/alipay-white.png`
+- 白色页：`./themes/logos/ant-group-color.png` ＋ 分隔线 ＋ `./themes/logos/alipay-color.png`
 
 单 Logo 路径：
-- 深色页：`./logos/logo-antgroup-white.png`
-- 白色页：`./logos/logo-antgroup-blue.png`
+- 深色页：`./themes/logos/ant-group-white.png`
+- 白色页：`./themes/logos/ant-group-color.png`
 
 其他子品牌（明确提及时）：
-- mybank：`./logos/logo-mybank-white.png` / `./logos/logo-mybank-color.png`
+- mybank：`./themes/logos/mybank-white.png` / `./themes/logos/mybank-color.png`
 
 ## CSS
 

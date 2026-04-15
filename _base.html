@@ -1065,12 +1065,20 @@ body.on-blue #globalLogoGroup .logo-divider {
     border: none;
     background: rgba(0,0,0,0.18);
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, background 0.3s ease;
 }
 
 .nav-dot.active {
     background: var(--primary);
     transform: scale(1.2);
+}
+
+body.on-blue .nav-dot {
+    background: rgba(255,255,255,0.35);
+}
+
+body.on-blue .nav-dot.active {
+    background: rgba(255,255,255,0.9);
 }
 
 #globalLogoGroup {
@@ -1127,6 +1135,9 @@ body.on-blue #globalLogoGroup .logo-divider {
     opacity: 0.5;
     transition: background 0.2s, opacity 0.2s;
 }
+#fullscreenBtn svg { color: #333; transition: color 0.3s; }
+body.on-blue #fullscreenBtn { background: rgba(255,255,255,0.18); }
+body.on-blue #fullscreenBtn svg { color: #fff; }
 
 #footnote {
     position: fixed;
@@ -1137,6 +1148,18 @@ body.on-blue #globalLogoGroup .logo-divider {
     z-index: 997;
     pointer-events: none;
     transition: opacity 0.4s ease;
+}
+
+#powered-by {
+    position: fixed;
+    bottom: clamp(0.6rem, 1.5vh, 1rem);
+    right: calc(10px + 2rem + 0.5rem);
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    color: #ABABAB;
+    z-index: 997;
+    pointer-events: auto;
+    transition: opacity 0.4s ease;
+    white-space: nowrap;
 }
 
 /* --- reveal animation --- */
@@ -1263,32 +1286,27 @@ body.on-blue #globalLogoGroup .logo-divider {
 <div class="progress-bar" id="progressBar"></div>
 
 <div id="globalLogoGroup" class="logo-group-dual">
-    <img class="logo-light" src="./logos/logo-antgroup-blue.png"  alt="蚂蚁集团">
-    <img class="logo-dark"  src="./logos/logo-antgroup-white.png" alt="蚂蚁集团">
+    <img class="logo-light" data-logo-src="./themes/logos/ant-group-color.txt" alt="蚂蚁集团">
+    <img class="logo-dark" data-logo-src="./themes/logos/ant-group-white.txt" alt="蚂蚁集团">
     <span class="logo-divider"></span>
-    <img class="logo-light" src="./logos/logo-alipay-blue.png"  alt="支付宝">
-    <img class="logo-dark"  src="./logos/logo-alipay-white.png" alt="支付宝">
+    <img class="logo-light" data-logo-src="./themes/logos/alipay-color.txt" alt="支付宝">
+    <img class="logo-dark" data-logo-src="./themes/logos/alipay-white.txt" alt="支付宝">
 </div>
 
 
 <nav class="nav-dots" id="navDots" aria-label="幻灯片导航"></nav>
 
 <button id="fullscreenBtn" title="全屏播放 (F)">
-    <svg id="fsIconExpand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#333;">
-        <polyline points="15 3 21 3 21 9"></polyline>
-        <polyline points="9 21 3 21 3 15"></polyline>
-        <line x1="21" y1="3" x2="14" y2="10"></line>
-        <line x1="3" y1="21" x2="10" y2="14"></line>
+    <svg id="fsIconExpand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
     </svg>
-    <svg id="fsIconCompress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff;display:none;">
-        <polyline points="4 14 10 14 10 20"></polyline>
-        <polyline points="20 10 14 10 14 4"></polyline>
-        <line x1="10" y1="14" x2="3" y2="21"></line>
-        <line x1="21" y1="3" x2="14" y2="10"></line>
+    <svg id="fsIconCompress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
     </svg>
 </button>
 
-<div id="footnote">* 仅限内部交流使用，如需公开请联系作者。Powered by <a href="https://github.com/FeeiCN/slide-writer" style="color:inherit;text-decoration:none;" target="_blank">Slide-Writer</a></div>
+<div id="footnote">* 仅限内部交流使用，如需公开请联系作者。</div>
+<div id="powered-by">Powered by <a href="https://github.com/FeeiCN/slide-writer" style="color:inherit;text-decoration:none;" target="_blank">Slide-Writer</a></div>
 <div id="pageCounter" style="opacity:0;">1 / 1</div>
 <div id="wheelHint"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>Space</kbd> 翻页 &nbsp;·&nbsp; <kbd>F</kbd> 全屏</div>
 
@@ -1351,6 +1369,8 @@ class MiniSlidePresentation {
 
                 const fn = document.getElementById('footnote');
                 if (fn) fn.style.opacity = idx === 0 ? '0' : '1';
+                const pb = document.getElementById('powered-by');
+                if (pb) pb.style.opacity = idx === 0 ? '0' : '1';
 
                 const isBlueSide = entry.target.classList.contains('slide-cover') ||
                     entry.target.classList.contains('slide-section') ||
@@ -1482,6 +1502,19 @@ document.addEventListener('DOMContentLoaded', () => {
     updateViewportScale();
     window.addEventListener('resize', updateViewportScale);
 
+    async function inlineLogoDataUris() {
+        const logos = Array.from(document.querySelectorAll('img[data-logo-src]'));
+        await Promise.all(logos.map(async (img) => {
+            const ref = img.getAttribute('data-logo-src');
+            if (!ref) return;
+            try {
+                const res = await fetch(ref);
+                if (!res.ok) return;
+                img.src = (await res.text()).trim();
+            } catch (_) {}
+        }));
+    }
+
     function tuneLogoImage(img, groupSize) {
         if (!img) return;
 
@@ -1549,7 +1582,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+inlineLogoDataUris().finally(() => {
+    document.querySelectorAll('#globalLogoGroup img').forEach((img) => tuneLogoImage(img, 'dual'));
     new MiniSlidePresentation();
+});
     tuneLogoGroups();
     window.addEventListener('resize', tuneLogoGroups);
 });

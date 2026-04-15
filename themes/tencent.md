@@ -3,8 +3,8 @@
 腾讯蓝为主色，整体接近企业官网的冷静、克制、科技感。微信绿只作正向状态色，不争主色。
 
 ## Logo
-- 深色页：`./logos/tencent-white.png`
-- 白色页：`./logos/tencent-blue.png`
+- 深色页：`./themes/logos/tencent-white.png`
+- 白色页：`./themes/logos/tencent-color.png`
 
 ## CSS
 

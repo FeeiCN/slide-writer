@@ -56,12 +56,12 @@ for pattern in "${required_classes[@]}"; do
 done
 
 if grep -Eq 'src="\./logo-[^"]+\.(png|svg)"' "$TARGET"; then
-    echo "ERROR: found legacy root-level logo path; use ./logos/... instead"
+    echo "ERROR: found legacy root-level logo path; use ./themes/logos/... instead"
     exit 1
 fi
 
 for asset in $(grep -Eo 'src="\./[^"]+"' "$TARGET" | sed 's/^src="//;s/"$//' | sort -u); do
-    if [[ "$asset" == ./logos/* || "$asset" == ./examples/* ]]; then
+    if [[ "$asset" == ./themes/logos/* || "$asset" == ./examples/* ]]; then
         if [[ ! -f "${ROOT_DIR}/${asset#./}" ]]; then
             echo "ERROR: missing local asset: $asset"
             exit 1
