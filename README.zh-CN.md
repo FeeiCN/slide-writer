@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logos/slide-writer.png" alt="Slide-Writer" width="200"/>
+  <img src="themes/logos/slide-writer.png" alt="Slide-Writer" width="200"/>
 </p>
 
 # Slide-Writer
